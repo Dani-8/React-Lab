@@ -8,7 +8,7 @@ export default function LabCanvas({
     localData,
     setLocalData,
     handleCopy,
-    copied
+    copied,
 }) {
     return (
         <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden min-h-[480px] flex flex-col transition-all">
