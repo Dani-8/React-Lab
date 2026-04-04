@@ -50,6 +50,7 @@ export default function Sidebar({
                     onClick={() => {
                       setActiveCategory(catKey);
                       setActiveExample(exKey);
+                      onClose?.();
                     }}
                     className={`w-full text-left ml-6 px-3 py-1.5 rounded-md text-[13px] relative group ${activeExample === exKey ? 'text-orange-600 font-bold bg-orange-50/50' : 'text-slate-400 hover:text-slate-900'}`}
                   >
