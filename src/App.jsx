@@ -9,6 +9,8 @@ import LabHeader from './components/Lab/LabHeader';
 import LabCanvas from './components/Lab/LabCanvas';
 import StateWatcher from './components/Lab/StateWatcher';
 
+
+
 export default function App() {
   const [activeCategory, setActiveCategory] = useState('fundamentals');
   const [activeExample, setActiveExample] = useState('props-pattern');
