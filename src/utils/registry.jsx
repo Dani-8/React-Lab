@@ -7,7 +7,7 @@ export const REGISTRY = {
     examples: {
       'props-pattern': {
         name: 'Props Pattern',
-        component: () => import('../pages/Fundamentals/PropsDemo'),
+        component: () => import('../pages/Fundamentals/PropDemo'),
         sourcePath: 'src/pages/Fundamentals/PropsDemo.jsx',
         code: `export default function PropsDemo({ data }) {\n  return (\n    <div className="p-6 bg-orange-50/50 rounded-xl border border-orange-100">\n      <p className="text-sm text-slate-600">\n        Welcome,{' '}\n        <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-md font-mono font-bold">\n           {data.user || 'Guest'}\n        </span>\n      </p>\n    </div>\n  );\n}`,
         exportLogic: [

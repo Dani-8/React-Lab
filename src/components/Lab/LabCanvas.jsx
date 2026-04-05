@@ -1,4 +1,4 @@
-import { Copy, Check, FolderTree, FileCode } from 'lucide-react';
+import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle } from 'lucide-react';
 
 export default function LabCanvas({
     viewMode,
@@ -8,18 +8,40 @@ export default function LabCanvas({
     setLocalData,
     handleCopy,
     copied,
+    isLoading,
+    error
 }) {
     return (
         <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden min-h-[480px] flex flex-col transition-all">
 
             {/* PREVIEW MODE */}
-            {viewMode === 'preview' && SelectedComponent && (
-                <div className="p-10 flex-1 animate-in fade-in duration-300">
-                    <SelectedComponent data={localData} setData={setLocalData} />
+            {viewMode === 'preview' && (
+                <div className="p-10 flex-1 animate-in fade-in duration-300 flex items-center justify-center">
+
+                    {/* ✅ Loading State (AI) */}
+                    {isLoading && (
+                        <div className="flex flex-col items-center gap-3">
+                            <Loader2 size={32} className="animate-spin text-orange-500" />
+                            <p className="text-sm text-slate-500">Loading component...</p>
+                        </div>
+                    )}
+
+                    {/* ✅ Error State (AI) */}
+                    {error && (
+                        <div className="flex flex-col items-center gap-3 text-center max-w-xs">
+                            <AlertCircle size={40} className="text-red-500" />
+                            <p className="text-red-600 font-medium">{error}</p>
+                        </div>
+                    )}
+
+                    {/* ✅ Your original render logic (kept) */}
+                    {!isLoading && !error && SelectedComponent && (
+                        <SelectedComponent data={localData} setData={setLocalData} />
+                    )}
                 </div>
             )}
 
-            {/* CODE MODE */}
+            {/* CODE MODE (UNCHANGED - YOUR VERSION) */}
             {viewMode === 'code' && (
                 <div className="flex-1 flex flex-col animate-in zoom-in-95 duration-200">
                     <div className="bg-slate-900 px-6 py-3 flex items-center justify-between border-b border-slate-800">
@@ -39,6 +61,7 @@ export default function LabCanvas({
                             {copied ? 'Copied' : 'Copy'}
                         </button>
                     </div>
+
                     <div className="flex-1 bg-slate-900 p-6 overflow-auto font-mono text-[13px] relative">
                         <div className="absolute left-0 top-6 w-10 flex flex-col items-center text-slate-700 select-none border-r border-slate-800/50">
                             {currentExample.code.split('\n').map((_, i) => (
@@ -52,10 +75,11 @@ export default function LabCanvas({
                 </div>
             )}
 
-            {/* ARCHITECTURE / EXPORT MODE - FIXED */}
+            {/* EXPORT MODE (MOSTLY YOUR VERSION + SAFE FALLBACK ADDED) */}
             {viewMode === 'export' && (
                 <div className="flex-1 flex animate-in slide-in-from-right-4 duration-300 bg-slate-50">
-                    {/* Sidebar Project Tree */}
+                    
+                    {/* Sidebar */}
                     <div className="w-56 border-r border-slate-200 p-4 space-y-4 bg-white">
                         <div className="flex items-center gap-2 text-indigo-600">
                             <FolderTree size={14} />
@@ -71,7 +95,7 @@ export default function LabCanvas({
                         </div>
                     </div>
 
-                    {/* Code Files */}
+                    {/* Files */}
                     <div className="flex-1 flex flex-col p-6 overflow-auto gap-6">
                         {currentExample.exportLogic?.map((item, idx) => (
                             <div key={idx} className="space-y-2">
@@ -84,6 +108,7 @@ export default function LabCanvas({
                             </div>
                         ))}
 
+                        {/* ✅ Your fallback kept */}
                         {(!currentExample.exportLogic || currentExample.exportLogic.length === 0) && (
                             <div className="text-center py-20 text-slate-400">
                                 No architecture data for this example yet.
