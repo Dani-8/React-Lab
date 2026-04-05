@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react';
-import { REGISTRY } from './utils/registry';
-import Sidebar from './components/Sidebar';
-import LabHeader from './components/Lab/LabHeader';
-import LabCanvas from './components/Lab/LabCanvas';
-import StateWatcher from './components/Lab/StateWatcher';
+import { REGISTRY } from './utils/registry'
+import Sidebar from './components/Sidebar'
+import LabHeader from './components/Lab/LabHeader'
+import LabCanvas from './components/Lab/LabCanvas'
+import StateWatcher from './components/Lab/StateWatcher'
+
+import { useState, useEffect } from 'react'
 // ---------------------------------------------------------------
 
 
 
 export default function App() {
-  const [activeCategory, setActiveCategory] = useState('fundamentals');
-  const [activeExample, setActiveExample] = useState('props-pattern');
-  const [expandedCategories, setExpandedCategories] = useState(['fundamentals', 'hooks']);
-  const [viewMode, setViewMode] = useState('preview');
-  const [localData, setLocalData] = useState({});
-  const [copied, setCopied] = useState(false);
-  const [SelectedComponent, setSelectedComponent] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('fundamentals')
+  const [activeExample, setActiveExample] = useState('props-pattern')
+  const [expandedCategories, setExpandedCategories] = useState(['fundamentals', 'hooks'])
+  const [viewMode, setViewMode] = useState('preview')
+  const [localData, setLocalData] = useState({})
+  const [copied, setCopied] = useState(false)
+  const [SelectedComponent, setSelectedComponent] = useState(null)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
-  const category = REGISTRY[activeCategory];
-  const example = category.examples[activeExample];
+  const category = REGISTRY[activeCategory]
+  const example = category.examples[activeExample]
 
   // ---------------------------------------------------------------
 
@@ -100,7 +101,7 @@ export default function App() {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
                 <span className="text-orange-500">Source:</span>
-                <span className="text-slate-600 font-mono tracking-tighter">
+                <span className="text-slate-600 font-mono">
                   topics/{activeCategory}/{activeExample}.jsx
                 </span>
               </div>

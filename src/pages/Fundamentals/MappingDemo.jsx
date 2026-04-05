@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function MappingDemo() {
   return (
     <ul className="space-y-2">

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function UseStateDemo({ data, setData }) {
   return (
     <div className="space-y-4">
