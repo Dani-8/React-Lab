@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function PropsDemo({ data, setData }) {
+export default function PropsDemo({ data }) {
   return (
     <div className="p-6 bg-orange-50/50 rounded-xl border border-orange-100 shadow-sm transition-all hover:shadow-md">
       <p className="text-sm text-slate-600">

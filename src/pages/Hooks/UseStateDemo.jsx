@@ -5,7 +5,7 @@ export default function UseStateDemo({ data, setData }) {
     <div className="space-y-4">
       <div className="p-6 bg-white rounded-xl border border-slate-200 flex flex-col gap-3">
         <div className="text-sm font-bold text-slate-800">
-          {data.name} — <span className="text-orange-600">Lvl {data.level}</span>
+          {data.name} ——— <span className="text-orange-600">Lvl {data.level}</span>
         </div>
 
         <button
