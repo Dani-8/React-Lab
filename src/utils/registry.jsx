@@ -8,7 +8,7 @@ export const REGISTRY = {
       'props-pattern': {
         name: 'Props Pattern',
         component: () => import('../pages/Fundamentals/PropsDemo'),
-        code: `export default function PropsDemo({ data }) {\n  return (\n    <div className="p-6 bg-orange-50/50 rounded-xl border border-orange-100">\n      <p className="text-sm text-slate-600">\n        Welcome,{' '}\n        <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-md font-mono font-bold">\n          {data.user || 'Guest'}\n        </span>\n      </p>\n    </div>\n  );\n}`,
+        code: `export default function PropsDemo({ data }) {\n  return (\n    <div className="p-6 bg-orange-50/50 rounded-xl border border-orange-100">\n      <p className="text-sm text-slate-600">\n        Welcome,{' '}\n        <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-md font-mono font-bold">\n           {data.user || 'Guest'}\n        </span>\n      </p>\n    </div>\n  );\n}`,
         exportLogic: [
           { file: 'src/components/Welcome.jsx', content: `export default function Welcome({ name }) {\n  return <p>{name}</p>;\n}` },
           { file: 'src/App.jsx', content: `import Welcome from './components/Welcome';\n\nfunction App() {\n  return <Welcome name="Explorer" />;\n}` }
