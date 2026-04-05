@@ -18,7 +18,7 @@ export default function LabCanvas({
             {viewMode === 'preview' && (
                 <div className="p-10 flex-1 animate-in fade-in duration-300 flex items-center justify-center">
 
-                    {/* ✅ Loading State (AI) */}
+
                     {isLoading && (
                         <div className="flex flex-col items-center gap-3">
                             <Loader2 size={32} className="animate-spin text-orange-500" />
@@ -26,7 +26,7 @@ export default function LabCanvas({
                         </div>
                     )}
 
-                    {/* ✅ Error State (AI) */}
+
                     {error && (
                         <div className="flex flex-col items-center gap-3 text-center max-w-xs">
                             <AlertCircle size={40} className="text-red-500" />
@@ -34,15 +34,15 @@ export default function LabCanvas({
                         </div>
                     )}
 
-                    {/* ✅ Your original render logic (kept) */}
+
                     {!isLoading && !error && SelectedComponent && (
                         <SelectedComponent data={localData} setData={setLocalData} />
                     )}
                 </div>
             )}
-            
 
-            {/* CODE MODE (UNCHANGED - YOUR VERSION) */}
+
+            {/* CODE MODE */}
             {viewMode === 'code' && (
                 <div className="flex-1 flex flex-col animate-in zoom-in-95 duration-200">
                     <div className="bg-slate-900 px-6 py-3 flex items-center justify-between border-b border-slate-800">
@@ -77,7 +77,7 @@ export default function LabCanvas({
             )}
 
 
-            {/* EXPORT MODE (MOSTLY YOUR VERSION + SAFE FALLBACK ADDED) */}
+            {/* EXPORT MODE*/}
             {viewMode === 'export' && (
                 <div className="flex-1 flex animate-in slide-in-from-right-4 duration-300 bg-slate-50">
                     
@@ -110,7 +110,7 @@ export default function LabCanvas({
                             </div>
                         ))}
 
-                        {/* ✅ Your fallback kept */}
+                        {/*  Your fallback kept */}
                         {(!currentExample.exportLogic || currentExample.exportLogic.length === 0) && (
                             <div className="text-center py-20 text-slate-400">
                                 No architecture data for this example yet.

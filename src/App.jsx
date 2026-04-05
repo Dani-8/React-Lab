@@ -19,7 +19,7 @@ export default function App() {
   const [SelectedComponent, setSelectedComponent] = useState(null)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
-  // ✅ AI additions (kept)
+
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -33,7 +33,7 @@ export default function App() {
     setViewMode('preview')
   }, [activeExample, activeCategory])
 
-  // ✅ merged version (with loading + error)
+  //  merged (with loading + error)
   useEffect(() => {
     setIsLoading(true)
     setError(null)
@@ -76,7 +76,7 @@ export default function App() {
   return (
     <div className="flex h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-orange-100 overflow-hidden">
       
-      {/* Sidebar - Responsive (your version kept) */}
+      {/* Sidebar */}
       <div className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-100 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
         <Sidebar
           activeCategory={activeCategory}
@@ -85,14 +85,14 @@ export default function App() {
           setExpandedCategories={setExpandedCategories}
           setActiveCategory={setActiveCategory}
           setActiveExample={setActiveExample}
-          onClose={() => setIsSidebarOpen(false)} // ✅ fixed bug from your version
+          onClose={() => setIsSidebarOpen(false)}
         />
       </div>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden w-full">
         
-        {/* ✅ your header version (kept hamburger support) */}
+        {/*  header */}
         <LabHeader
           categoryTitle={category.title}
           exampleName={example.name}
@@ -114,8 +114,8 @@ export default function App() {
               setLocalData={setLocalData}
               handleCopy={handleCopy}
               copied={copied}
-              isLoading={isLoading}   // ✅ added
-              error={error}           // ✅ added
+              isLoading={isLoading}
+              error={error}         
             />
 
             <div className="flex items-center gap-3">
@@ -128,14 +128,15 @@ export default function App() {
             </div>
           </div>
 
-          {/* ✅ your responsive panel (kept) */}
+
           <div className="hidden md:block lg:w-80 md:w-full">
             <StateWatcher localData={localData} />
           </div>
         </section>
       </main>
 
-      {/* Overlay for mobile */}
+
+
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
