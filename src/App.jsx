@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react'
 // ---------------------------------------------------------------
 
 
-
 export default function App() {
   const [activeCategory, setActiveCategory] = useState('fundamentals')
   const [activeExample, setActiveExample] = useState('props-pattern')
@@ -69,9 +68,10 @@ export default function App() {
           setExpandedCategories={setExpandedCategories}
           setActiveCategory={setActiveCategory}
           setActiveExample={setActiveExample}
-          onClose={() => setIsSidebarOpen(false)}   // ← New
+          onClose={() => setIsSidebarOpen(true)}
         />
       </div>
+
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden w-full">
@@ -102,7 +102,7 @@ export default function App() {
               <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
                 <span className="text-orange-500">Source:</span>
                 <span className="text-slate-600 font-mono">
-                  topics/{activeCategory}/{activeExample}.jsx
+                  {example.sourcePath || `topics/${activeCategory}/${activeExample}.jsx`}
                 </span>
               </div>
             </div>
