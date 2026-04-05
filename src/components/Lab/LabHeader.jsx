@@ -12,9 +12,9 @@ export default function LabHeader({ categoryTitle, exampleName, viewMode, setVie
                 </button>
 
                 <div className="flex items-center gap-3 text-[11px] text-slate-300 font-bold uppercase tracking-widest">
-                    <span className='text-slate-400/60'>{categoryTitle}</span>
+                    <span className='text-slate-400/70'>{categoryTitle}</span>
                     <ChevronRight size={12} className="hidden sm:block" />
-                    <span className="text-slate-900 bg-orange-50 px-3 py-1 rounded-full border border-orange-100/50">
+                    <span className="text-orange-600 bg-orange-100/70 px-3 py-1 rounded-full border border-orange-100/50">
                         {exampleName}
                     </span>
                 </div>

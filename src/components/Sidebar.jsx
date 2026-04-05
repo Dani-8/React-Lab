@@ -52,7 +52,7 @@ export default function Sidebar({
                       setActiveExample(exKey);
                       onClose?.();
                     }}
-                    className={`w-full text-left ml-6 px-3 py-1.5 rounded-md text-[13px] relative group ${activeExample === exKey ? 'text-orange-600 font-bold bg-orange-50/50' : 'text-slate-400 hover:text-slate-900'}`}
+                    className={`cursor-pointer w-full text-left ml-6 px-3 py-1.5 rounded-md text-[13px] active:scale-95 transition-all duraiton-300 relative group ${activeExample === exKey ? 'text-orange-600 font-bold bg-orange-50/50' : 'text-slate-400 hover:text-slate-900'}`}
                   >
                     {activeExample === exKey && (
                       <span className="absolute left-[-12px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-orange-500 rounded-full" />
