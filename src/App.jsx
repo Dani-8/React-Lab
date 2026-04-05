@@ -85,7 +85,7 @@ export default function App() {
         />
 
         {/* Content Area */}
-        <section className="flex-1 overflow-auto p-4 lg:p-8 lg:p-12 flex gap-8">
+        <section className="flex-1 overflow-auto p-4 lg:p-8 lg:p-12 flex gap-8 lg:flex-row md:flex-col">
           <div className="flex-1 max-w-4xl space-y-6">
             <LabCanvas
               viewMode={viewMode}
@@ -108,7 +108,7 @@ export default function App() {
           </div>
 
           {/* Right Panel - Hide on small screens */}
-          <div className="hidden xl:block w-80">
+          <div className="hidden md:block lg:w-80 md:w-full">
             <StateWatcher localData={localData} />
           </div>
         </section>

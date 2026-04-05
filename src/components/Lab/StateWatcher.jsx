@@ -2,7 +2,7 @@ import { Activity, Sparkles } from 'lucide-react';
 
 export default function StateWatcher({ localData }) {
   return (
-    <aside className="w-80 space-y-6">
+    <aside className="w-80 gap-6 grid lg:grid-cols-1 md:grid-cols-2 md:w-full">
       <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-6 text-orange-600">
           <Activity size={16} className="animate-pulse" />
