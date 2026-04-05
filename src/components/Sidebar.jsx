@@ -1,14 +1,14 @@
 import { ChevronRight, ChevronDown, Beaker } from 'lucide-react';
 import { REGISTRY } from '../utils/registry';
+// ---------------------------------------------------------------
+
 
 export default function Sidebar({
-  activeCategory,
-  activeExample,
-  expandedCategories,
-  setExpandedCategories,
-  setActiveCategory,
+  activeExample, expandedCategories,
+  setExpandedCategories, setActiveCategory,
   setActiveExample
 }) {
+
   return (
     <aside className="w-64 bg-white border-r border-slate-100 flex flex-col z-20">
       <div className="p-6 border-b border-slate-50 flex items-center gap-3">
@@ -17,6 +17,7 @@ export default function Sidebar({
         </div>
         <span className="font-black text-sm tracking-tighter text-slate-800 uppercase">React Lab</span>
       </div>
+
 
       <nav className="flex-1 overflow-y-auto p-4 space-y-1">
         {Object.entries(REGISTRY).map(([catKey, category]) => {
@@ -64,6 +65,7 @@ export default function Sidebar({
           );
         })}
       </nav>
+      
     </aside>
   );
 }

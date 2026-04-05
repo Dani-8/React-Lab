@@ -1,12 +1,10 @@
-import { ChevronRight, Eye, FileCode, Share2 } from 'lucide-react';
-
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
 import { REGISTRY } from './utils/registry';
 import Sidebar from './components/Sidebar';
 import LabHeader from './components/Lab/LabHeader';
 import LabCanvas from './components/Lab/LabCanvas';
 import StateWatcher from './components/Lab/StateWatcher';
+// ---------------------------------------------------------------
 
 
 
@@ -18,10 +16,12 @@ export default function App() {
   const [localData, setLocalData] = useState({});
   const [copied, setCopied] = useState(false);
   const [SelectedComponent, setSelectedComponent] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);   // ← New
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const category = REGISTRY[activeCategory];
   const example = category.examples[activeExample];
+
+  // ---------------------------------------------------------------
 
   useEffect(() => {
     setLocalData(example.initialState || {});
@@ -30,7 +30,10 @@ export default function App() {
 
   useEffect(() => {
     example.component().then((mod) => setSelectedComponent(() => mod.default));
-  }, [example]);
+  }, [example])
+
+  // ---------------------------------------------------------------
+
 
   const handleCopy = (text) => {
     try {
@@ -49,7 +52,10 @@ export default function App() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }
+
+  // ---------------------------------------------------------------
+
 
   return (
     <div className="flex h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-orange-100 overflow-hidden">

@@ -1,5 +1,6 @@
 import { Code2, Zap } from 'lucide-react';
 
+
 export const REGISTRY = {
   fundamentals: {
     title: 'Fundamentals',
@@ -15,6 +16,8 @@ export const REGISTRY = {
         ],
         initialState: { user: 'Explorer' }
       },
+      // ------------------------------------
+
       'list-keys': {
         name: 'Map & Keys',
         component: () => import('../pages/Fundamentals/MappingDemo'),
@@ -27,6 +30,8 @@ export const REGISTRY = {
       }
     }
   },
+  // ---------------------------------------------------------------
+
   hooks: {
     title: 'Core Hooks',
     icon: <Zap size={14} />,
@@ -42,4 +47,6 @@ export const REGISTRY = {
       }
     }
   }
-};
+  // ---------------------------------------------------------------
+
+}
