@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import { ChevronRight, ChevronDown, Beaker } from 'lucide-react';
 import { REGISTRY } from '../utils/registry';
 

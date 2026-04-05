@@ -1,4 +1,3 @@
-// src/components/Lab/LabCanvas.jsx
 import { Copy, Check, FolderTree, FileCode } from 'lucide-react';
 
 export default function LabCanvas({

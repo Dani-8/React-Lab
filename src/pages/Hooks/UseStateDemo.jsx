@@ -1,4 +1,3 @@
-// src/pages/Hooks/UseStateDemo.jsx
 import React from 'react';
 
 export default function UseStateDemo({ data, setData }) {

@@ -1,4 +1,3 @@
-// src/utils/registry.js
 import { Code2, Zap } from 'lucide-react';
 
 export const REGISTRY = {

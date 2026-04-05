@@ -1,4 +1,3 @@
-// src/pages/Fundamentals/MappingDemo.jsx
 import React from 'react';
 
 export default function MappingDemo() {

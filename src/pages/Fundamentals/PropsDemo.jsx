@@ -1,4 +1,3 @@
-// src/pages/Fundamentals/PropsDemo.jsx
 import React from 'react';
 
 export default function PropsDemo({ data, setData }) {

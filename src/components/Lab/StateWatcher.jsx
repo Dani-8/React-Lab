@@ -1,4 +1,3 @@
-// src/components/Lab/StateWatcher.jsx
 import { Activity, Sparkles } from 'lucide-react';
 
 export default function StateWatcher({ localData }) {

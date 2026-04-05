@@ -1,4 +1,3 @@
-// src/App.jsx
 import { ChevronRight, Eye, FileCode, Share2 } from 'lucide-react';
 
 import { useState, useEffect } from 'react';
