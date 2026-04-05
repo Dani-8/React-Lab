@@ -40,6 +40,7 @@ export default function LabCanvas({
                     )}
                 </div>
             )}
+            
 
             {/* CODE MODE (UNCHANGED - YOUR VERSION) */}
             {viewMode === 'code' && (
@@ -74,6 +75,7 @@ export default function LabCanvas({
                     </div>
                 </div>
             )}
+
 
             {/* EXPORT MODE (MOSTLY YOUR VERSION + SAFE FALLBACK ADDED) */}
             {viewMode === 'export' && (

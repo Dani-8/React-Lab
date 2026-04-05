@@ -57,7 +57,7 @@ export const REGISTRY = {
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseStateDemo.jsx',
-            content: `export default function UseStateDemo({ data, setData }) {\n  return (\n    <div>\n      <h2>{data.name} - Level {data.level}</h2>\n \n      <button onClick={() => setData(prev => ({...prev, level: prev.level + 1}))}>\n        Level Up\n      </button>\n    </div>\n  );\n}`
+            content: `export default function UseStateDemo({ data, setData }) {\n  return (\n    <div>\n      <h2>{data.name} - Level {data.level}</h2>\n \n      <button onClick={() => setData(prev => ({...prev, level: prev.level + 1}))}>\n         Level Up\n      </button>\n    </div>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
