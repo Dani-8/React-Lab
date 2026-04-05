@@ -50,7 +50,7 @@ export default function LabCanvas({
                             <div className="w-2 h-2 rounded-full bg-amber-400" />
                             <div className="w-2 h-2 rounded-full bg-emerald-400" />
                             <span className="ml-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">
-                                {currentExample.name}.jsx
+                                {currentExample.fileName}
                             </span>
                         </div>
                         <button
