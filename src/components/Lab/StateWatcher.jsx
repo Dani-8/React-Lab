@@ -3,11 +3,13 @@ import { Activity, Sparkles } from 'lucide-react';
 export default function StateWatcher({ localData }) {
   return (
     <aside className="w-80 gap-6 grid lg:grid-cols-1 md:grid-cols-2 md:w-full">
+
       <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-6 text-orange-600">
           <Activity size={16} className="animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-[0.2em]">State Watcher</span>
         </div>
+
         <div className="space-y-3">
           {Object.keys(localData).length > 0 ? (
             Object.entries(localData).map(([key, val]) => (
@@ -26,6 +28,7 @@ export default function StateWatcher({ localData }) {
         </div>
       </div>
 
+
       <div className="p-6 bg-slate-900 rounded-3xl text-white shadow-xl">
         <div className="flex items-center gap-2 mb-3 text-orange-400">
           <Sparkles size={14} />
@@ -35,6 +38,7 @@ export default function StateWatcher({ localData }) {
           Check the <span className="text-orange-400 font-bold">Architecture</span> tab to see how to organize these concepts into real-world file structures.
         </p>
       </div>
+
     </aside>
   );
 }
