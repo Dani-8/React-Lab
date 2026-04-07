@@ -103,8 +103,8 @@ export default function App() {
         />
 
         {/* Content Area */}
-        <section className="flex-1 overflow-auto p-4 lg:p-8 lg:p-12 flex gap-8 lg:flex-row md:flex-col">
-          <div className="flex-1 max-w-4xl space-y-6">
+        <section className="flex-1 overflow-auto p-4 md:p-8 xl:bg-red-400 xl:p-12 flex justify-between gap-8 xl:flex-row md:flex-col">
+          <div className="flex-1 max-w-full space-y-6">
 
             <LabCanvas
               viewMode={viewMode}
@@ -129,7 +129,7 @@ export default function App() {
           </div>
 
 
-          <div className="hidden md:block lg:w-80 md:w-full">
+          <div className="hidden md:block xl:w-80 md:w-full">
             <StateWatcher localData={localData} />
           </div>
         </section>

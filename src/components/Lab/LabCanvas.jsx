@@ -79,23 +79,26 @@ export default function LabCanvas({
 
             {/* EXPORT MODE*/}
             {viewMode === 'export' && (
-                <div className="flex-1 flex animate-in slide-in-from-right-4 duration-300 bg-slate-50">
-                    
+                <div className="flex flex-col md:flex-row animate-in slide-in-from-right-4 duration-300 bg-slate-50">
+
                     {/* Sidebar */}
-                    <div className="w-56 border-r border-slate-200 p-4 space-y-4 bg-white">
-                        <div className="flex items-center gap-2 text-indigo-600">
-                            <FolderTree size={14} />
-                            <span className="text-[10px] font-black uppercase tracking-widest">Project Tree</span>
+                    <div className="w-full md:w-60 border-r border-slate-200 p-5 bg-white">
+                        <div className="flex items-center gap-2 mb-4 text-indigo-600">
+                            <FolderTree size={16} />
+                            <span className="text-xs font-black uppercase tracking-widest">Project Structure</span>
                         </div>
-                        <div className="space-y-1 text-sm">
-                            {currentExample.exportLogic?.map((item, idx) => (
-                                <div key={idx} className="flex items-center gap-2 text-[11px] text-slate-600 py-1 hover:text-indigo-600">
-                                    <FileCode size={12} className="text-slate-400" />
-                                    {item.file.split('/').pop()}
-                                </div>
-                            ))}
+
+                        <div className="font-mono text-[13px] leading-[1.65] text-slate-600">
+                            src/<br />
+                            ├─ pages/<br />
+                            │&nbsp;&nbsp;└─ {currentExample.sourcePath.split('/')[2] + '/'}<br />
+                            │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <span className="text-indigo-600 font-medium">
+                                {currentExample.fileName}
+                            </span><br />
+                            └─ <span className="text-orange-600 font-medium">App.jsx</span>
                         </div>
                     </div>
+
 
                     {/* Files */}
                     <div className="flex-1 flex flex-col p-6 overflow-auto gap-6">
