@@ -10,9 +10,16 @@ import { Loader2 } from 'lucide-react'
 // ---------------------------------------------------------------
 
 export default function App() {
-  const [activeCategory, setActiveCategory] = useState('fundamentals')
-  const [activeExample, setActiveExample] = useState('props-pattern')
-  const [expandedCategories, setExpandedCategories] = useState(['fundamentals', 'hooks'])
+  // const [activeCategory, setActiveCategory] = useState('fundamentals')
+  // const [activeExample, setActiveExample] = useState('props-pattern')
+  // const [expandedCategories, setExpandedCategories] = useState(['fundamentals', 'hooks'])
+  const firstCategory = Object.keys(REGISTRY)[0]
+  const firstExample = Object.keys(REGISTRY[firstCategory]?.examples || {})[0]
+
+  const [activeCategory, setActiveCategory] = useState(firstCategory)
+  const [activeExample, setActiveExample] = useState(firstExample)
+  const [expandedCategories, setExpandedCategories] = useState([firstCategory])
+
   const [viewMode, setViewMode] = useState('preview')
   const [localData, setLocalData] = useState({})
   const [copied, setCopied] = useState(false)
@@ -75,7 +82,7 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-orange-100 overflow-hidden">
-      
+
       {/* Sidebar */}
       <div className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-100 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
         <Sidebar
@@ -91,7 +98,7 @@ export default function App() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden w-full">
-        
+
         {/*  header */}
         <LabHeader
           categoryTitle={category.title}
@@ -115,7 +122,7 @@ export default function App() {
               handleCopy={handleCopy}
               copied={copied}
               isLoading={isLoading}
-              error={error}         
+              error={error}
             />
 
             <div className="flex items-center gap-3">
@@ -136,7 +143,7 @@ export default function App() {
       </main>
 
 
-j
+      j
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
