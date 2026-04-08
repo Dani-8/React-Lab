@@ -5,14 +5,9 @@ import LabCanvas from './components/Lab/LabCanvas'
 import StateWatcher from './components/Lab/StateWatcher'
 
 import { useState, useEffect } from 'react'
-import { Loader2 } from 'lucide-react'
-
 // ---------------------------------------------------------------
 
 export default function App() {
-  // const [activeCategory, setActiveCategory] = useState('fundamentals')
-  // const [activeExample, setActiveExample] = useState('props-pattern')
-  // const [expandedCategories, setExpandedCategories] = useState(['fundamentals', 'hooks'])
   const firstCategory = Object.keys(REGISTRY)[0]
   const firstExample = Object.keys(REGISTRY[firstCategory]?.examples || {})[0]
 

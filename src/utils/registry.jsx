@@ -5,26 +5,26 @@ export const REGISTRY = {
     title: 'Fundamentals',
     icon: <Code2 size={14} />,
     examples: {
-      // 'props-pattern': {
-      //   name: 'Props Pattern',
-      //   fileName: 'PropsDemo.jsx',
-      //   component: () => import('../pages/Fundamentals/PropsDemo'),
-      //   sourcePath: 'src/pages/Fundamentals/PropsDemo.jsx',
-      //   initialState: { user: 'Explorer' },
+      'props-pattern': {
+        name: 'Props Pattern',
+        fileName: 'PropsDemo.jsx',
+        component: () => import('../pages/Fundamentals/PropsDemo'),
+        sourcePath: 'src/pages/Fundamentals/PropsDemo.jsx',
+        initialState: { user: 'Explorer' },
 
-      //   code: `export default function PropsDemo({ data }) {\n  return (\n    <div className="p-6 bg-orange-50/50 rounded-xl border border-orange-100">\n      <p className="text-sm text-slate-600">\n        Welcome,{' '}\n        <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-md font-mono font-bold">\n           {data.user || 'Guest'}\n        </span>\n      </p>\n    </div>\n  );\n}`,
+        code: `export default function PropsDemo({ data }) {\n  return (\n    <div className="p-6 bg-orange-50/50 rounded-xl border border-orange-100">\n      <p className="text-sm text-slate-600">\n        Welcome,{' '}\n        <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-md font-mono font-bold">\n           {data.user || 'Guest'}\n        </span>\n      </p>\n    </div>\n  );\n}`,
        
-      //   exportLogic: [
-      //     {
-      //       file: 'src/pages/Fundamentals/PropsDemo.jsx',
-      //       content: `export default function PropsDemo({ data }) {\n  return (\n    <div className="p-6 bg-orange-50/50 rounded-xl">\n      Welcome, <span className="font-bold">{data.user}</span>\n    </div>\n  );\n}`
-      //     },
-      //     {
-      //       file: 'src/App.jsx',
-      //       content: `import { useState } from 'react';\nimport PropsDemo from './pages/Fundamentals/PropsDemo';\n\nexport default function App() {\n  const [data, setData] = useState({ user: 'Explorer' });\n\n  return (\n    <div>\n      <PropsDemo data={data} setData={setData} />\n    </div>\n  );\n}`
-      //     }
-      //   ],
-      // },
+        exportLogic: [
+          {
+            file: 'src/pages/Fundamentals/PropsDemo.jsx',
+            content: `export default function PropsDemo({ data }) {\n  return (\n    <div className="p-6 bg-orange-50/50 rounded-xl">\n      Welcome, <span className="font-bold">{data.user}</span>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { useState } from 'react';\nimport PropsDemo from './pages/Fundamentals/PropsDemo';\n\nexport default function App() {\n  const [data, setData] = useState({ user: 'Explorer' });\n\n  return (\n    <div>\n      <PropsDemo data={data} setData={setData} />\n    </div>\n  );\n}`
+          }
+        ],
+      },
 
       'list-keys': {
         name: 'Map & Keys',
