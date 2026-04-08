@@ -103,7 +103,7 @@ export default function App() {
         />
 
         {/* Content Area */}
-        <section className="flex-1 overflow-auto p-4 md:p-8 xl:bg-red-400 xl:p-12 flex justify-between gap-8 xl:flex-row md:flex-col">
+        <section className="flex-1 overflow-auto p-4 md:p-8 flex justify-between gap-8 xl:flex-row md:flex-col">
           <div className="flex-1 max-w-full space-y-6">
 
             <LabCanvas
