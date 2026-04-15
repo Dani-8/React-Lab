@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+
+
+@keyframes colorCycle {
+  0%, 100% {
+    color: #aebacb; 
+  }
+  70% {
+    color: #f47d28; 
+  }
+}
+
+.info-icon {
+  animation: colorCycle 2.5s ease-in-out infinite;
+}
