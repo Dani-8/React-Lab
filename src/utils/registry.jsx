@@ -29,6 +29,7 @@ export const REGISTRY = {
       'props-destructuring': {
         name: 'Props & Destructuring',
         fileName: 'UserCard.jsx',
+        component: () => import("../pages/Fundamentals/PropsDemo"),
         sourcePath: 'src/components/UserCard.jsx',
         initialState: [
           { name: 'Sarah Connor', role: 'Engineer', status: 'Online' },
@@ -48,9 +49,6 @@ export const REGISTRY = {
             content: `import UserCard from './components/UserCard';\n\nexport default function App() {\n  const userData = {\n    name: "Sarah Connor",\n    role: "Engineer",\n    status: "Online"\n  };\n\n  return (\n    <main>\n      {/* Passing props individually */}\n      <UserCard \n        name={userData.name} \n        role={userData.role} \n        status={userData.status} \n      />\n    </main>\n  );\n}`
           }
         ],
-
-        component: 
-        }
       },
 
       'list-keys': {
