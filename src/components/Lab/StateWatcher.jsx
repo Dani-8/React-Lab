@@ -10,12 +10,14 @@ export default function StateWatcher({ localData }) {
           <span className="text-[10px] font-black uppercase tracking-[0.2em]">State Watcher</span>
         </div>
 
+
         <div className="space-y-3">
+
           {Object.keys(localData).length > 0 ? (
             Object.entries(localData).map(([key, val]) => (
               <div key={key} className="p-3 bg-slate-50/50 rounded-xl border border-slate-100 group transition-all hover:bg-white hover:shadow-md hover:border-orange-100">
                 <div className="text-[9px] font-bold text-slate-400 uppercase mb-1 tracking-tighter">{key}</div>
-                <div className="text-xs font-mono font-bold text-slate-800 break-all">
+                <div className="text-xs font-mono font-bold text-slate-600 break-all">
                   {typeof val === 'object' ? JSON.stringify(val) : String(val)}
                 </div>
               </div>
@@ -25,9 +27,13 @@ export default function StateWatcher({ localData }) {
               <div className="text-slate-300 text-[11px] font-bold uppercase tracking-widest italic">Stateless</div>
             </div>
           )}
+          
         </div>
       </div>
 
+
+      {/* ================================================== */}
+          
 
       <div className="p-6 bg-slate-900 rounded-3xl text-white shadow-xl">
         <div className="flex items-center gap-2 mb-3 text-orange-400">

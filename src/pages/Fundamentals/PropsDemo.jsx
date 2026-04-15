@@ -1,12 +1,12 @@
 export default function PropsDemo({ data }) {
-  const { name, role, status } = data[0];
+  const { name, role, status } = data[0]
 
   return (
-    <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-sm w-full max-w-xs text-center">
+    <div className="p-6 bg-white border border-slate-200 rounded-4xl shadow-sm w-full max-w-xs text-center hover:shadow-lg transition-all duration-300 hover:border-orange-300">
       <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 font-black text-xl">
         {name.charAt(0)}
       </div>
-      
+
       <h2 className="text-lg font-bold text-slate-800">{name}</h2>
       <p className="text-sm text-slate-500 mb-4">{role}</p>
 
@@ -14,5 +14,5 @@ export default function PropsDemo({ data }) {
         {status}
       </span>
     </div>
-  );
+  )
 }

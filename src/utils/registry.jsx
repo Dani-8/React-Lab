@@ -1,4 +1,11 @@
-import { Code2, Zap } from 'lucide-react';
+import { Code2, Form, Zap } from 'lucide-react';
+
+import Header from '../pages/Fundamentals/Header?raw'
+import PropsDemo from '../pages/Fundamentals/PropsDemo?raw'
+import MappingDemo from '../pages/Fundamentals/MappingDemo?raw'
+
+
+
 
 export const REGISTRY = {
   fundamentals: {
@@ -12,8 +19,8 @@ export const REGISTRY = {
         sourcePath: 'src/pages/Fundamentals/Header.jsx',
         initialState: {  },
 
-        code: `export default function Header() {\n  return (\n    <header className="p-8 bg-white border border-slate-200 rounded-2xl shadow-sm w-full max-w-md text-center">\n      <h1 className="text-2xl font-black text-slate-900 mb-2">React Application</h1>\n      <p className="text-slate-500 leading-relaxed">Welcome to the fundamentals of components.</p>\n    </header>\n  );\n}`,
-        
+        code: Header,
+
         exportLogic: [
           {
             file: 'src/pages/Fundamentals/Header.jsx',
@@ -37,7 +44,7 @@ export const REGISTRY = {
           { name: 'Marcus Wright', role: 'Security lead', status: 'Offline' }
         ],
 
-        code: `export default function PropsDemo({ name, role, status }) {\n  return (\n    <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-sm w-full max-w-xs text-center">\n      <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 font-black text-xl">\n        {name.charAt(0)}\n      </div>\n      <h2 className="text-lg font-bold text-slate-800">{name}</h2>\n      <p className="text-sm text-slate-500 mb-4">{role}</p>\n      <span className="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-black uppercase tracking-widest rounded-full">\n        {status}\n      </span>\n    </div>\n  );\n}`,
+        code: PropsDemo, 
 
         exportLogic: [
           {
@@ -46,34 +53,41 @@ export const REGISTRY = {
           },
           {
             file: 'src/App.jsx',
-            content: `import PropsDemo from './pages/Fundamentals/PropsDemo';\n\nexport default function App() {\n  const userData = [\n    { name: "Sarah Connor", role: "System Engineer", status: "Online" },\n    { name: "John Doe", role: "UI Designer", status: "Away" },\n    { name: "Marcus Wright", role: "Security lead", status: "Offline" }\n  ];\n\n  return (\n    <main className="p-10 flex justify-center">\n      {/* Individual prop passing for the first user */}\n\n      <PropsDemo\n        data={[userData[0]]}\n      />\n\n    </main>\n  );\n}`
+            content: `import PropsDemo from './pages/Fundamentals/PropsDemo';\n\nexport default function App() {\n  const userData = [\n    { name: "Sarah Connor", role: "System Engineer", status: "Online" },\n    { name: "John Doe", role: "UI Designer", status: "Away" },\n    { name: "Marcus Wright", role: "Security lead", status: "Offline" }\n  ];\n\n  return (\n    <main className="p-10 flex justify-center">\n      {/* Individual prop passing for the first user */}\n\n      <PropsDemo\n        name={userData.name} \n        role={userData.role} \n        status={userData.status} \n      />\n\n    </main>\n  );\n}`
           }
         ],
       },
 
 
       'list-keys': {
-        name: 'Map & Keys',
+        name: 'Dynamic Data (Mapping & Keys)',
         fileName: 'MappingDemo.jsx',
         component: () => import('../pages/Fundamentals/MappingDemo'),
         sourcePath: 'src/pages/Fundamentals/MappingDemo.jsx',
-        initialState: {},
+        initialState: [
+            { id: '1', label: 'React' },
+            { id: '2', label: 'Vite' },
+            { id: '3', label: 'TailwindCSS' },
+        ],
 
-        code: `export default function MappingDemo() {\n  return (\n    <ul className="space-y-2">\n      {['React', 'Vite', 'Tailwind', 'Lucide'].map((item, i) => (\n        <li\n          key={i}\n          className="px-4 py-2 bg-slate-50 border border-slate-100 rounded-lg text-sm font-bold text-slate-700"\n        >\n          {i + 1}. {item}\n        </li>\n      ))}\n    </ul>\n  );\n}`,
-        
+        code: MappingDemo, 
+
         exportLogic: [
           {
             file: 'src/pages/Fundamentals/MappingDemo.jsx',
-            content: `export default function MappingDemo() {\n  return (\n    <ul className="space-y-2">\n      {['React', 'Vite', 'Tailwind', 'Lucide'].map((item, i) => (\n        <li key={i}>\n           {i + 1}. {item}\n        </li>\n      ))}\n    </ul>\n  );\n}`
+            content: `export default function MappingDemo({ items }) {\n\n  return (\n    <div className="list-container">\n      {items.map((item) => (\n        <div key={item.id} className="list-item">\n          <small>{item.id}: </small>\n          <span>{item.label}</span>\n        </div>\n      ))}\n    </div>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import MappingDemo from './pages/Fundamentals/MappingDemo';\n\nexport default function App() {\n  return <MappingDemo />;\n}`
+            content: `import MappingDemo from './pages/Fundamentals/MappingDemo';\n\n export default function App() {\n  const techStack = [\n    { id: '1', label: 'React' },\n    { id: '2', label: 'Vite' }\n  ];\n\n  return <MappingDemo items={techStack} />;\n}`
           }
         ],
       }
     }
   },
+
+  // -------------------------------------
+
   hooks: {
     title: 'Core Hooks',
     icon: <Zap size={14} />,
