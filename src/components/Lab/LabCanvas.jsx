@@ -104,7 +104,7 @@ export default function LabCanvas({
                     <div className="flex-1 flex flex-col p-6 overflow-auto gap-6">
                         {currentExample.exportLogic?.map((item, idx) => (
                             <div key={idx} className="space-y-2">
-                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                     {item.file}
                                 </div>
                                 <pre className="p-5 bg-white border border-slate-200 rounded-2xl text-indigo-700 font-mono text-[12.5px] leading-relaxed shadow-sm overflow-auto">
