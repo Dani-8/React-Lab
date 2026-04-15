@@ -107,11 +107,11 @@ export default function LabCanvas({
                                 <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                     {item.file}
 
-                                    <span className='info-icon hover:text-orange-500 cursor-pointer flex items-center gap-1'>
+                                    <span className='hover:text-orange-500 cursor-pointer flex items-center gap-1 relative group text-slate-400'>
                                         <Info size={16} />
 
-                                        <span className='info-tooltip absolute -top-8 -right-2 w-48 p-2 bg-slate-700 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none'>
-                                            Create files and folders as shown. Then copy the code into the respective files to replicate the example's architecture. And apply CSS/TailwindCSS as you see fit!
+                                        <span className='absolute top-7 -left-45 p-2 bg-slate-200 text-slate-600 font-bolder text-[8px] rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl'>
+                                            Create files and folders as shown.<br /><br /> Then copy the code into the respective files to replicate the example's architecture.<br /><br /> And apply CSS/TailwindCSS as you see fit!
                                         </span>
                                     </span>
                                 </div>
