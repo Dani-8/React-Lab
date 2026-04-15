@@ -34,9 +34,7 @@ export const REGISTRY = {
         initialState: [
           { name: 'Sarah Connor', role: 'System Engineer', status: 'Online' },
           { name: 'John Doe', role: 'UI Designer', status: 'Away' },
-          { name: 'Marcus Wright', role: 'Security lead', status: 'Offline' },
-          { name: 'Kyle Reese', role: 'Operations', status: 'Online' },
-          { name: 'Ellen Ripley', role: 'Xeno Specialist', status: 'Busy' }
+          { name: 'Marcus Wright', role: 'Security lead', status: 'Offline' }
         ],
 
         code: `export default function PropsDemo({ name, role, status }) {\n  return (\n    <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-sm w-full max-w-xs text-center">\n      <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 font-black text-xl">\n        {name.charAt(0)}\n      </div>\n      <h2 className="text-lg font-bold text-slate-800">{name}</h2>\n      <p className="text-sm text-slate-500 mb-4">{role}</p>\n      <span className="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-black uppercase tracking-widest rounded-full">\n        {status}\n      </span>\n    </div>\n  );\n}`,
@@ -48,10 +46,11 @@ export const REGISTRY = {
           },
           {
             file: 'src/App.jsx',
-            content: `import PropsDemo from './pages/Fundamentals/PropsDemo';\n\nexport default function App() {\n  const userData = {\n    name: "Sarah Connor",\n    role: "System Engineer",\n    status: "Online"\n  };\n\n  return (\n    <main className="p-10 flex justify-center">\n      {/* Individual prop passing for destructuring demo */}\n      <PropsDemo \n        name={userData.name} \n        role={userData.role} \n        status={userData.status} \n      />\n    </main>\n  );\n}`
+            content: `import PropsDemo from './pages/Fundamentals/PropsDemo';\n\nexport default function App() {\n  const userData = [\n    { name: "Sarah Connor", role: "System Engineer", status: "Online" },\n    { name: "John Doe", role: "UI Designer", status: "Away" },\n    { name: "Marcus Wright", role: "Security lead", status: "Offline" }\n  ];\n\n  return (\n    <main className="p-10 flex justify-center">\n      {/* Individual prop passing for the first user */}\n\n      <PropsDemo\n        data={[userData[0]]}\n      />\n\n    </main>\n  );\n}`
           }
         ],
       },
+
 
       'list-keys': {
         name: 'Map & Keys',
