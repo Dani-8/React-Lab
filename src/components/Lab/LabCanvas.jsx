@@ -115,7 +115,7 @@ export default function LabCanvas({
 
                         {/*  Your fallback kept */}
                         {(!currentExample.exportLogic || currentExample.exportLogic.length === 0) && (
-                            <div className="text-center py-20 text-slate-400">
+                            <div className="text-center py-20 text-orange-600">
                                 No architecture data for this example yet.
                             </div>
                         )}

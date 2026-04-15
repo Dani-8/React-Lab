@@ -9,19 +9,19 @@ export const REGISTRY = {
         name: 'Components & JSX',
         fileName: 'Header.jsx',
         component: () => import('../pages/Fundamentals/Header'),
-        sourcePath: 'src/components/Header.jsx',
-        initialState: { lastUpdated: new Date().toLocaleTimeString() },
+        sourcePath: 'src/pages/Fundamentals/Header.jsx',
+        initialState: {  },
 
         code: `export default function Header() {\n  return (\n    <header className="p-8 bg-white border border-slate-200 rounded-2xl shadow-sm w-full max-w-md text-center">\n      <h1 className="text-2xl font-black text-slate-900 mb-2">React Application</h1>\n      <p className="text-slate-500 leading-relaxed">Welcome to the fundamentals of components.</p>\n    </header>\n  );\n}`,
         
         exportLogic: [
           {
-            file: 'src/components/Header.jsx',
+            file: 'src/pages/Fundamentals/Header.jsx',
             content: `export default function Header() {\n  return (\n    <header>\n      <h1>React Application</h1>\n      <p>Welcome to the fundamentals of components.</p>\n    </header>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import Header from './components/Header';\n\nexport default function App() {\n  return (\n    <main>\n      <Header />\n    </main>\n  );\n}`
+            content: `import Header from './pages/Fundamentals/Header';\n\nexport default function App() {\n  return (\n    <main>\n      <Header />\n    </main>\n  );\n}`
           }
         ],
       },
