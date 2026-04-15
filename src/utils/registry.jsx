@@ -28,25 +28,25 @@ export const REGISTRY = {
 
       'props-destructuring': {
         name: 'Props & Destructuring',
-        fileName: 'UserCard.jsx',
+        fileName: 'PropsDemo.jsx',
         component: () => import("../pages/Fundamentals/PropsDemo"),
-        sourcePath: 'src/components/UserCard.jsx',
+        sourcePath: 'src/pages/Fundamentals/PropsDemo.jsx',
         initialState: [
           { name: 'Sarah Connor', role: 'Engineer', status: 'Online' },
           { name: 'John Doe', role: 'Designer', status: 'Away' },
           { name: 'Marcus Wright', role: 'Security', status: 'Offline' }
         ],
 
-        code: `export default function UserCard({ name, role, status }) {\n  return (\n    <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-sm w-full max-w-xs">\n      <h2 className="text-lg font-bold text-slate-800">{name}</h2>\n      <p className="text-sm text-slate-500 mb-3">{role}</p>\n      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">\n        {status}\n      </span>\n    </div>\n  );\n}`,
+        code: `export default function PropsDemo({ name, role, status }) {\n  return (\n    <div className="p-6 bg-white border border-slate-200 rounded-xl shadow-sm w-full max-w-xs">\n      <h2 className="text-lg font-bold text-slate-800">{name}</h2>\n      <p className="text-sm text-slate-500 mb-3">{role}</p>\n      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">\n        {status}\n      </span>\n    </div>\n  );\n}`,
 
         exportLogic: [
           {
-            file: 'src/components/UserCard.jsx',
-            content: `export default function UserCard({ name, role, status }) {\n  return (\n    <div className="card">\n      <h2>{name}</h2>\n      <p>{role}</p>\n      <span className="badge">{status}</span>\n    </div>\n  );\n}`
+            file: 'src/pages/Fundamentals/PropsDemo.jsx',
+            content: `export default function PropsDemo({ name, role, status }) {\n  return (\n    <div className="card">\n      <h2>{name}</h2>\n      <p>{role}</p>\n      <span className="badge">{status}</span>\n    </div>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import UserCard from './components/UserCard';\n\nexport default function App() {\n  const userData = {\n    name: "Sarah Connor",\n    role: "Engineer",\n    status: "Online"\n  };\n\n  return (\n    <main>\n      {/* Passing props individually */}\n      <UserCard \n        name={userData.name} \n        role={userData.role} \n        status={userData.status} \n      />\n    </main>\n  );\n}`
+            content: `import PropsDemo from './pages/Fundamentals/PropsDemo';\n\nexport default function App() {\n  const userData = {\n    name: "Sarah Connor",\n    role: "Engineer",\n    status: "Online"\n  };\n\n  return (\n    <main>\n      {/* Passing props individually */}\n      <PropsDemo \n        name={userData.name} \n        role={userData.role} \n        status={userData.status} \n      />\n    </main>\n  );\n}`
           }
         ],
       },
