@@ -1,10 +1,14 @@
 import { Code2, Form, Zap } from 'lucide-react';
 
+// FUNDAMENTALS
 import Header from '../pages/Fundamentals/Header?raw'
 import PropsDemo from '../pages/Fundamentals/PropsDemo?raw'
 import MappingDemo from '../pages/Fundamentals/MappingDemo?raw'
 
-
+// =================================================================
+// =================================================================
+// =================================================================
+// =================================================================
 
 
 export const REGISTRY = {
@@ -58,7 +62,6 @@ export const REGISTRY = {
         ],
       },
 
-
       'list-keys': {
         name: 'Dynamic Data (Mapping & Keys)',
         fileName: 'MappingDemo.jsx',
@@ -82,7 +85,8 @@ export const REGISTRY = {
             content: `import MappingDemo from './pages/Fundamentals/MappingDemo';\n\n export default function App() {\n  const techStack = [\n    { id: '1', label: 'React' },\n    { id: '2', label: 'Vite' }\n  ];\n\n  return <MappingDemo items={techStack} />;\n}`
           }
         ],
-      }
+      },
+      
     }
   },
 

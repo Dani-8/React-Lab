@@ -63,13 +63,13 @@ export default function LabCanvas({
                         </button>
                     </div>
 
-                    <div className="flex-1 bg-slate-900 p-6 overflow-auto font-mono text-[13px] relative">
-                        <div className="absolute left-0 top-6 w-10 flex flex-col items-center text-slate-700 select-none border-r border-slate-800/50">
+                    <div className="flex-1 bg-slate-900 p-4 overflow-auto font-mono text-[13px] relative">
+                        <div className="absolute left-0 top-3 w-10 flex flex-col items-center text-slate-700 select-none border-r border-slate-800/50">
                             {currentExample.code.split('\n').map((_, i) => (
-                                <span key={i} className="leading-[1.7]">{i + 1}</span>
+                                <span key={i} className="leading-[1.55]">{i + 1}</span>
                             ))}
                         </div>
-                        <pre className="ml-8 text-orange-300 text-xs leading-relaxed whitespace-pre-wrap">
+                        <pre className="ml-8 text-orange-300 text-xs leading-relaxed absolute overflow-x-auto whitespace-pre">
                             {currentExample.code}
                         </pre>
                     </div>
