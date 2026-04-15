@@ -1,4 +1,4 @@
-import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle } from 'lucide-react';
+import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle, Info } from 'lucide-react';
 
 export default function LabCanvas({
     viewMode,
@@ -104,8 +104,16 @@ export default function LabCanvas({
                     <div className="flex-1 flex flex-col p-6 overflow-auto gap-6">
                         {currentExample.exportLogic?.map((item, idx) => (
                             <div key={idx} className="space-y-2">
-                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                     {item.file}
+
+                                    <span className='info-icon hover:text-orange-500 cursor-pointer flex items-center gap-1'>
+                                        <Info size={16} />
+
+                                        <span className='info-tooltip absolute -top-8 -right-2 w-48 p-2 bg-slate-700 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none'>
+                                            Create files and folders as shown. Then copy the code into the respective files to replicate the example's architecture. And apply CSS/TailwindCSS as you see fit!
+                                        </span>
+                                    </span>
                                 </div>
                                 <pre className="p-5 bg-white border border-slate-200 rounded-2xl text-indigo-700 font-mono text-[12.5px] leading-relaxed shadow-sm overflow-auto">
                                     {item.content}
