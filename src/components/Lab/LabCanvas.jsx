@@ -110,7 +110,7 @@ export default function LabCanvas({
                                     <span className='info-icon hover:text-orange-500 cursor-pointer flex items-center gap-1 relative group text-slate-400 transition-all duration-400'>
                                         <Info size={16} />
 
-                                        <span className='absolute top-7 -left-45 p-2 border-l-3 border border-orange-400 bg-slate-100 text-slate-600 font-bolder text-[9px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl'>
+                                        <span className='absolute top-7 -left-45 p-2 border-l-3 border border-orange-400 bg-slate-50 text-slate-600 font-bolder text-[9px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl'>
                                             Create files and folders as shown.<br /><br /> Then copy the code into the respective files to replicate the result.<br /><br /> And apply CSS/TailwindCSS as you see fit!
                                         </span>
                                     </span>

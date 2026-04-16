@@ -6,7 +6,6 @@ import PropsDemo from '../pages/Fundamentals/PropsDemo?raw'
 import MappingDemo from '../pages/Fundamentals/MappingDemo?raw'
 
 // HOOKS
-import UseStateDemo from '../pages/Hooks/UseStateDemo?raw'
 import UseStateBasicDemo from '../pages/Hooks/UseStateBasicDemo?raw'
 import UseStateObjectDemo from '../pages/Hooks/UseStateObjectDemo?raw'
 
@@ -101,27 +100,6 @@ export const REGISTRY = {
     title: 'Core Hooks',
     icon: <Zap size={14} />,
     examples: {
-      'use-state': {
-        name: 'useState Objects',
-        fileName: 'UseStateDemo.jsx',
-        component: () => import('../pages/Hooks/UseStateDemo'),
-        sourcePath: 'src/pages/Hooks/UseStateDemo.jsx',
-        initialState: { name: 'John Doe', level: 1 },
-
-        code: `export default function UseStateDemo({ data, setData }) {\n  return (\n    <div className="space-y-4">\n      <div className="p-6 bg-white rounded-xl border border-slate-200 flex flex-col gap-3">\n        <div className="text-sm font-bold text-slate-800">\n          {data.name} — <span className="text-orange-600">Lvl {data.level}</span>\n        </div>\n\n        <button\n          onClick={() => setData(prev => ({ ...prev, level: prev.level + 1 }))}\n          className="w-full py-2.5 bg-orange-500 text-white text-[11px] font-black uppercase tracking-widest rounded-lg hover:bg-orange-600 active:scale-95"\n        >\n          Level Up\n        </button>\n      </div>\n    </div>\n  );\n}`,
-        
-        exportLogic: [
-          {
-            file: 'src/pages/Hooks/UseStateDemo.jsx',
-            content: `export default function UseStateDemo({ data, setData }) {\n  return (\n    <div>\n      <h2>{data.name} - Level {data.level}</h2>\n \n      <button onClick={() => setData(prev => ({...prev, level: prev.level + 1}))}>\n         Level Up\n      </button>\n    </div>\n  );\n}`
-          },
-          {
-            file: 'src/App.jsx',
-            content: `import { useState } from 'react';\nimport UseStateDemo from './pages/Hooks/UseStateDemo';\n\nexport default function App() {\n  const [data, setData] = useState({ name: "John Doe", level: 1 });\n\n  return <UseStateDemo data={data} setData={setData} />;\n}`
-          }
-        ],
-      },
-
       'usestate-basic': {
         name: 'useState (Basic)',
         fileName: 'UseStateBasicDemo.jsx',
@@ -129,6 +107,7 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseStateBasicDemo'),
         sourcePath: 'src/pages/Hooks/UseStateBasicDemo.jsx',
         initialState: { count: 0 },
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseStateBasicDemo.jsx',
@@ -148,6 +127,7 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseStateObjectDemo'),
         sourcePath: 'src/pages/Hooks/UseStateObjectDemo.jsx',
         initialState: { name: 'Alex Doe', email: 'alex@demo.com' },
+        
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseStateObjectDemo.jsx',
