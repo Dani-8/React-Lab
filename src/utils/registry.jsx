@@ -247,7 +247,9 @@ export const REGISTRY = {
             content: `import { useState } from 'react';\nimport { ThemeContext } from './pages/hooks/ThemeContext';\nimport ThemeDisplay from './pages/hooks/ThemeDisplay';\n\nexport default function App() {\n  const [theme, setTheme] = useState('light');\n\n  return (\n    <ThemeContext.Provider value={{ theme, setTheme }}>\n      <div className={theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white'}>\n        <ThemeDisplay />\n        <button onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}>\n          Toggle Theme\n        </button>\n      </div>\n    </ThemeContext.Provider>\n  );\n}`
           }
         ]
-      }
+      },
+
+      
 
     }
   }
