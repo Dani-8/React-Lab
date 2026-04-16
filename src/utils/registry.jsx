@@ -5,6 +5,11 @@ import Header from '../pages/Fundamentals/Header?raw'
 import PropsDemo from '../pages/Fundamentals/PropsDemo?raw'
 import MappingDemo from '../pages/Fundamentals/MappingDemo?raw'
 
+// HOOKS
+import UseStateDemo from '../pages/Hooks/UseStateDemo?raw'
+import UseStateBasicDemo from '../pages/Hooks/UseStateBasicDemo?raw'
+import UseStateObjectDemo from '../pages/Hooks/UseStateObjectDemo?raw'
+
 // =================================================================
 // =================================================================
 // =================================================================
@@ -115,7 +120,46 @@ export const REGISTRY = {
             content: `import { useState } from 'react';\nimport UseStateDemo from './pages/Hooks/UseStateDemo';\n\nexport default function App() {\n  const [data, setData] = useState({ name: "John Doe", level: 1 });\n\n  return <UseStateDemo data={data} setData={setData} />;\n}`
           }
         ],
+      },
+
+      'usestate-basic': {
+        name: 'useState (Basic)',
+        fileName: 'UseStateBasicDemo.jsx',
+        code: UseStateBasicDemo,
+        component: () => import('../pages/Hooks/UseStateBasicDemo'),
+        sourcePath: 'src/pages/Hooks/UseStateBasicDemo.jsx',
+        initialState: { count: 0 },
+        exportLogic: [
+          {
+            file: 'src/pages/Hooks/UseStateBasicDemo.jsx',
+            content: `import { useState } from 'react';\n\nexport default function UseStateBasicDemo() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <h1>Count: {count}</h1>\n      <button onClick={() => setCount(count - 1)}>-</button>\n      <button onClick={() => setCount(count + 1)}>+</button>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import UseStateBasicDemo from './pages/Hooks/UseStateBasicDemo';\n\nexport default function App() {\n  return <UseStateBasicDemo />;\n}`
+          }
+        ]
+      },
+
+      'usestate-object': {
+        name: 'useState (Object)',
+        fileName: 'UseStateObjectDemo.jsx',
+        code: UseStateObjectDemo,
+        component: () => import('../pages/Hooks/UseStateObjectDemo'),
+        sourcePath: 'src/pages/Hooks/UseStateObjectDemo.jsx',
+        initialState: { name: 'Alex Doe', email: 'alex@demo.com' },
+        exportLogic: [
+          {
+            file: 'src/pages/Hooks/UseStateObjectDemo.jsx',
+            content: `import { useState } from 'react';\n\nexport default function UseStateObjectDemo() {\n  const [user, setUser] = useState({ name: 'Alex', email: 'alex@example.com' });\n\n  return (\n    <div>\n      <p>Name: {user.name}</p>\n      <input class value={user.email} \n        onChange={(e) => setUser({ ...user, email: e.target.value })} \n      />\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import UseStateObjectDemo from './pages/Hooks/UseStateObjectDemo';\n\nexport default function App() {\n  return <UseStateObjectDemo />;\n}`
+          }
+        ]
       }
+
     }
   }
 };
