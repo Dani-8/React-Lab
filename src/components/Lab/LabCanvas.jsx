@@ -92,7 +92,7 @@ export default function LabCanvas({
                             src/<br />
                             ├─ pages/<br />
                             │&nbsp;&nbsp;└─ {currentExample.sourcePath.split('/')[2] + '/'}<br />
-                            │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <span className="text-indigo-600 font-medium">
+                            │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <span className="text-indigo-600 font-medium inline-block max-w-[110px] overflow-hidden text-ellipsis whitespace-nowrap align-bottom">
                                 {currentExample.fileName}
                             </span><br />
                             └─ <span className="text-orange-600 font-medium">App.jsx</span>
