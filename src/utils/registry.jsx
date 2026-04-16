@@ -8,6 +8,9 @@ import MappingDemo from '../pages/Fundamentals/MappingDemo?raw'
 // HOOKS
 import UseStateBasicDemo from '../pages/Hooks/UseStateBasicDemo?raw'
 import UseStateObjectDemo from '../pages/Hooks/UseStateObjectDemo?raw'
+import ConditionalDemo from '../pages/Hooks/ConditionalDemo?raw'
+import UseEffectMountDemo from '../pages/Hooks/UseEffectMountDemo?raw'
+import UseEffectDepsDemo from '../pages/Hooks/UseEffectDepsDemo?raw'
 
 // =================================================================
 // =================================================================
@@ -127,7 +130,7 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseStateObjectDemo'),
         sourcePath: 'src/pages/Hooks/UseStateObjectDemo.jsx',
         initialState: { name: 'Alex Doe', email: 'alex@demo.com' },
-        
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseStateObjectDemo.jsx',
@@ -136,6 +139,66 @@ export const REGISTRY = {
           {
             file: 'src/App.jsx',
             content: `import UseStateObjectDemo from './pages/Hooks/UseStateObjectDemo';\n\nexport default function App() {\n  return <UseStateObjectDemo />;\n}`
+          }
+        ]
+      },
+
+      'conditional-rendering': {
+        name: 'Conditional Rendering',
+        fileName: 'ConditionalDemo.jsx',
+        code: ConditionalDemo,
+        component: () => import('../pages/Hooks/ConditionalDemo'),
+        sourcePath: 'src/pages/Hooks/ConditionalDemo.jsx',
+        initialState: { isVisible: false },
+
+        exportLogic: [
+          {
+            file: 'src/pages/Hooks/ConditionalDemo.jsx',
+            content: `import { useState } from 'react';\n\nexport default function ConditionalDemo() {\n  const [isVisible, setIsVisible] = useState(false);\n\n  return (\n    <div className="container">\n      <button onClick={() => setIsVisible(!isVisible)}>\n        {isVisible ? 'Hide' : 'Show'} Secret\n      </button>\n\n      {isVisible && (\n        <div className="secret-box">\n          <p>SECRET_KEY: R34CT_1S_AW350M3</p>\n        </div>\n      )}\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import ConditionalDemo from './pages/Hooks/ConditionalDemo';\n\nexport default function App() {\n  return <ConditionalDemo />;\n}`
+          }
+        ]
+      },
+
+      'useeffect-mounting': {
+        name: 'useEffect (Mounting)',
+        fileName: 'UseEffectMountDemo.jsx',
+        code: UseEffectMountDemo,
+        component: () => import('../pages/Hooks/UseEffectMountDemo'),
+        sourcePath: 'src/pages/Hooks/UseEffectMountDemo.jsx',
+        initialState: { status: 'Connecting...', connected: false },
+        
+        exportLogic: [
+          {
+            file: 'src/pages/Hooks/UseEffectMountDemo.jsx',
+            content: `import { useState, useEffect } from 'react';\n\nexport default function UseEffectMountDemo() {\n  const [status, setStatus] = useState('Loading...');\n\n  useEffect(() => {\n    // This runs once when component mounts\n    const timer = setTimeout(() => setStatus('Ready!'), 2000);\n    return () => clearTimeout(timer);\n  }, []);\n\n  return <div className="p-8 shadow-lg rounded-2xl bg-white">{status}</div>;\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import UseEffectMountDemo from './pages/Hooks/UseEffectMountDemo';\n\nexport default function App() {\n  return (\n    <div className="min-h-screen bg-gray-50 flex items-center justify-center">\n      <UseEffectMountDemo />\n    </div>\n  );\n}`
+          }
+        ]
+      },
+
+      'useeffect-deps': {
+        name: 'useEffect (Deps)',
+        fileName: 'UseEffectDepsDemo.jsx',
+        code: UseEffectDepsDemo,
+        component: () => import('../pages/Hooks/UseEffectDepsDemo'),
+        sourcePath: 'src/pages/Hooks/UseEffectDepsDemo.jsx',
+        initialState: { userId: 1, loading: false, lastFetch: 'None' },
+
+        exportLogic: [
+          {
+            file: 'src/pages/Hooks/UseEffectDepsDemo.jsx',
+            content: `import { useState, useEffect } from 'react';\n\nexport default function UseEffectDepsDemo() {\n  const [userId, setUserId] = useState(1);\n  const [log, setLog] = useState('');\n\n  useEffect(() => {\n    setLog(\`Started fetch for ID: \${userId}\`);\n    // Dependent on userId state\n  }, [userId]);\n\n  return (\n    <div className="p-6">\n       <button \n         className="px-4 py-2 bg-blue-600 text-white rounded"\n         onClick={() => setUserId(p => p + 1)}\n       >\n         Next User (\${userId})\n       </button>\n       <p className="mt-4 font-mono text-sm">{log}</p>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import UseEffectDepsDemo from './pages/Hooks/UseEffectDepsDemo';\n\nexport default function App() {\n  return (\n    <div className="min-h-screen bg-gray-100 p-12">\n      <UseEffectDepsDemo />\n    </div>\n  );\n}`
           }
         ]
       }
