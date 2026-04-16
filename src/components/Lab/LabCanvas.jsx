@@ -1,5 +1,50 @@
 import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle, Info } from 'lucide-react';
 
+function buildTree(paths) {
+  const tree = {}
+
+  paths.forEach(({ file }) => {
+    const parts = file.replace('src/', '').split('/')
+    let current = tree
+
+    parts.forEach((part, i) => {
+      if (!current[part]) {
+        current[part] = {}
+      }
+      current = current[part]
+    })
+  })
+
+  return tree
+}
+
+function renderTree(node, depth = 0) {
+  return Object.entries(node).map(([key, value], idx, arr) => {
+    const isLast = idx === arr.length - 1
+    const isFile = Object.keys(value).length === 0
+
+    return (
+      <div key={key}>
+        <span>
+          {'│  '.repeat(depth)}
+          {isLast ? '└─ ' : '├─ '}
+          <span className={`${isFile
+            ? key.includes('App') ? 'text-orange-600' : 'text-indigo-600 font-medium inline-block max-w-[110px] overflow-hidden text-ellipsis whitespace-nowrap align-bottom '
+            : 'text-slate-500'
+          }`}>
+            {key}
+          </span>
+        </span>
+
+        {!isFile && renderTree(value, depth + 1)}
+      </div>
+    )
+  })
+}
+
+
+
+
 export default function LabCanvas({
     viewMode,
     SelectedComponent,
@@ -11,6 +56,7 @@ export default function LabCanvas({
     isLoading,
     error
 }) {
+    const tree = buildTree(currentExample.exportLogic)
     return (
         <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden min-h-[480px] flex flex-col transition-all">
 
@@ -88,14 +134,10 @@ export default function LabCanvas({
                             <span className="text-xs font-black uppercase tracking-widest">Project Structure</span>
                         </div>
 
-                        <div className="font-mono text-[13px] leading-[1.65] text-slate-600">
-                            src/<br />
-                            ├─ pages/<br />
-                            │&nbsp;&nbsp;└─ {currentExample.sourcePath.split('/')[2] + '/'}<br />
-                            │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <span className="text-indigo-600 font-medium inline-block max-w-[110px] overflow-hidden text-ellipsis whitespace-nowrap align-bottom">
-                                {currentExample.fileName}
-                            </span><br />
-                            └─ <span className="text-orange-600 font-medium">App.jsx</span>
+                        
+                        <div className="font-mono text-[13px] leading-[1.6] text-slate-600">
+                            src/
+                            {renderTree(tree)}
                         </div>
                     </div>
 
@@ -110,7 +152,7 @@ export default function LabCanvas({
                                     <span className='info-icon hover:text-orange-500 cursor-pointer flex items-center gap-1 relative group text-slate-400 transition-all duration-400'>
                                         <Info size={16} />
 
-                                        <span className='absolute top-7 -left-45 p-2 border-l-3 border border-orange-400 bg-slate-50 text-slate-600 font-bolder text-[9px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl'>
+                                        <span className='z-99 absolute top-7 -left-45 p-2 border-l-3 border border-orange-400 bg-white text-slate-600 font-black text-[9px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl'>
                                             Create files and folders as shown.<br /><br /> Then copy the code into the respective files to replicate the result.<br /><br /> And apply CSS/TailwindCSS as you see fit!
                                         </span>
                                     </span>

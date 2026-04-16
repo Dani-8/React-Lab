@@ -4,9 +4,10 @@ import { useEffect } from 'react'
 export default function UseEffectMountDemo({ data, setData }) {
     useEffect(() => {
         const timer = setTimeout(() => {
-            setData({ status: 'System Online', connected: true });
-        }, 2000);
-        return () => clearTimeout(timer);
+            setData({ status: 'System Online', connected: true })
+        }, 2000)
+
+        return () => clearTimeout(timer)
     }, []);
 
     return (

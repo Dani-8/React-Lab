@@ -11,6 +11,8 @@ import UseStateObjectDemo from '../pages/Hooks/UseStateObjectDemo?raw'
 import ConditionalDemo from '../pages/Hooks/ConditionalDemo?raw'
 import UseEffectMountDemo from '../pages/Hooks/UseEffectMountDemo?raw'
 import UseEffectDepsDemo from '../pages/Hooks/UseEffectDepsDemo?raw'
+import UseRefDomDemo from '../pages/Hooks/UseRefDomDemo?raw'
+import UseContextDemo from '../pages/Hooks/UseContextDemo?raw'
 
 // =================================================================
 // =================================================================
@@ -170,7 +172,7 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseEffectMountDemo'),
         sourcePath: 'src/pages/Hooks/UseEffectMountDemo.jsx',
         initialState: { status: 'Connecting...', connected: false },
-        
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseEffectMountDemo.jsx',
@@ -199,6 +201,50 @@ export const REGISTRY = {
           {
             file: 'src/App.jsx',
             content: `import UseEffectDepsDemo from './pages/Hooks/UseEffectDepsDemo';\n\nexport default function App() {\n  return (\n    <div className="min-h-screen bg-gray-100 p-12">\n      <UseEffectDepsDemo />\n    </div>\n  );\n}`
+          }
+        ]
+      },
+
+      'useref-dom': {
+        name: 'useRef: DOM Access',
+        fileName: 'UseRefDomDemo.jsx',
+        code: UseRefDomDemo,
+        component: () => import('../pages/Hooks/UseRefDomDemo'),
+        sourcePath: 'src/pages/Hooks/UseRefDomDemo.jsx',
+        initialState: { isFocused: false },
+
+        exportLogic: [
+          {
+            file: 'src/pages/Hooks/UseRefDomDemo.jsx',
+            content: `import { useRef } from 'react';\n\nexport default function UseRefDomDemo() {\n  const inputRef = useRef(null);\n\n  const handleFocus = () => {\n    inputRef.current.focus();\n  };\n\n  return (\n    <div className="p-8">\n      <input ref={inputRef} placeholder="Enter name..." className="border p-2" />\n      <button onClick={handleFocus}>Focus Now</button>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import UseRefDomDemo from './pages/Hooks/UseRefDomDemo';\n\nexport default function App() {\n  return (\n    <div className="h-screen flex items-center justify-center">\n      <UseRefDomDemo />\n    </div>\n  );\n}`
+          }
+        ]
+      },
+
+      'usecontext-global': {
+        name: 'useContext: Global State',
+        fileName: 'UseContextDemo.jsx',
+        code: UseContextDemo,
+        component: () => import('../pages/Hooks/UseContextDemo'),
+        sourcePath: 'src/pages/Hooks/UseContextDemo.jsx',
+        initialState: { theme: 'light' },
+
+        exportLogic: [
+          {
+            file: 'src/pages/hooks/ThemeContext.js',
+            content: `import { createContext } from 'react';\n\nexport const ThemeContext = createContext();`
+          },
+          {
+            file: 'src/pages/hooks/ThemeDisplay.jsx',
+            content: `import { useContext } from 'react';\nimport { ThemeContext } from '../context/ThemeContext';\n\nexport default function ThemeDisplay() {\n  const { theme } = useContext(ThemeContext);\n  return (\n    <div className="p-4 rounded-lg border">\n      Current Mode: <b className="uppercase">{theme}</b>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { useState } from 'react';\nimport { ThemeContext } from './pages/hooks/ThemeContext';\nimport ThemeDisplay from './pages/hooks/ThemeDisplay';\n\nexport default function App() {\n  const [theme, setTheme] = useState('light');\n\n  return (\n    <ThemeContext.Provider value={{ theme, setTheme }}>\n      <div className={theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white'}>\n        <ThemeDisplay />\n        <button onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}>\n          Toggle Theme\n        </button>\n      </div>\n    </ThemeContext.Provider>\n  );\n}`
           }
         ]
       }

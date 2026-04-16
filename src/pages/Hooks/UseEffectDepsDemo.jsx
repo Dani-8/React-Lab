@@ -3,10 +3,12 @@ import {useEffect} from 'react'
 
 export default function UseEffectDepsDemo({ data, setData }) {
     useEffect(() => {
-        setData({ ...data, loading: true });
+        setData({ ...data, loading: true })
+        
         const timer = setTimeout(() => {
             setData({ ...data, loading: false, lastFetch: new Date().toLocaleTimeString() });
         }, 2500);
+        
         return () => clearTimeout(timer);
     }, [data.userId])
 
