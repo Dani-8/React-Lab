@@ -15,7 +15,7 @@ export default function App() {
   const [activeExample, setActiveExample] = useState(firstExample)
   const [expandedCategories, setExpandedCategories] = useState([firstCategory])
 
-  const [viewMode, setViewMode] = useState('preview')
+  const [viewMode, setViewMode] = useState('export')
   const [localData, setLocalData] = useState({})
   const [copied, setCopied] = useState(false)
   const [SelectedComponent, setSelectedComponent] = useState(null)
@@ -32,7 +32,7 @@ export default function App() {
 
   useEffect(() => {
     setLocalData(example.initialState || {})
-    setViewMode('preview')
+    setViewMode('export')
   }, [activeExample, activeCategory])
 
   //  merged (with loading + error)

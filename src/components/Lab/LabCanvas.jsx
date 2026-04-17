@@ -29,7 +29,7 @@ function renderTree(node, depth = 0) {
           {'│  '.repeat(depth)}
           {isLast ? '└─ ' : '├─ '}
           <span className={`${isFile
-            ? key.includes('App') ? 'text-orange-600' : 'text-indigo-600 font-medium inline-block max-w-[110px] overflow-hidden text-ellipsis whitespace-nowrap align-bottom '
+            ? key.includes('App') ? 'text-orange-600' : 'text-indigo-600 font-medium inline-block md:max-w-[125px]  overflow-hidden text-ellipsis whitespace-nowrap align-bottom '
             : 'text-slate-500'
           }`}>
             {key}

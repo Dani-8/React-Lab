@@ -275,7 +275,7 @@ export const REGISTRY = {
         name: 'useCallback: Form Handler',
         fileName: 'UseCallbackDemo.jsx',
         code: UseCallbackDemo,
-        component: () => import('../pages/Hooks/UseCallbackDemo'),  
+        component: () => import('../pages/Hooks/UseCallbackDemo'),
         sourcePath: 'src/pages/Hooks/UseCallbackDemo.jsx',
         initialState: { loading: false, success: false },
         
@@ -287,7 +287,8 @@ export const REGISTRY = {
           {
             file: 'src/App.jsx',
             content: `import { useState, useCallback } from 'react';\nimport SubmitButton from './components/SubmitButton';\n\nexport default function App() {\n  const [text, setText] = useState('');\n\n  const handleAction = useCallback(() => {\n    alert('Action performed: ' + text);\n  }, [text]);\n\n  return (\n    <div>\n      <input onChange={e => setText(e.target.value)} />\n      <SubmitButton onAction={handleAction} />\n    </div>\n  );\n}`
-          }]
+          }
+        ]
       }
 
     }

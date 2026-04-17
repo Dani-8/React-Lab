@@ -43,7 +43,7 @@ export default function Sidebar({
                 {isExpanded ? <ChevronDown size={14} className="text-slate-300" /> : <ChevronRight size={14} className="text-slate-300" />}
               </button>
 
-              <div className={`mt-1 space-y-0.5 overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className={`mt-1 space-y-0.5 overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-full opacity-100' : 'max-h-0 opacity-0'}`}>
                 {Object.entries(category.examples).map(([exKey, example]) => (
                   <button
                     key={exKey}
