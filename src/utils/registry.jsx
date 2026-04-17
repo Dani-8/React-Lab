@@ -13,6 +13,8 @@ import UseEffectMountDemo from '../pages/Hooks/UseEffectMountDemo?raw'
 import UseEffectDepsDemo from '../pages/Hooks/UseEffectDepsDemo?raw'
 import UseRefDomDemo from '../pages/Hooks/UseRefDomDemo?raw'
 import UseContextDemo from '../pages/Hooks/UseContextDemo?raw'
+import UseMemoDemo from '../pages/Hooks/UseMemoDemo?raw'
+import UseCallbackDemo from '../pages/Hooks/UseCallbackDemo?raw'
 
 // =================================================================
 // =================================================================
@@ -249,7 +251,44 @@ export const REGISTRY = {
         ]
       },
 
-      
+      'usememo-search': {
+        name: 'useMemo: Data Filtering',
+        fileName: 'UseMemoDemo.jsx',
+        code: UseMemoDemo,
+        component: () => import('../pages/Hooks/UseMemoDemo'),
+        sourcePath: 'src/pages/Hooks/UseMemoDemo.jsx',
+        initialState: { query: '' },
+
+        exportLogic: [
+          {
+            file: 'src/pages/Hooks/UseMemoDemo.jsx',
+            content: `import { useState, useMemo } from 'react';\n\nconst MOCK_DATA = [\n  { id: 1, name: 'System' },\n  { id: 2, name: 'Security' }\n];\n\nexport default function UseMemoDemo() {\n  const [query, setQuery] = useState('');\n\n  const results = useMemo(() => {\n    console.log('Filtering...');\n    return MOCK_DATA.filter(i => i.name.includes(query));\n  }, [query]);\n\n  return (\n    <div>\n      <input onChange={e => setQuery(e.target.value)} placeholder="Search" />\n      {results.map(r => <div key={r.id}>{r.name}</div>)}\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import UseMemoDemo from './pages/Hooks/UseMemoDemo';\n\nexport default function App() {\n  return (\n    <div className="p-10">\n      <UseMemoDemo />\n    </div>\n  );\n}`
+          }
+        ]
+      },
+
+      'usecallback-form': {
+        name: 'useCallback: Form Handler',
+        fileName: 'UseCallbackDemo.jsx',
+        code: UseCallbackDemo,
+        component: () => import('../pages/Hooks/UseCallbackDemo'),  
+        sourcePath: 'src/pages/Hooks/UseCallbackDemo.jsx',
+        initialState: { loading: false, success: false },
+        
+        exportLogic: [
+          {
+            file: 'src/pages/Hooks/UseCallbackDemo.jsx',
+            content: `import React from 'react';\n\nconst SubmitButton = React.memo(({ onAction }) => {\n  console.log('Button Rendered');\n  return <button onClick={onAction}>Submit</button>;\n});\n\nexport default SubmitButton;`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { useState, useCallback } from 'react';\nimport SubmitButton from './components/SubmitButton';\n\nexport default function App() {\n  const [text, setText] = useState('');\n\n  const handleAction = useCallback(() => {\n    alert('Action performed: ' + text);\n  }, [text]);\n\n  return (\n    <div>\n      <input onChange={e => setText(e.target.value)} />\n      <SubmitButton onAction={handleAction} />\n    </div>\n  );\n}`
+          }]
+      }
 
     }
   }

@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 // ---------------------------------------------------------------
 
 export default function App() {
-  const firstCategory = Object.keys(REGISTRY)[0]
+  const firstCategory = Object.keys(REGISTRY)[1]
   const firstExample = Object.keys(REGISTRY[firstCategory]?.examples || {})[0]
 
   const [activeCategory, setActiveCategory] = useState(firstCategory)
