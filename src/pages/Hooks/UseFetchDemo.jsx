@@ -16,8 +16,8 @@ export default function UseFetchDemo({ data, setData }) {
         .then(res => res.json())
         .then(json => {
           setUser(json);
-          setLoading(false);
-          // Fixed: Updating the parent state so the watcher changes
+          setLoading(false)
+
           setData({
             lastFetched: json.name,
             userId: nextId,
@@ -43,11 +43,13 @@ export default function UseFetchDemo({ data, setData }) {
             <span>Live Response</span>
             {loading && <span className="animate-pulse">Loading...</span>}
           </div>
+
           <div className={`transition-opacity duration-300 ${loading ? 'opacity-30' : 'opacity-100'}`}>
             <div className="text-sm font-bold text-slate-700">{user.name}</div>
             <div className="text-[11px] text-slate-400 font-mono">{user.email}</div>
           </div>
         </div>
+        
 
         <button
           onClick={triggerFetch}
