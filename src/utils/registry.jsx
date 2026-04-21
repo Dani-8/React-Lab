@@ -313,5 +313,23 @@ export const REGISTRY = {
       }
 
     }
+  },
+
+  // -------------------------------------
+
+  route: {
+    title: 'Routing',
+    icon: <Form size={14} />,
+    examples: {
+      '': {
+        name: 'Coming Soon',
+        fileName: 'ComingSoon.jsx',
+        component: () => Promise.resolve({ default: () => <div className="p-10 text-center">More examples coming soon!</div> }),
+        sourcePath: 'ComingSoon.jsx',
+        initialState: {  },
+        code: `// Stay tuned for routing examples!`,
+        exportLogic: []
+      }
+    }
   }
 };
