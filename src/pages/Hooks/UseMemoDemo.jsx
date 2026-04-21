@@ -17,8 +17,6 @@ export default function UseMemoDemo({ data, setData }) {
 
 
     return (
-        
-
         <div className="p-10 bg-white border border-slate-200 rounded-[2.5rem] shadow-xl w-96">
             <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-orange-50 text-orange-500 rounded-xl"><Cpu size={24} /></div>

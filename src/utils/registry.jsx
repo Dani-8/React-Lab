@@ -15,6 +15,7 @@ import UseRefDomDemo from '../pages/Hooks/UseRefDomDemo?raw'
 import UseContextDemo from '../pages/Hooks/UseContextDemo?raw'
 import UseMemoDemo from '../pages/Hooks/UseMemoDemo?raw'
 import UseCallbackDemo from '../pages/Hooks/UseCallbackDemo?raw'
+import UseFetch from '../pages/Hooks/useFetch?raw'
 
 // =================================================================
 // =================================================================
@@ -287,6 +288,26 @@ export const REGISTRY = {
           {
             file: 'src/App.jsx',
             content: `import { useState, useCallback } from 'react';\nimport SubmitButton from './components/SubmitButton';\n\nexport default function App() {\n  const [text, setText] = useState('');\n\n  const handleAction = useCallback(() => {\n    alert('Action performed: ' + text);\n  }, [text]);\n\n  return (\n    <div>\n      <input onChange={e => setText(e.target.value)} />\n      <SubmitButton onAction={handleAction} />\n    </div>\n  );\n}`
+          }
+        ]
+      },
+
+      'custom-hook-fetch': {
+        name: 'Custom Hook: useFetch',
+        fileName: 'useFetch.js',
+        code: UseFetch,
+        component: () => import('../pages/Hooks/useFetch'),
+        sourcePath: 'src/hooks/useFetch.js',
+        initialState: { lastFetched: 'None' },
+
+        exportLogic: [
+          {
+            file: 'src/hooks/useFetch.js',
+            content: `import { useState, useEffect } from 'react';\n\nexport function useFetch(url) {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() => {\n    fetch(url)\n      .then(res => res.json())\n      .then(json => {\n        setData(json);\n        setLoading(false);\n      });\n  }, [url]);\n\n  return { data, loading };\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { useFetch } from './hooks/useFetch';\n\nexport default function App() {\n  const { data, loading } = useFetch('https://api.example.com/data');\n\n  if (loading) return <div>Loading...</div>;\n\n  return (\n    <pre>{JSON.stringify(data, null, 2)}</pre>\n  );\n}`
           }
         ]
       }
