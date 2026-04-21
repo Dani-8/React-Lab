@@ -294,19 +294,20 @@ export const REGISTRY = {
 
       'custom-hook-fetch': {
         name: 'Custom Hook: useFetch',
-        fileName: 'useFetch.jsx',
+        fileName: 'useFetchDemo.jsx',
         code: UseFetchDemo,
         component: () => import('../pages/Hooks/UseFetchDemo'),
-        sourcePath: 'src/hooks/useFetch.jsx',
+        sourcePath: 'src/hooks/useFetchDemo.jsx',
         initialState: { lastFetched: 'None', userId: 1, email: 'Sincere@april.biz' },
+
         exportLogic: [
           {
-            file: 'src/hooks/useFetch.jsx',
-            content: `import { useState, useEffect } from 'react';\n\nexport function useFetch(url) {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() => {\n    fetch(url)\n      .then(res => res.json())\n      .then(json => {\n        setData(json);\n        setLoading(false);\n      });\n  }, [url]);\n\n  return { data, loading };\n}`
+            file: 'src/hooks/useFetchDemo.jsx',
+            content: `import { useState, useEffect } from 'react';\n\nexport function useFetchDemo(url) {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() => {\n    fetch(url)\n      .then(res => res.json())\n      .then(json => {\n        setData(json);\n        setLoading(false);\n      });\n  }, [url]);\n\n  return { data, loading };\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import { useFetch } from './hooks/useFetch';\n\nexport default function App() {\n  const { data, loading } = useFetch('https://api.example.com/data');\n\n  if (loading) return <div>Loading...</div>;\n\n  return (\n    <pre>{JSON.stringify(data, null, 2)}</pre>\n  );\n}`
+            content: `import { useFetchDemo } from './hooks/useFetchDemo';\n\nexport default function App() {\n  const { data, loading } = useFetchDemo('https://api.example.com/data');\n\n  if (loading) return <div>Loading...</div>;\n\n  return (\n    <pre>{JSON.stringify(data, null, 2)}</pre>\n  );\n}`
           }
         ]
       }
