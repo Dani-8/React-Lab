@@ -297,7 +297,7 @@ export const REGISTRY = {
         fileName: 'useFetch.js',
         code: UseFetch,
         component: () => import('../pages/Hooks/useFetch'),
-        sourcePath: 'src/hooks/useFetch.js',
+        sourcePath: 'src/hooks/useFetch.jsx',
         initialState: { lastFetched: 'None' },
 
         exportLogic: [

@@ -28,8 +28,6 @@ export function useFetch(url) {
   return { data, loading }
 }
 
-
-
 // Usage in Component (Matching Preview Design)
 export default function UserProfile({ userId }) {
   const { data: user, loading } = useFetch(`https://api.example.com/users/${userId}`);
