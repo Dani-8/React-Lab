@@ -15,7 +15,7 @@ import UseRefDomDemo from '../pages/Hooks/UseRefDomDemo?raw'
 import UseContextDemo from '../pages/Hooks/UseContextDemo?raw'
 import UseMemoDemo from '../pages/Hooks/UseMemoDemo?raw'
 import UseCallbackDemo from '../pages/Hooks/UseCallbackDemo?raw'
-import UseFetch from '../pages/Hooks/useFetch?raw'
+import UseFetchDemo from '../pages/Hooks/UseFetchDemo?raw'
 
 // =================================================================
 // =================================================================
@@ -294,15 +294,14 @@ export const REGISTRY = {
 
       'custom-hook-fetch': {
         name: 'Custom Hook: useFetch',
-        fileName: 'useFetch.js',
-        code: UseFetch,
-        component: () => import('../pages/Hooks/useFetch'),
+        fileName: 'useFetch.jsx',
+        code: UseFetchDemo,
+        component: () => import('../pages/Hooks/UseFetchDemo'),
         sourcePath: 'src/hooks/useFetch.jsx',
-        initialState: { lastFetched: 'None' },
-
+        initialState: { lastFetched: 'None', userId: 1, email: 'Sincere@april.biz' },
         exportLogic: [
           {
-            file: 'src/hooks/useFetch.js',
+            file: 'src/hooks/useFetch.jsx',
             content: `import { useState, useEffect } from 'react';\n\nexport function useFetch(url) {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() => {\n    fetch(url)\n      .then(res => res.json())\n      .then(json => {\n        setData(json);\n        setLoading(false);\n      });\n  }, [url]);\n\n  return { data, loading };\n}`
           },
           {
