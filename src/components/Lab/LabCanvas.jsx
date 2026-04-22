@@ -1,45 +1,45 @@
 import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle, Info } from 'lucide-react';
 
 function buildTree(paths) {
-  const tree = {}
+    const tree = {}
 
-  paths.forEach(({ file }) => {
-    const parts = file.replace('src/', '').split('/')
-    let current = tree
+    paths.forEach(({ file }) => {
+        const parts = file.replace('src/', '').split('/')
+        let current = tree
 
-    parts.forEach((part, i) => {
-      if (!current[part]) {
-        current[part] = {}
-      }
-      current = current[part]
+        parts.forEach((part, i) => {
+            if (!current[part]) {
+                current[part] = {}
+            }
+            current = current[part]
+        })
     })
-  })
 
-  return tree
+    return tree
 }
 
 function renderTree(node, depth = 0) {
-  return Object.entries(node).map(([key, value], idx, arr) => {
-    const isLast = idx === arr.length - 1
-    const isFile = Object.keys(value).length === 0
+    return Object.entries(node).map(([key, value], idx, arr) => {
+        const isLast = idx === arr.length - 1
+        const isFile = Object.keys(value).length === 0
 
-    return (
-      <div key={key}>
-        <span>
-          {'│  '.repeat(depth)}
-          {isLast ? '└─ ' : '├─ '}
-          <span className={`${isFile
-            ? key.includes('App') ? 'text-orange-600' : 'text-indigo-600 font-medium inline-block md:max-w-[125px]  overflow-hidden text-ellipsis whitespace-nowrap align-bottom '
-            : 'text-slate-500'
-          }`}>
-            {key}
-          </span>
-        </span>
+        return (
+            <div key={key}>
+                <span>
+                    {'│  '.repeat(depth)}
+                    {isLast ? '└─ ' : '├─ '}
+                    <span className={`${isFile
+                        ? key.includes('App') ? 'text-orange-600' : 'text-indigo-600 font-medium inline-block md:max-w-[125px]  overflow-hidden text-ellipsis whitespace-nowrap align-bottom '
+                        : 'text-slate-500'
+                        }`}>
+                        {key}
+                    </span>
+                </span>
 
-        {!isFile && renderTree(value, depth + 1)}
-      </div>
-    )
-  })
+                {!isFile && renderTree(value, depth + 1)}
+            </div>
+        )
+    })
 }
 
 
@@ -58,7 +58,7 @@ export default function LabCanvas({
 }) {
     const tree = buildTree(currentExample.exportLogic)
     return (
-        <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden min-h-[480px] flex flex-col transition-all">
+        <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden h-[550px] flex flex-col transition-all">
 
             {/* PREVIEW MODE */}
             {viewMode === 'preview' && (
@@ -125,7 +125,7 @@ export default function LabCanvas({
 
             {/* EXPORT MODE*/}
             {viewMode === 'export' && (
-                <div className="flex flex-col md:flex-row animate-in slide-in-from-right-4 duration-300 bg-slate-50">
+                <div className="flex-1 flex flex-col md:flex-row animate-in slide-in-from-right-4 duration-300 bg-slate-50 min-h-0 overflow-hidden">
 
                     {/* Sidebar */}
                     <div className="w-full md:w-60 border-r border-slate-200 p-5 bg-white">
@@ -134,7 +134,7 @@ export default function LabCanvas({
                             <span className="text-xs font-black uppercase tracking-widest">Project Structure</span>
                         </div>
 
-                        
+
                         <div className="font-mono text-[13px] leading-[1.6] text-slate-600">
                             src/
                             {renderTree(tree)}
@@ -143,7 +143,7 @@ export default function LabCanvas({
 
 
                     {/* Files */}
-                    <div className="flex-1 flex flex-col p-6 overflow-auto gap-6">
+                    <div className="flex-1 flex flex-col p-6 overflow-y-auto min-h-0 gap-6">
                         {currentExample.exportLogic?.map((item, idx) => (
                             <div key={idx} className="space-y-2">
                                 <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
@@ -157,6 +157,7 @@ export default function LabCanvas({
                                         </span>
                                     </span>
                                 </div>
+
                                 <pre className="p-5 bg-white border border-slate-200 rounded-2xl text-indigo-700 font-mono text-[12.5px] leading-relaxed shadow-sm overflow-auto">
                                     {item.content}
                                 </pre>

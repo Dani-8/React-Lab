@@ -22,22 +22,23 @@
 
 
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: #dcdee6;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 196, 124, 0.4);
-  border-radius: 6px;
+  background: rgba(255, 196, 124, 0.8);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: transparent;
+  cursor: grabbing;
+  background: rgba(255, 175, 77, 0.8);
 }
 
 ::-webkit-scrollbar-corner {
