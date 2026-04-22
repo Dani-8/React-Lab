@@ -1,9 +1,12 @@
+import { useState } from "react";
+import { Smartphone, Monitor } from "lucide-react";
+
 export default function MainLayoutDemo({ data, setData }) {
-    const [activeTab, setActiveTab] = useState('desktop');
+    const [activeTab, setActiveTab] = useState('mobile');
     const [currentPath, setCurrentPath] = useState('dashboard');
 
     return (
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-5">
             <div className="flex bg-slate-100 p-1 rounded-xl">
                 <button
                     onClick={() => setActiveTab('mobile')}
@@ -11,7 +14,7 @@ export default function MainLayoutDemo({ data, setData }) {
                 >
                     <Smartphone size={14} className="inline mr-1" /> Mobile
                 </button>
-                
+
                 <button
                     onClick={() => setActiveTab('desktop')}
                     className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase transition-all ${activeTab === 'desktop' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-400'}`}
@@ -21,7 +24,7 @@ export default function MainLayoutDemo({ data, setData }) {
             </div>
 
 
-            <div className={`bg-white border border-slate-200 rounded-[2rem] shadow-2xl overflow-hidden transition-all duration-500 ${activeTab === 'mobile' ? 'w-64 h-[450px]' : 'w-[500px] h-[350px]'}`}>
+            <div className={`bg-white border border-slate-200 rounded-[2rem] shadow-2xl overflow-hidden transition-all duration-500 ${activeTab === 'mobile' ? 'w-64 h-[420px]' : 'w-[500px] h-[350px]'}`}>
                 {/* Global Navbar */}
                 <div className="h-10 bg-white border-b border-slate-100 flex items-center justify-between px-4">
                     <div className="flex items-center gap-2">

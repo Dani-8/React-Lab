@@ -1,10 +1,14 @@
+import { useState } from "react";
+import { RefreshCw, Database,  } from "lucide-react";
+
 export default function DataLoaderDemo({ data, setData }) {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
 
     const triggerFetch = () => {
         setLoading(true);
-        setData({ state: 'loading', action: 'loader_trigger' });
+        setData({ state: 'loading', action: 'loader_trigger' })
+
         setTimeout(() => {
             setResult([
                 { name: 'Core Processor', price: '$299' },

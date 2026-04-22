@@ -25,7 +25,7 @@ import DynamicRoutesDemo from '../pages/Routing/DynamicRoutesDemo?raw'
 import NavigationDemo from '../pages/Routing/NavigationDemo?raw'
 import NotFoundDemo from '../pages/Routing/NotFoundDemo?raw'
 import MainLayoutDemo from '../pages/Routing/MainLayoutDemo?raw'
-// import MainLayoutDemo from '../pages/Routing/MainLayoutDemo?raw'
+import DataLoaderDemo from '../pages/Routing/DataLoaderDemo?raw'
 // =================================================================
 // =================================================================
 // =================================================================
@@ -486,7 +486,7 @@ export const REGISTRY = {
         name: 'Layout Routes',
         fileName: 'MainLayoutDemo.jsx',
         code: MainLayoutDemo,
-        component: ,
+        component: () => import('../pages/Routing/MainLayoutDemo'),
         initialState: { layout: 'RootLayout', outlet: 'dynamic', sidebar: 'sticky' },
 
         exportLogic: [
@@ -513,7 +513,7 @@ export const REGISTRY = {
         name: 'Route Data Loading',
         fileName: 'DataLoaderDemo.jsx',
         code: DataLoaderDemo,
-        component: () => import('../'),
+        component: () => import('../pages/Routing/DataLoaderDemo'),
         initialState: { state: 'idle', dataLoaded: false },
 
         exportLogic: [
