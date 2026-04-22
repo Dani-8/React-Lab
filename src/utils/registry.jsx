@@ -24,7 +24,8 @@ import NestedRoutesDemo from '../pages/Routing/NestedRoutesDemo?raw'
 import DynamicRoutesDemo from '../pages/Routing/DynamicRoutesDemo?raw'
 import NavigationDemo from '../pages/Routing/NavigationDemo?raw'
 import NotFoundDemo from '../pages/Routing/NotFoundDemo?raw'
-// import DynamicRoutesDemo from '../pages/Routing/DynamicRoutesDemo?raw'
+import MainLayoutDemo from '../pages/Routing/MainLayoutDemo?raw'
+// import MainLayoutDemo from '../pages/Routing/MainLayoutDemo?raw'
 // =================================================================
 // =================================================================
 // =================================================================
@@ -481,6 +482,55 @@ export const REGISTRY = {
         ]
       },
 
+      'layout-routes': {
+        name: 'Layout Routes',
+        fileName: 'MainLayoutDemo.jsx',
+        code: MainLayoutDemo,
+        component: ,
+        initialState: { layout: 'RootLayout', outlet: 'dynamic', sidebar: 'sticky' },
+
+        exportLogic: [
+          {
+            file: 'src/layouts/RootLayout.jsx',
+            content: `import React from 'react';\nimport { Outlet } from 'react-router-dom';\nimport Navbar from '../components/Navbar';\nimport Sidebar from '../components/Sidebar';\n\nexport default function RootLayout() {\n  return (\n    <div className="flex flex-col h-screen">\n      <Navbar />\n      <div className="flex flex-1 overflow-hidden">\n        <Sidebar />\n        <main className="flex-1 overflow-y-auto p-6 bg-slate-50">\n          {/* Outlet renders the specific page content */}\n          <Outlet />\n        </main>\n      </div>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/components/Navbar.jsx',
+            content: `export default function Navbar() {\n  return (\n    <nav className="h-16 bg-white border-b flex items-center px-8">\n      <h1 className="font-bold">Admin Console</h1>\n    </nav>\n  );\n}`
+          },
+          {
+            file: 'src/pages/Dashboard.jsx',
+            content: `export default function Dashboard() {\n  return (\n    <div>\n      <h2>Welcome Back</h2>\n      <p>This content is wrapped by RootLayout</p>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { BrowserRouter, Routes, Route } from 'react-router-dom';\nimport RootLayout from './layouts/RootLayout';\nimport Dashboard from './pages/Dashboard';\nimport Settings from './pages/Settings';\n\nexport default function App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        {/* Layout Route: No 'path', only 'element' */}\n        <Route element={<RootLayout />}>\n          <Route path="/" element={<Dashboard />} />\n          <Route path="/settings" element={<Settings />} />\n        </Route>\n      </Routes>\n    </BrowserRouter>\n  );\n}`
+          }
+        ]
+      },
+
+      'data-loading': {
+        name: 'Route Data Loading',
+        fileName: 'DataLoaderDemo.jsx',
+        code: DataLoaderDemo,
+        component: () => import('../'),
+        initialState: { state: 'idle', dataLoaded: false },
+
+        exportLogic: [
+          {
+            file: 'src/api/loaders.js',
+            content: `export const productLoader = async () => {\n  const res = await fetch('https://api.myapp.com/products');\n  return res.json();\n};`
+          },
+          {
+            file: 'src/pages/Inventory.jsx',
+            content: `import { useLoaderData } from 'react-router-dom';\n\nexport default function Inventory() {\n  const items = useLoaderData();\n  return (\n    <section>\n      {items.map(i => <div key={i.id}>{i.title}</div>)}\n    </section>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport Inventory from './pages/Inventory';\nimport { productLoader } from './api/loaders';\n\nconst router = createBrowserRouter([\n  {\n    path: "/inventory",\n    element: <Inventory />,\n    loader: productLoader // <--- Linked here\n  }\n]);\n\nexport default function App() {\n  return <RouterProvider router={router} />;\n}`
+          }
+        ]
+      },
     }
   }
 };
