@@ -434,19 +434,26 @@ export const REGISTRY = {
         code: NavigationDemo,
         component: () => import("../pages/Routing/NavigationDemo"),
         initialState: { action: 'none', target: '/', status: 'idle' },
-
+        
         exportLogic: [
           {
             file: 'src/pages/Landing.jsx',
-            content: `import React from 'react';\nimport { Link, useNavigate } from 'react-router-dom';\n\nexport default function Landing() {\n  const navigate = useNavigate();\n\n  return (\n    <div className="p-10">\n      <h1>Welcome</h1>\n      <Link to="/about" className="btn">About (Link)</Link>\n      <button onClick={() => navigate('/dashboard')} className="btn">Dashboard (useNavigate)</button>\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { Link, useNavigate } from 'react-router-dom';\n\nexport default function Landing() {\n  const navigate = useNavigate();\n\n  return (\n    <div className="p-10 flex flex-col gap-4 items-center justify-center min-h-screen bg-slate-50">\n      <h1 className="text-4xl font-black text-slate-900">Welcome</h1>\n      <div className="flex gap-4">\n        <Link to="/about" className="px-6 py-3 bg-white border border-slate-200 rounded-xl font-bold shadow-sm hover:bg-slate-50 transition-all">About (Link)</Link>\n        <button \n          onClick={() => navigate('/dashboard')} \n          className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all"\n        >\n          Dashboard (useNavigate)\n        </button>\n      </div>\n    </div>\n  );\n}`
           },
           {
             file: 'src/pages/Dashboard.jsx',
-            content: `import React from 'react';\n\nexport default function Dashboard() {\n  return <h1>Dashboard - Private Access</h1>;\n}`
+            content: `import React from 'react';\nimport { useNavigate } from 'react-router-dom';\n\nexport default function Dashboard() {\n  const navigate = useNavigate();\n  return (\n    <div className="p-10 text-center">\n      <h1 className="text-3xl font-black text-slate-900 mb-6">Dashboard - Private Access</h1>\n      <button \n        onClick={() => navigate('/')} \n        className="text-sm font-bold text-slate-400 hover:text-slate-600"\n      >\n        ← Go Back\n      </button>\n    </div>\n  );\n}`
           },
           {
+            file: 'src/pages/About.jsx',
+            content: `import React from 'react';\nimport { useNavigate } from 'react-router-dom';\n\nexport default function About() {\n  const navigate = useNavigate();\n\n  return (\n    <div className="flex flex-col items-center justify-center p-10">\n      <h2 className="text-2xl font-black text-slate-900 mb-2">About Page</h2>\n      <p className="text-slate-500 font-medium max-w-sm mx-auto text-center mb-6">\n        We are building high-performance web applications using the MERN stack and modern routing.\n      </p>\n\n      <button \n        onClick={() => navigate('/')} \n        className="text-sm font-bold text-slate-400 hover:text-slate-600 transition-colors"\n      >\n        ← Go Back\n      </button>\n    </div>\n  );\n}`          },
+          {
             file: 'src/App.jsx',
-            content: `import { BrowserRouter, Routes, Route } from 'react-router-dom';\nimport Landing from './pages/Landing';\nimport Dashboard from './pages/Dashboard';\n\nexport default function App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path="/" element={<Landing />} />\n        <Route path="/dashboard" element={<Dashboard />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}`
+            content: `import { Outlet } from 'react-router-dom';\n\nexport default function App() {\n  return (\n    <div className="min-h-screen bg-slate-50">\n      <Outlet />\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport App from './App';\nimport Landing from './pages/Landing';\nimport Dashboard from './pages/Dashboard';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <App />,\n    children: [\n      { index: true, element: <Landing /> },\n      { path: 'dashboard', element: <Dashboard /> }\n    ]\n  }\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
           }
         ]
       },
