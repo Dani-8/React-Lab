@@ -22,6 +22,9 @@ import UseFetchDemo from '../pages/Hooks/UseFetchDemo?raw'
 import BasicRoutingDemo from '../pages/Routing/BasicRoutingDemo?raw'
 import NestedRoutesDemo from '../pages/Routing/NestedRoutesDemo?raw'
 import DynamicRoutesDemo from '../pages/Routing/DynamicRoutesDemo?raw'
+import NavigationDemo from '../pages/Routing/NavigationDemo?raw'
+import NotFoundDemo from '../pages/Routing/NotFoundDemo?raw'
+// import DynamicRoutesDemo from '../pages/Routing/DynamicRoutesDemo?raw'
 // =================================================================
 // =================================================================
 // =================================================================
@@ -425,6 +428,47 @@ export const REGISTRY = {
         ]
       },
 
+      'navigation-logic': {
+        name: 'Navigation & Redirects',
+        fileName: 'NavigationDemo.jsx',
+        code: NavigationDemo,
+        component: () => import("../pages/Routing/NavigationDemo"),
+        initialState: { action: 'none', target: '/', status: 'idle' },
+
+        exportLogic: [
+          {
+            file: 'src/pages/Landing.jsx',
+            content: `import React from 'react';\nimport { Link, useNavigate } from 'react-router-dom';\n\nexport default function Landing() {\n  const navigate = useNavigate();\n\n  return (\n    <div className="p-10">\n      <h1>Welcome</h1>\n      <Link to="/about" className="btn">About (Link)</Link>\n      <button onClick={() => navigate('/dashboard')} className="btn">Dashboard (useNavigate)</button>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/pages/Dashboard.jsx',
+            content: `import React from 'react';\n\nexport default function Dashboard() {\n  return <h1>Dashboard - Private Access</h1>;\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { BrowserRouter, Routes, Route } from 'react-router-dom';\nimport Landing from './pages/Landing';\nimport Dashboard from './pages/Dashboard';\n\nexport default function App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path="/" element={<Landing />} />\n        <Route path="/dashboard" element={<Dashboard />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}`
+          }
+        ]
+      },
+
+      'not-found-pattern': {
+        name: '404 Catch-All Route',
+        fileName: 'NotFoundDemo.jsx',
+        code: NotFoundDemo,
+        component: () => import('../pages/Routing/NotFoundDemo'),
+        initialState: { resolved: true, currentPath: '/home' },
+
+        exportLogic: [
+          {
+            file: 'src/pages/NotFound.jsx',
+            content: `import React from 'react';\nimport { Link } from 'react-router-dom';\n\nexport default function NotFound() {\n  return (\n    <div className="error-page">\n      <h1>404 - Page Not Found</h1>\n      <p>Sorry, the page you're looking for doesn't exist.</p>\n      <Link to="/">Return to Home</Link>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { BrowserRouter, Routes, Route } from 'react-router-dom';\nimport Home from './pages/Home';\nimport About from './pages/About';\nimport NotFound from './pages/NotFound';\n\nexport default function App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path="/" element={<Home />} />\n        <Route path="/about" element={<About />} />\n        {/* The asterisk (*) catches everything else */}\n        <Route path="*" element={<NotFound />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}`
+          }
+        ]
+      }    
 
     }
   }
