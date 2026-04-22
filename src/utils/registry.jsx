@@ -461,11 +461,15 @@ export const REGISTRY = {
         exportLogic: [
           {
             file: 'src/pages/NotFound.jsx',
-            content: `import React from 'react';\nimport { Link } from 'react-router-dom';\n\nexport default function NotFound() {\n  return (\n    <div className="error-page">\n      <h1>404 - Page Not Found</h1>\n      <p>Sorry, the page you're looking for doesn't exist.</p>\n      <Link to="/">Return to Home</Link>\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { Link } from 'react-router-dom';\n\nexport default function NotFound() {\n  return (\n    <div className="text-center py-20">\n      <h1 className="text-4xl font-black text-slate-900 mb-2">404</h1>\n      <p className="text-slate-500 mb-6">Page not found</p>\n      <Link to="/" className="text-blue-600 font-bold hover:underline">Go Home</Link>\n    </div>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import { BrowserRouter, Routes, Route } from 'react-router-dom';\nimport Home from './pages/Home';\nimport About from './pages/About';\nimport NotFound from './pages/NotFound';\n\nexport default function App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path="/" element={<Home />} />\n        <Route path="/about" element={<About />} />\n        {/* The asterisk (*) catches everything else */}\n        <Route path="*" element={<NotFound />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}`
+            content: `import React from 'react';\nimport { Link, Outlet } from "react-router-dom";\n\nexport default function App() {\n  return (\n    <div className="p-8 text-center min-h-screen bg-slate-50">\n      <nav className='flex items-center justify-center gap-6 mb-10 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 max-w-fit mx-auto'>\n        <Link to="/" className="font-bold text-slate-600 hover:text-blue-600 transition-colors">Home</Link>\n        <Link to="/about" className="font-bold text-slate-600 hover:text-blue-600 transition-colors">About</Link>\n        <Link to="/setting" className="font-bold text-slate-600 hover:text-blue-600 transition-colors">Settings</Link>\n        <Link to="/contact" className="font-bold text-slate-600 hover:text-blue-600 transition-colors">Contact</Link>\n      </nav>\n      <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">\n        <Outlet />\n      </div>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport App from './App';\nimport Home from './pages/Home';\nimport About from './pages/About';\nimport Settings from './pages/Setting';\nimport NotFound from './pages/NotFound';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <App />,\n    children: [\n      { index: true, element: <Home /> },\n      { path: "about", element: <About /> },\n      { path: "setting", element: <Settings /> },\n      { path: "*", element: <NotFound /> } // Catch-all inside App layout\n    ]\n  },\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
           }
         ]
       }    
