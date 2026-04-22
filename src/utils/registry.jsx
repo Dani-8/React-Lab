@@ -17,6 +17,9 @@ import UseMemoDemo from '../pages/Hooks/UseMemoDemo?raw'
 import UseCallbackDemo from '../pages/Hooks/UseCallbackDemo?raw'
 import UseFetchDemo from '../pages/Hooks/UseFetchDemo?raw'
 
+
+// ROUTE
+import BasicRoutingDemo from '../pages/Routing/BasicRoutingDemo?raw'
 // =================================================================
 // =================================================================
 // =================================================================
@@ -321,14 +324,32 @@ export const REGISTRY = {
     title: 'Routing',
     icon: <Form size={14} />,
     examples: {
-      '': {
-        name: 'Coming Soon',
-        fileName: 'ComingSoon.jsx',
-        component: () => Promise.resolve({ default: () => <div className="p-10 text-center">More examples coming soon!</div> }),
-        sourcePath: 'ComingSoon.jsx',
-        initialState: {  },
-        code: `// Stay tuned for routing examples!`,
-        exportLogic: []
+      'basic-routing': {
+        name: 'Basic Routing',
+        fileName: 'BasicRoutingDemo.jsx',
+        code: BasicRoutingDemo,
+        component: () => import('../pages/Routing/BasicRoutingDemo'),
+        sourcePath: 'src/App.jsx',
+        initialState: { activeRoute: '/home', timestamp: '--' },
+
+        exportLogic: [
+          {
+            file: 'src/pages/Home.jsx',
+            content: `import React from 'react';\n\nexport default function Home() {\n  return (\n    <div>\n      <h2 className="text-xl font-bold text-slate-900">Homepage</h2>\n      <p className="text-sm text-slate-500">Welcome to the home screen.</p>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/pages/About.jsx',
+            content: `import React from 'react';\n\nexport default function About() {\n  return (\n    <div>\n      <h2 className="text-xl font-bold text-slate-900">About Page</h2>\n      <p className="text-sm text-slate-500">Details about our team.</p>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/pages/Settings.jsx',
+            content: `import React from 'react';\n\nexport default function Settings() {\n  return (\n    <div>\n      <h2 className="text-xl font-bold text-slate-900">Settings</h2>\n      <p className="text-sm text-slate-500">App configuration settings.</p>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import React, { useState } from 'react';\nimport Home from './pages/Home';\nimport About from './pages/About';\nimport Settings from './pages/Settings';\n\nexport default function App() {\n  const [route, setRoute] = useState('home');\n\n  return (\n    <div className="app">\n      <nav>\n        <button onClick={() => setRoute('home')}>Home</button>\n        <button onClick={() => setRoute('about')}>About</button>\n        <button onClick={() => setRoute('settings')}>Settings</button>\n      </nav>\n      <main>\n        {route === 'home' && <Home />}\n        {route === 'about' && <About />}\n        {route === 'settings' && <Settings />}\n      </main>\n    </div>\n  );\n}`
+          }
+        ]
       }
     }
   }
