@@ -350,6 +350,10 @@ export const REGISTRY = {
           {
             file: 'src/App.jsx',
             content: `import React, { useState } from 'react';\nimport Home from './pages/Home';\nimport About from './pages/About';\nimport Settings from './pages/Settings';\n\nexport default function App() {\n  const [route, setRoute] = useState('home');\n\n  return (\n    <div className="app">\n      <nav>\n        <button onClick={() => setRoute('home')}>Home</button>\n        <button onClick={() => setRoute('about')}>About</button>\n        <button onClick={() => setRoute('settings')}>Settings</button>\n      </nav>\n      <main>\n        {route === 'home' && <Home />}\n        {route === 'about' && <About />}\n        {route === 'settings' && <Settings />}\n      </main>\n    </div>\n  );\n}`
+          },
+          {
+            file: "src/main.jsx",
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport App from './App';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <App />\n  }\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
           }
         ]
       },
