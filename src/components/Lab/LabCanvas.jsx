@@ -143,7 +143,7 @@ export default function LabCanvas({
 
 
                     {/* Files */}
-                    <div className="flex-1 flex flex-col p-6 overflow-y-auto min-h-0 gap-6">
+                    <div className="flex-1 flex flex-col p-6 overflow-y-auto min-h-0 gap-6 max-w-full w-lg">
                         {currentExample.exportLogic?.map((item, idx) => (
                             <div key={idx} className="space-y-2">
                                 <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
@@ -158,9 +158,11 @@ export default function LabCanvas({
                                     </span>
                                 </div>
 
-                                <pre className="p-5 bg-white border border-slate-200 rounded-2xl text-indigo-700 font-mono text-[12.5px] leading-relaxed shadow-sm overflow-auto">
-                                    {item.content}
-                                </pre>
+                                <div className='overflow-hidden rounded-xl border border-slate-200 shadow-sm'>
+                                    <pre className="p-5 bg-white text-indigo-700 font-mono text-[12.5px] leading-relaxed overflow-auto">
+                                        {item.content}
+                                    </pre>
+                                </div>
                             </div>
                         ))}
 

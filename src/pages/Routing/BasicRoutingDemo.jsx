@@ -14,17 +14,17 @@ export default function BasicRoutingDemo({ data, setData }) {
             {/* Navbar - Can be COMPONENT as well */}
             <nav className="flex justify-center gap-2 mb-10 p-1.5 bg-slate-100 rounded-2xl">
                 <button onClick={() => updateRoute('home')} 
-                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${route === 'home' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400'}`}>
+                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${route === 'home' ? 'bg-white text-orange-500 shadow-sm' : 'text-slate-400'}`}>
                     Home
                 </button>
 
                 <button onClick={() => updateRoute('about')} 
-                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${route === 'about' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400'}`}>
+                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${route === 'about' ? 'bg-white text-orange-500 shadow-sm' : 'text-slate-400'}`}>
                     About
                 </button>
 
                 <button onClick={() => updateRoute('settings')} 
-                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${route === 'settings' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400'}`}>
+                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${route === 'settings' ? 'bg-white text-orange-500 shadow-sm' : 'text-slate-400'}`}>
                     Settings
                 </button>
             </nav>
@@ -53,6 +53,7 @@ export default function BasicRoutingDemo({ data, setData }) {
                     </div>
                 )}
             </div>
+
 
             <div className="mt-10 pt-6 border-t border-slate-100 flex items-center justify-between">
                 <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Active Path</span>
