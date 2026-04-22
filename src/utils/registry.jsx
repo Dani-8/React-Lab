@@ -479,7 +479,7 @@ export const REGISTRY = {
             content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport App from './App';\nimport Home from './pages/Home';\nimport About from './pages/About';\nimport Settings from './pages/Setting';\nimport NotFound from './pages/NotFound';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <App />,\n    children: [\n      { index: true, element: <Home /> },\n      { path: "about", element: <About /> },\n      { path: "setting", element: <Settings /> },\n      { path: "*", element: <NotFound /> } // Catch-all inside App layout\n    ]\n  },\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
           }
         ]
-      }    
+      },
 
     }
   }

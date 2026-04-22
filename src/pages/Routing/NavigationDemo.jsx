@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigation, ExternalLink, FastForward, Activity, Info, PieChart, ArrowLeft } from "lucide-react";
 
-export default function NavigationDemo ({ data, setData }) {
+export default function NavigationDemo({ data, setData }) {
     const [view, setView] = useState('landing');
     const [status, setStatus] = useState('idle');
 
@@ -28,7 +28,10 @@ export default function NavigationDemo ({ data, setData }) {
 
                     <div className="space-y-3">
                         <button
-                            onClick={() => setView('about')}
+                            onClick={() => {
+                                setView('about');
+                                setData({ action: 'Link', target: '/about', status: 'completed' });
+                            }}
                             className="w-full py-3 border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-slate-50"
                         >
                             <ExternalLink size={14} /> Simple Link
@@ -54,7 +57,10 @@ export default function NavigationDemo ({ data, setData }) {
                     <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-8">Navigation Success</p>
 
                     <button
-                        onClick={() => setView('landing')}
+                        onClick={() => {
+                            setView('landing');
+                            setData({ action: 'none', target: '/', status: 'idle' });
+                        }}
                         className="flex items-center gap-2 mx-auto text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900"
                     >
                         <ArrowLeft size={12} /> Back to Start
