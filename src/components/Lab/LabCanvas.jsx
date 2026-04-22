@@ -1,5 +1,6 @@
 import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle, Info } from 'lucide-react';
 
+
 function buildTree(paths) {
     const tree = {}
 
@@ -146,17 +147,30 @@ export default function LabCanvas({
                     <div className="flex-1 flex flex-col p-6 overflow-y-auto min-h-0 gap-6 max-w-full w-lg">
                         {currentExample.exportLogic?.map((item, idx) => (
                             <div key={idx} className="space-y-2">
-                                <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                                    {item.file}
+                                <div className="flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <span>{item.file}</span>
 
-                                    <span className='info-icon hover:text-orange-500 cursor-pointer flex items-center gap-1 relative group text-slate-400 transition-all duration-400'>
-                                        <Info size={16} />
+                                    <div className="flex items-center gap-3">
+                                        {/* Copy Button */}
+                                        <button  onClick={() => handleCopy(item.content)} title="Copy Code"
+                                            className="hover:text-orange-500 focus:scale-75 transform-all duration-400 cursor-pointer flex items-center gap-1"
+                                        >
+                                            <Copy size={14} />
+                                        </button>
 
-                                        <span className='z-99 absolute top-7 -left-45 p-2 border-l-3 border border-orange-400 bg-white text-slate-600 font-black text-[9px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl'>
-                                            Create files and folders as shown.<br /><br /> Then copy the code into the respective files to replicate the result.<br /><br /> And apply CSS/TailwindCSS as you see fit!
+                                        {/* Info Icon */}
+                                        <span className='info-icon hover:text-orange-500 cursor-pointer flex items-center gap-1 relative group text-slate-400 transition-all duration-400'>
+                                            <Info size={16} />
+
+                                            <span className='z-50 absolute top-7 -left-45 p-2 border-l-3 border border-orange-400 bg-white text-slate-600 font-black text-[9px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl w-50'>
+                                                Create files and folders as shown.<br /><br /> 
+                                                Then copy the code into the respective files to replicate the result.<br /><br /> 
+                                                And apply CSS/TailwindCSS as you see fit!
+                                            </span>
                                         </span>
-                                    </span>
+                                    </div>
                                 </div>
+
 
                                 <div className='overflow-hidden rounded-xl border border-slate-200 shadow-sm'>
                                     <pre className="p-5 bg-white text-indigo-700 font-mono text-[12.5px] leading-relaxed overflow-auto">
@@ -165,8 +179,8 @@ export default function LabCanvas({
                                 </div>
                             </div>
                         ))}
+                        
 
-                        {/*  Your fallback kept */}
                         {(!currentExample.exportLogic || currentExample.exportLogic.length === 0) && (
                             <div className="text-center py-20 text-orange-600">
                                 No architecture data for this example yet.

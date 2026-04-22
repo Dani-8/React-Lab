@@ -8,14 +8,14 @@ import { useState, useEffect } from 'react'
 // ---------------------------------------------------------------
 
 export default function App() {
-  const firstCategory = Object.keys(REGISTRY)[2]
+  const firstCategory = Object.keys(REGISTRY)[0]
   const firstExample = Object.keys(REGISTRY[firstCategory]?.examples || {})[0]
 
   const [activeCategory, setActiveCategory] = useState(firstCategory)
   const [activeExample, setActiveExample] = useState(firstExample)
   const [expandedCategories, setExpandedCategories] = useState([firstCategory])
 
-  const [viewMode, setViewMode] = useState('export') // 'preview', 'code', 'export'
+  const [viewMode, setViewMode] = useState('preview') // 'preview', 'code', 'export'
   const [localData, setLocalData] = useState({})
   const [copied, setCopied] = useState(false)
   const [SelectedComponent, setSelectedComponent] = useState(null)
@@ -32,7 +32,7 @@ export default function App() {
 
   useEffect(() => {
     setLocalData(example.initialState || {})
-    setViewMode('export')
+    setViewMode('preview')
   }, [activeExample, activeCategory])
 
 
