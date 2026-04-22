@@ -492,19 +492,31 @@ export const REGISTRY = {
         exportLogic: [
           {
             file: 'src/layouts/RootLayout.jsx',
-            content: `import React from 'react';\nimport { Outlet } from 'react-router-dom';\nimport Navbar from '../components/Navbar';\nimport Sidebar from '../components/Sidebar';\n\nexport default function RootLayout() {\n  return (\n    <div className="flex flex-col h-screen">\n      <Navbar />\n      <div className="flex flex-1 overflow-hidden">\n        <Sidebar />\n        <main className="flex-1 overflow-y-auto p-6 bg-slate-50">\n          {/* Outlet renders the specific page content */}\n          <Outlet />\n        </main>\n      </div>\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { Outlet } from 'react-router-dom';\nimport Navbar from '../components/Navbar';\nimport Sidebar from '../components/Sidebar';\n\nexport default function RootLayout() {\n  return (\n    <div className="flex flex-col h-screen bg-slate-50">\n      <Navbar />\n      <div className="flex flex-1 overflow-hidden">\n        <Sidebar />\n        <main className="flex-1 overflow-y-auto p-10">\n          <div className="max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-3 duration-500">\n            <Outlet />\n          </div>\n        </main>\n      </div>\n    </div>\n  );\n}`
           },
           {
             file: 'src/components/Navbar.jsx',
-            content: `export default function Navbar() {\n  return (\n    <nav className="h-16 bg-white border-b flex items-center px-8">\n      <h1 className="font-bold">Admin Console</h1>\n    </nav>\n  );\n}`
+            content: `import React from 'react';\n\nexport default function Navbar() {\n  return (\n    <nav className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10 shadow-sm">\n      <div className="flex items-center gap-2">\n        <div className="w-8 h-8 bg-indigo-600 rounded-lg" />\n        <h1 className="font-black text-slate-800 tracking-tight">ADMIN.CORE</h1>\n      </div>\n      <div className="w-8 h-8 bg-slate-100 rounded-full border border-slate-200" />\n    </nav>\n  );\n}`
+          },
+          {
+            file: 'src/components/Sidebar.jsx',
+            content: `import React from 'react';\nimport { NavLink } from 'react-router-dom';\n\nexport default function Sidebar() {\n  const links = [\n    { name: 'Dashboard', path: '/' },\n    { name: 'Settings', path: '/settings' }\n  ];\n\n  return (\n    <aside className="w-64 bg-white border-r border-slate-200 p-6 hidden md:flex flex-col gap-2">\n      {links.map(link => (\n        <NavLink \n          key={link.path} \n          to={link.path} \n          className={({ isActive }) => \`px-4 py-2 rounded-xl font-bold text-sm transition-all \${\n            isActive ? 'bg-indigo-50 text-indigo-600' : 'text-slate-400 hover:bg-slate-50 hover:text-slate-600'\n          }\`}\n        >\n          {link.name}\n        </NavLink>\n      ))}\n    </aside>\n  );\n}`
           },
           {
             file: 'src/pages/Dashboard.jsx',
-            content: `export default function Dashboard() {\n  return (\n    <div>\n      <h2>Welcome Back</h2>\n      <p>This content is wrapped by RootLayout</p>\n    </div>\n  );\n}`
+            content: `import React from 'react';\n\nexport default function Dashboard() {\n  return (\n    <div className="space-y-4">\n      <h2 className="text-3xl font-black text-slate-900">Welcome Back</h2>\n      <div className="p-8 bg-white rounded-3xl border border-slate-200 shadow-sm">\n        <p className="text-slate-500 font-medium">This page is currently wrapped by the RootLayout component.</p>\n      </div>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/pages/Settings.jsx',
+            content: `import React from 'react';\n\nexport default function Settings() {\n  return (\n    <div className="space-y-4">\n      <h2 className="text-3xl font-black text-slate-900">Settings</h2>\n      <div className="p-8 bg-white rounded-3xl border border-slate-200 shadow-sm">\n        <div className="space-y-6">\n          <div className="flex items-center justify-between py-2 border-b border-slate-100">\n            <span className="font-bold text-slate-700">Dark Mode</span>\n            <div className="w-12 h-6 bg-slate-200 rounded-full" />\n          </div>\n          <div className="flex items-center justify-between py-2 border-b border-slate-100">\n            <span className="font-bold text-slate-700">Email Notifications</span>\n            <div className="w-12 h-6 bg-indigo-600 rounded-full" />\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import { BrowserRouter, Routes, Route } from 'react-router-dom';\nimport RootLayout from './layouts/RootLayout';\nimport Dashboard from './pages/Dashboard';\nimport Settings from './pages/Settings';\n\nexport default function App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        {/* Layout Route: No 'path', only 'element' */}\n        <Route element={<RootLayout />}>\n          <Route path="/" element={<Dashboard />} />\n          <Route path="/settings" element={<Settings />} />\n        </Route>\n      </Routes>\n    </BrowserRouter>\n  );\n}`
+            content: `import { Outlet } from 'react-router-dom';\n\nexport default function App() {\n  return <Outlet />;\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport App from './App';\nimport RootLayout from './layouts/RootLayout';\nimport Dashboard from './pages/Dashboard';\nimport Settings from './pages/Settings';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <RootLayout />,\n    children: [\n      { index: true, element: <Dashboard /> },\n      { path: 'settings', element: <Settings /> }\n    ]\n  }\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
           }
         ]
       },
@@ -519,18 +531,29 @@ export const REGISTRY = {
         exportLogic: [
           {
             file: 'src/api/loaders.js',
-            content: `export const productLoader = async () => {\n  const res = await fetch('https://api.myapp.com/products');\n  return res.json();\n};`
+            content: `export const productLoader = async () => {\n  const res = await fetch('https://fakestoreapi.com/products');\n  if (!res.ok) throw new Error('Failed to fetch products');\n  return res.json();\n};`
           },
           {
             file: 'src/pages/Inventory.jsx',
-            content: `import { useLoaderData } from 'react-router-dom';\n\nexport default function Inventory() {\n  const items = useLoaderData();\n  return (\n    <section>\n      {items.map(i => <div key={i.id}>{i.title}</div>)}\n    </section>\n  );\n}`
+            content: `import React from 'react';\nimport { useLoaderData } from 'react-router-dom';\n\nexport default function Inventory() {\n  const items = useLoaderData();\n\n  return (\n    <div className="p-10 bg-slate-50 min-h-screen">\n      <h1 className="text-3xl font-black text-slate-900 mb-8 tracking-tight">Inventory</h1>\n      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">\n        {items.map(item => (\n          <div key={item.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">\n            <div className="h-40 bg-slate-100 rounded-2xl mb-4 overflow-hidden flex items-center justify-center p-4">\n               <img src={item.image} alt={item.title} className="h-full object-contain mix-blend-multiply" />\n            </div>\n            <h3 className="font-bold text-slate-800 line-clamp-1">{item.title}</h3>\n            <p className="text-blue-600 font-black mt-2">$\${item.price}</p>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport Inventory from './pages/Inventory';\nimport { productLoader } from './api/loaders';\n\nconst router = createBrowserRouter([\n  {\n    path: "/inventory",\n    element: <Inventory />,\n    loader: productLoader // <--- Linked here\n  }\n]);\n\nexport default function App() {\n  return <RouterProvider router={router} />;\n}`
+            content: `import { Outlet } from 'react-router-dom';\n\nexport default function App() {\n  return <Outlet />;\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';\nimport App from './App';\nimport Inventory from './pages/Inventory';\nimport { productLoader } from './api/loaders';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <App />,\n    children: [\n      { index: true, element: <Navigate to="/inventory" replace /> },\n      {\n        path: "inventory",\n        element: <Inventory />,\n        loader: productLoader\n      }\n    ]\n  }\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
           }
         ]
       },
     }
-  }
+  },
+
+  // -------------------------------------
+
+  
+
+
+
 };
