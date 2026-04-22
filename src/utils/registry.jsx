@@ -349,11 +349,11 @@ export const REGISTRY = {
           },
           {
             file: 'src/App.jsx',
-            content: `import React, { useState } from 'react';\nimport Home from './pages/Home';\nimport About from './pages/About';\nimport Settings from './pages/Settings';\n\nexport default function App() {\n  const [route, setRoute] = useState('home');\n\n  return (\n    <div className="app">\n      <nav>\n        <button onClick={() => setRoute('home')}>Home</button>\n        <button onClick={() => setRoute('about')}>About</button>\n        <button onClick={() => setRoute('settings')}>Settings</button>\n      </nav>\n      <main>\n        {route === 'home' && <Home />}\n        {route === 'about' && <About />}\n        {route === 'settings' && <Settings />}\n      </main>\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { Link, Outlet } from "react-router-dom";\n\nexport default function App() {\n\n  return (\n    <div className="p-8 text-center min-h-screen bg-slate-50">\n      <nav className='flex items-center justify-center gap-6 mb-10 bg-white p-4 rounded-2xl shadow-sm border border-slate-200 max-w-fit mx-auto'>\n        <Link to="/" className="font-bold text-slate-600 hover:text-blue-600 transition-colors">Home</Link>\n        <Link to="/about" className="font-bold text-slate-600 hover:text-blue-600 transition-colors">About</Link>\n        <Link to="/setting" className="font-bold text-slate-600 hover:text-blue-600 transition-colors">Settings</Link>\n      </nav>\n\n      <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">\n        <Outlet />\n      </div>\n    </div>\n  );\n}`
           },
           {
-            file: "src/main.jsx",
-            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport App from './App';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <App />\n  }\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport App from './App';\nimport Home from './pages/Home';\nimport About from './pages/About';\nimport Settings from './pages/Setting';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <App />,\n    children: [\n      {\n        index: true,\n        element: <Home />\n      },\n      {\n        path: "about",\n        element: <About />\n      },\n      {\n        path: "setting",\n        element: <Settings />\n      },\n    ]\n  },\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
           }
         ]
       },
@@ -361,6 +361,7 @@ export const REGISTRY = {
       'nested-routes': {
         name: 'Nested Routes (Dashboard)',
         fileName: 'NestedRoutesDemo.jsx',
+        sourcePath: 'src/pages/Routing/NestedRoutesDemo.jsx',
         code: NestedRoutesDemo,
         component: () => import('../pages/Routing/NestedRoutesDemo'),
         initialState: { path: '/dashboard/overview', layout: 'DashboardLayout' },
@@ -368,23 +369,26 @@ export const REGISTRY = {
         exportLogic: [
           {
             file: 'src/components/Sidebar.jsx',
-            content: `import React from 'react';\nimport { Layout, Users, Settings, LogOut } from 'lucide-react';\n\nexport default function Sidebar({ activePath, onNavigate }) {\n  const menu = [\n    { id: 'overview', icon: <Layout size={20} />, label: 'Overview' },\n    { id: 'team', icon: <Users size={20} />, label: 'Team' },\n    { id: 'settings', icon: <Settings size={20} />, label: 'Settings' }\n  ];\n\n  return (\n    <aside className="w-64 bg-slate-900 text-white flex flex-col p-6">\n      <div className="text-xl font-black mb-10 text-blue-500">LAB.IO</div>\n      <nav className="flex-1 space-y-2">\n        {menu.map(item => (\n          <button\n            key={item.id}\n            onClick={() => onNavigate(item.id)}\n            className={\`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all \${\n              activePath === item.id ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'\n            }\`}\n          >\n            {item.icon}\n            <span className="font-bold text-sm">{item.label}</span>\n          </button>\n        ))}\n      </nav>\n      <button className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-red-400 mt-auto">\n        <LogOut size={20} />\n        <span className="font-bold text-sm">Logout</span>\n      </button>\n    </aside>\n  );\n}`
+            content: `import React from 'react';\nimport { NavLink } from 'react-router-dom';\nimport { Layout, Users, Settings, LogOut } from 'lucide-react';\n\nexport default function Sidebar() {\n  const menu = [\n    { path: '/', icon: <Layout size={20} />, label: 'Overview' },\n    { path: '/team', icon: <Users size={20} />, label: 'Team' },\n  ];\n\n  return (\n    <aside className="w-64 bg-slate-900 text-white flex flex-col p-6">\n      <div className="text-xl font-black mb-10 text-blue-500">LAB.IO</div>\n      <nav className="flex-1 space-y-2">\n        {menu.map(item => (\n          <NavLink\n            key={item.path}\n            to={item.path}\n            className={({ isActive }) => \`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all \${\n              isActive ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'\n            }\`}\n          >\n            {item.icon}\n            <span className="font-bold text-sm">{item.label}</span>\n          </NavLink>\n        ))}\n      </nav>\n    </aside>\n  );\n}`
           },
           {
             file: 'src/layouts/DashboardLayout.jsx',
-            content: `import React from 'react';\nimport Sidebar from '../components/Sidebar';\n\nexport default function DashboardLayout({ children, activePath, onNavigate }) {\n  return (\n    <div className="flex min-h-screen bg-slate-50">\n      <Sidebar activePath={activePath} onNavigate={onNavigate} />\n      <main className="flex-1 flex flex-col">\n        <header className="h-20 bg-white border-b border-slate-200 px-10 flex items-center justify-between">\n          <h2 className="text-lg font-black text-slate-800 capitalize">{activePath}</h2>\n          <div className="flex gap-4">\n            <div className="w-10 h-10 bg-slate-100 rounded-full" />\n          </div>\n        </header>\n        <div className="p-10">\n          {children}\n        </div>\n      </main>\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { Outlet, useLocation } from 'react-router-dom';\nimport Sidebar from '../components/Sidebar';\n\nexport default function DashboardLayout() {\n  const { pathname } = useLocation();\n  const title = pathname === '/' ? 'Overview' : pathname.replace('/', '');\n\n  return (\n    <div className="flex min-h-screen bg-slate-50">\n      <Sidebar />\n      <main className="flex-1 flex flex-col">\n        <header className="h-20 bg-white border-b border-slate-200 px-10 flex items-center justify-between">\n          <h2 className="text-lg font-black text-slate-800 capitalize">{title}</h2>\n        </header>\n        <div className="p-10">\n          <Outlet />\n        </div>\n      </main>\n    </div>\n  );\n}`
           },
           {
             file: 'src/pages/Overview.jsx',
-            content: `import React from 'react';\nimport { Activity, PieChart } from 'lucide-react';\n\nexport default function Overview() {\n  return (\n    <div className="space-y-6">\n      <div className="grid grid-cols-3 gap-6">\n        {[1, 2, 3].map(i => (\n          <div key={i} className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">\n            <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-4"><Activity size={20}/></div>\n            <div className="text-slate-400 text-xs font-bold uppercase mb-1">Metric {i}</div>\n            <div className="text-2xl font-black text-slate-900">2,40{i}</div>\n          </div>\n        ))}\n      </div>\n      <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-200 h-64 flex items-center justify-center">\n        <PieChart size={48} className="text-slate-100" />\n      </div>\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { Activity, PieChart } from 'lucide-react';\n\nexport default function Overview() {\n  return (\n    <div className="space-y-6">\n      <div className="grid grid-cols-3 gap-6">\n        {[1, 2, 3].map(i => (\n          <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200">\n            <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-4"><Activity size={20}/></div>\n            <div className="text-2xl font-black">2,40{i}</div>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}`
           },
           {
             file: 'src/pages/Team.jsx',
-            content: `import React from 'react';\n\nexport default function Team() {\n  const members = [\n    { name: 'Sarah Connor', role: 'Engineer' },\n    { name: 'John Doe', role: 'Product' }\n  ];\n\n  return (\n    <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden">\n      {members.map((m, i) => (\n        <div key={i} className="p-6 border-b border-slate-100 flex items-center justify-between">\n          <div className="flex items-center gap-4">\n            <div className="w-12 h-12 bg-slate-100 rounded-2xl" />\n            <div>\n              <div className="font-black text-slate-900">{m.name}</div>\n              <div className="text-xs text-slate-400 font-bold uppercase">{m.role}</div>\n            </div>\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}`
-          },
+            content: `import React from 'react';\nimport { Users } from 'lucide-react';\n\nexport default function Team() {\n  return (\n    <div className="grid grid-cols-3 gap-6">\n      {['Alice', 'Bob', 'Charlie'].map(name => (\n        <div key={name} className="bg-white p-6 rounded-lg border border-slate-200 flex items-center gap-3">\n          <Users size={20} />\n          <span className="font-bold">{name}</span>\n        </div>\n      ))}\n    </div>\n  );\n}`  },
           {
             file: 'src/App.jsx',
-            content: `import React, { useState } from 'react';\nimport DashboardLayout from './layouts/DashboardLayout';\nimport Overview from './pages/Overview';\nimport Team from './pages/Team';\n\nexport default function App() {\n  const [path, setPath] = useState('overview');\n\n  return (\n    <DashboardLayout activePath={path} onNavigate={setPath}>\n      {path === 'overview' && <Overview />}\n      {path === 'team' && <Team />}\n    </DashboardLayout>\n  );\n}`
+            content: `// App.jsx is now just a pass-through or can be deleted\nimport { Outlet } from 'react-router-dom';\nexport default function App() {\n  return <Outlet />;\n}`
+          },
+          {
+            file: "src/main.jsx",
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport DashboardLayout from './layouts/DashboardLayout';\nimport Overview from './pages/Overview';\nimport Team from './pages/Team';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <DashboardLayout />,\n    children: [\n      { index: true, element: <Overview /> },\n      { path: 'team', element: <Team /> }\n    ]\n  }\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <RouterProvider router={router} />\n);`
           }
         ]
       },
@@ -392,6 +396,7 @@ export const REGISTRY = {
       'dynamic-routes': {
         name: 'Dynamic Routes',
         fileName: 'DynamicRoutesDemo.jsx',
+        sourcePath: 'src/pages/Routing/DynamicRoutesDemo.jsx',
         code: DynamicRoutesDemo,
         component: () => import('../pages/Routing/DynamicRoutesDemo'),
         initialState: { currentParams: { id: '101' }, url: '/users/101' },
@@ -399,19 +404,23 @@ export const REGISTRY = {
         exportLogic: [
           {
             file: 'src/components/UserHeader.jsx',
-            content: `import React from 'react';\nimport { User } from 'lucide-react';\n\nexport default function UserHeader({ id }) {\n  return (\n    <div className="text-center mb-10">\n      <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-lg">\n        <User size={40} className="text-blue-500" />\n      </div>\n      <h1 className="text-3xl font-black text-slate-900">User Profile</h1>\n      <p className="text-slate-400 font-mono text-sm">UID: {id}</p>\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { User } from 'lucide-react';\n\nexport default function UserHeader({ id }) {\n  return (\n    <div className="text-center mb-10">\n      <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-lg">\n        <User size={40} className="text-blue-500" />\n      </div>\n\n      <h1 className="text-3xl font-black text-slate-900">User Profile</h1>\n      <p className="text-slate-400 font-mono text-sm">UID: {id}</p>\n    </div>\n  );\n}`
           },
           {
             file: 'src/components/UserStats.jsx',
-            content: `import React from 'react';\n\nexport default function UserStats({ id }) {\n  return (\n    <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">\n      <div className="grid grid-cols-2 gap-4 text-center">\n        <div>\n          <div className="text-2xl font-black">124</div>\n          <div className="text-[10px] font-bold text-slate-400 uppercase">Posts</div>\n        </div>\n        <div>\n          <div className="text-2xl font-black">4.2k</div>\n          <div className="text-[10px] font-bold text-slate-400 uppercase">Followers</div>\n        </div>\n      </div>\n    </div>\n  );\n}`
+            content: `import React from 'react';\n\nexport default function UserStats() {\n  return (\n    <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">\n      <div className="grid grid-cols-2 gap-4 text-center">\n        <div>\n          <div className="text-2xl font-black">124</div>\n          <div className="text-[10px] font-bold text-slate-400 uppercase">Posts</div>\n        </div>\n\n        <div>\n          <div className="text-2xl font-black">4.2k</div>\n          <div className="text-[10px] font-bold text-slate-400 uppercase">Followers</div>\n        </div>\n      </div>\n    </div>\n  );\n}`
           },
           {
             file: 'src/pages/UserDetail.jsx',
-            content: `import React from 'react';\nimport { useParams } from 'react-router-dom';\nimport UserHeader from '../components/UserHeader';\nimport UserStats from '../components/UserStats';\n\nexport default function UserDetail() {\n  const { id } = useParams();\n\n  return (\n    <div className="p-10">\n      <UserHeader id={id} />\n      <UserStats id={id} />\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { useParams } from 'react-router-dom';\nimport UserHeader from '../components/UserHeader';\nimport UserStats from '../components/UserStats';\n\nexport default function UserDetail() {\n  const { id } = useParams();\n\n  return (\n    <div className="p-10">\n      <UserHeader id={id} />\n      <UserStats />\n    </div>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import { BrowserRouter, Routes, Route } from 'react-router-dom';\nimport UserDetail from './pages/UserDetail';\n\nexport default function App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path="/user/:id" element={<UserDetail />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}`
+            content: `import { Outlet } from 'react-router-dom';\n\nexport default function App() {\n  return (\n    <main className="min-h-screen bg-slate-50 flex items-center justify-center p-6">\n      <div className="max-w-md w-full">\n        <Outlet />\n      </div>\n    </main>\n  );\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport { createBrowserRouter, RouterProvider } from 'react-router-dom';\nimport App from './App';\nimport UserDetail from './pages/UserDetail';\n\nconst router = createBrowserRouter([\n  {\n    path: '/',\n    element: <App />,\n    children: [\n      {\n        index: true,\n        element: <div className="p-10 text-center">Home Page - Navigate to /user/1</div>\n      },\n      {\n        path: 'user',\n        element: <div className="p-10 text-center">Please provide a User ID - /user/1</div>\n      },\n      {\n        path: 'user/:id',\n        element: <UserDetail />\n      }\n    ]\n  }\n]);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);`
           }
         ]
       },
