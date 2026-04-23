@@ -29,8 +29,8 @@ import DataLoaderDemo from '../pages/Routing/DataLoaderDemo?raw'
 // REDUX
 import CounterSliceDemo from '../pages/Redux/CounterSliceDemo?raw'
 import CartSliceDemo from '../pages/Redux/CartSliceDemo?raw'
-// import DataLoaderDemo from '../pages/Redux/DataLoaderDemo?raw'
-// import DataLoaderDemo from '../pages/Redux/DataLoaderDemo?raw'
+import SocialSliceDemo from '../pages/Redux/SocialSliceDemo?raw'
+import ApiSliceDemo from '../pages/Redux/ApiSliceDemo?raw'
 // import DataLoaderDemo from '../pages/Redux/DataLoaderDemo?raw'
 
 // =================================================================
@@ -635,7 +635,55 @@ export const REGISTRY = {
         ]
       },
       
-      
+      'selectors-dispatch': {
+        name: 'Selectors & Dispatch',
+        fileName: 'SocialSliceDemo.jsx',
+        sourcePath: 'src/pages/Redux/SocialSliceDemo.jsx',
+        code: SocialSliceDemo,
+        component: () => import('../pages/Redux/SocialSliceDemo'),
+        initialState: { action: 'INIT', unreadCount: 2, lastReadId: null },
+
+        exportLogic: [
+          {
+            file: 'src/store/slices/socialSlice.js',
+            content: `import { createSlice, createSelector } from '@reduxjs/toolkit';\n\nconst socialSlice = createSlice({\n  name: 'social',\n  initialState: { notifications: [] },\n  reducers: {\n    markAsRead: (state, action) => {\n      const note = state.notifications.find(n => n.id === action.payload);\n      if (note) note.read = true;\n    }\n  }\n});\n\nexport const selectUnread = createSelector(\n  state => state.social.notifications,\n  items => items.filter(n => !n.read)\n);\n\nexport const { markAsRead } = socialSlice.actions;\nexport default socialSlice.reducer;`
+          },
+          {
+            file: 'src/components/NotificationFeed.jsx',
+            content: `import { useSelector, useDispatch } from 'react-redux';\nimport { selectUnread, markAsRead } from '../store/slices/socialSlice';\n\nexport default function NotificationFeed() {\n  const unreadNotes = useSelector(selectUnread);\n  const dispatch = useDispatch();\n\n  return (\n    <div>\n      <h3>You have {unreadNotes.length} new alerts</h3>\n      {unreadNotes.map(n => (\n        <button key={n.id} onClick={() => dispatch(markAsRead(n.id))}>\n          {n.text}\n        </button>\n      ))}\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { Provider } from 'react-redux';\nimport { store } from './store';\nimport NotificationFeed from './components/NotificationFeed';\n\nexport default function App() {\n  return (\n    <Provider store={store}>\n      <NotificationFeed />\n    </Provider>\n  );\n}`
+          }
+        ]
+      },
+
+      'rtk-query': {
+        name: 'RTK Query (Data Fetching)',
+        fileName: 'ApiSliceDemo.jsx',
+        sourcePath: 'src/pages/Redux/ApiSliceDemo.jsx',
+        code: ApiSliceDemo,
+        component: () => import('../pages/Redux/ApiSliceDemo'),
+        initialState: { query: 'none', status: 'uninitialized' },
+
+        exportLogic: [
+          {
+            file: 'src/store/apiSlice.js',
+            content: `import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';\n\nexport const apiSlice = createApi({\n  reducerPath: 'api',\n  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),\n  endpoints: (builder) => ({\n    getPosts: builder.query({\n      query: () => '/posts',\n    }),\n  }),\n});\n\nexport const { useGetPostsQuery } = apiSlice;`
+          },
+          {
+            file: 'src/store/index.js',
+            content: `import { configureStore } from '@reduxjs/toolkit';\nimport { apiSlice } from './apiSlice';\n\nexport const store = configureStore({\n  reducer: {\n    [apiSlice.reducerPath]: apiSlice.reducer,\n  },\n  middleware: (getDefault) =>\n    getDefault().concat(apiSlice.middleware),\n});`
+          },
+          {
+            file: 'src/pages/Feed.jsx',
+            content: `import { useGetPostsQuery } from '../store/apiSlice';\n\nexport default function Feed() {\n  const { data: posts, isLoading, error } = useGetPostsQuery();\n\n  if (isLoading) return <p>Loading...</p>;\n  if (error) return <p>Error loading feed</p>;\n\n  return (\n    <div>\n      {posts.map(post => <h4 key={post.id}>{post.title}</h4>)}\n    </div>\n  );\n}`
+          }
+        ]
+      },
+
+
     }
   }
 
