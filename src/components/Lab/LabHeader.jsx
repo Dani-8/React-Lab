@@ -1,4 +1,4 @@
-import { ChevronRight, Eye, FileCode, Share2, Menu, X } from 'lucide-react';
+import { ChevronRight, Eye, FileCode, Share2, Menu, X, BookOpen } from 'lucide-react';
 
 export default function LabHeader({ categoryTitle, exampleName, viewMode, setViewMode, isSidebarOpen, setIsSidebarOpen }) {
     return ( 
@@ -24,13 +24,14 @@ export default function LabHeader({ categoryTitle, exampleName, viewMode, setVie
             <div className="flex bg-slate-100 p-1 rounded-xl gap-1 max-[450px]:w-fit max-[450px]:mx-auto max-[450px]:gap-5">
                 {[
                     { id: 'preview', icon: <Eye size={14} />, label: 'Preview' },
+                    { id: 'theory', icon: <BookOpen size={14} />, label: 'Theory' },
                     { id: 'code', icon: <FileCode size={14} />, label: 'JSX' },
                     { id: 'export', icon: <Share2 size={14} />, label: 'Architecture' }
                 ].map(tab => (
                     <button
                         key={tab.id}
                         onClick={() => setViewMode(tab.id)}
-                        className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${viewMode === tab.id ? 'bg-white text-orange-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === tab.id ? 'bg-white text-orange-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'
                             }`}
                     >
                         {tab.icon} <span className="hidden sm:inline">{tab.label}</span>

@@ -9,7 +9,7 @@ import { ChevronRight, ChevronLeft } from 'lucide-react'
 // ---------------------------------------------------------------
 
 export default function App() {
-  const firstCategory = Object.keys(REGISTRY)[3]
+  const firstCategory = Object.keys(REGISTRY)[0]
   const firstExample = Object.keys(REGISTRY[firstCategory]?.examples || {})[0]
 
   const [activeCategory, setActiveCategory] = useState(firstCategory)
@@ -110,7 +110,7 @@ export default function App() {
   // ---------------------------------------------------------------
 
   return (
-    <div className="flex h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-orange-100 overflow-auto">
+    <div className="flex overflow-hidden h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-orange-100 overflow-auto">
 
       {/* Sidebar */}
       <div className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-100 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>

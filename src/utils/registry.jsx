@@ -49,6 +49,11 @@ export const REGISTRY = {
         fileName: 'Header.jsx',
         component: () => import('../pages/Fundamentals/Header'),
         sourcePath: 'src/pages/Fundamentals/Header.jsx',
+
+        theory: `Components are the building blocks of any React application. They allow you to split the UI into independent, reusable pieces that can be thought of as custom HTML elements. JSX is a syntax extension for JavaScript that looks similar to XML or HTML and is used to describe what the UI should look like. It allows you to write HTML-like code within your JavaScript files, making it easier to create and visualize the structure of your components.`,
+        takeaway: `Always prioritize clean, explicit props for component modularity.`,
+        bestPractice: `Use descriptive prop names and avoid passing large objects when possible to keep components reusable and maintainable.`,
+
         initialState: {  },
 
         code: Header,

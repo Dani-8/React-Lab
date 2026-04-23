@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle, Info } from 'lucide-react';
+import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle, Info, Lightbulb, ShieldCheck } from 'lucide-react';
 
 
 function buildTree(paths) {
@@ -90,6 +90,47 @@ export default function LabCanvas({
             )}
 
 
+
+            {viewMode === 'theory' && (
+                <div className="py-12 px-10 flex-1 overflow-y-auto animate-in slide-in-from-bottom-4 duration-300">
+                    <div className="max-w-2xl mx-auto space-y-8">
+                        <div className="flex items-center gap-4 text-orange-500">
+                            <div className="p-3 bg-orange-50 rounded-2xl">
+                                <Info size={24} />
+                            </div>
+                            
+                            <h2 className="text-2xl font-black tracking-tight text-slate-800">Understanding {currentExample.name}</h2>
+                        </div>
+
+                        <p className="text-lg text-slate-600 leading-relaxed font-medium">
+                            {currentExample.theory ? currentExample.theory : 'No theory content for this example yet.'}
+                        </p>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                            <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100 space-y-2">
+                                <div className="flex items-center gap-2 text-slate-400">
+                                    <Lightbulb size={14} />
+                                    <h4 className="text-[10px] font-black uppercase tracking-widest">Key takeaway</h4>
+                                </div>
+
+                                <p className="text-xs text-slate-700 font-bold leading-relaxed italic">"{currentExample.takeaway ? currentExample.takeaway : 'No key takeaway for this example yet.'}"</p>
+                            </div>
+
+                            <div className="p-6 rounded-3xl bg-orange-50/30 border border-orange-100/50 space-y-2">
+                                <div className="flex items-center gap-2 text-orange-400">
+                                    <ShieldCheck size={14} />
+                                    <h4 className="text-[10px] font-black uppercase tracking-widest">Best Practice</h4>
+                                </div>
+
+                                <p className="text-xs text-slate-700 font-bold leading-relaxed italic">"{currentExample.bestPractice ? currentExample.bestPractice : 'No best practice content for this example yet.'}"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
+
             {/* CODE MODE */}
             {viewMode === 'code' && (
                 <div className="flex-1 flex flex-col animate-in zoom-in-95 duration-200">
@@ -153,7 +194,7 @@ export default function LabCanvas({
 
                                     <div className="flex items-center gap-3">
                                         {/* Copy Button */}
-                                        <button  onClick={() => handleCopy(item.content)} title="Copy Code"
+                                        <button onClick={() => handleCopy(item.content)} title="Copy Code"
                                             className="hover:text-orange-500 focus:scale-75 transform-all duration-400 cursor-pointer flex items-center gap-1"
                                         >
                                             <Copy size={14} />
@@ -164,8 +205,8 @@ export default function LabCanvas({
                                             <Info size={16} />
 
                                             <span className='z-50 absolute top-7 -left-45 p-2 border-l-3 border border-orange-400 bg-white text-slate-600 font-black text-[9px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-xl w-50'>
-                                                Create files and folders as shown.<br /><br /> 
-                                                Then copy the code into the respective files to replicate the result.<br /><br /> 
+                                                Create files and folders as shown.<br /><br />
+                                                Then copy the code into the respective files to replicate the result.<br /><br />
                                                 And apply CSS/TailwindCSS as you see fit!
                                             </span>
                                         </span>
@@ -180,7 +221,7 @@ export default function LabCanvas({
                                 </div>
                             </div>
                         ))}
-                        
+
 
                         {(!currentExample.exportLogic || currentExample.exportLogic.length === 0) && (
                             <div className="text-center py-20 text-orange-600">
@@ -190,7 +231,7 @@ export default function LabCanvas({
                     </div>
 
 
-                    
+
                 </div>
             )}
 
