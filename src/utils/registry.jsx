@@ -31,7 +31,7 @@ import CounterSliceDemo from '../pages/Redux/CounterSliceDemo?raw'
 import CartSliceDemo from '../pages/Redux/CartSliceDemo?raw'
 import SocialSliceDemo from '../pages/Redux/SocialSliceDemo?raw'
 import ApiSliceDemo from '../pages/Redux/ApiSliceDemo?raw'
-// import DataLoaderDemo from '../pages/Redux/DataLoaderDemo?raw'
+import AuthSliceDemo from '../pages/Redux/AuthSliceDemo?raw'
 
 // =================================================================
 // =================================================================
@@ -645,16 +645,24 @@ export const REGISTRY = {
 
         exportLogic: [
           {
+            file: 'src/store/index.js',
+            content: `import { configureStore } from '@reduxjs/toolkit';\nimport socialReducer from './slices/socialSlice';\n\nexport const store = configureStore({\n  reducer: {\n    social: socialReducer,\n  },\n});`
+          },
+          {
             file: 'src/store/slices/socialSlice.js',
-            content: `import { createSlice, createSelector } from '@reduxjs/toolkit';\n\nconst socialSlice = createSlice({\n  name: 'social',\n  initialState: { notifications: [] },\n  reducers: {\n    markAsRead: (state, action) => {\n      const note = state.notifications.find(n => n.id === action.payload);\n      if (note) note.read = true;\n    }\n  }\n});\n\nexport const selectUnread = createSelector(\n  state => state.social.notifications,\n  items => items.filter(n => !n.read)\n);\n\nexport const { markAsRead } = socialSlice.actions;\nexport default socialSlice.reducer;`
+            content: `import { createSlice, createSelector } from '@reduxjs/toolkit';\n\nconst socialSlice = createSlice({\n  name: 'social',\n  initialState: {\n    notifications: [\n      { id: 1, text: 'New follower: Sarah J.', read: false },\n      { id: 2, text: 'Your post was liked', read: false },\n      { id: 3, text: 'Meeting starts in 5m', read: false },\n    ]\n  },\n  reducers: {\n    markAsRead: (state, action) => {\n      const note = state.notifications.find(n => n.id === action.payload);\n      if (note) note.read = true;\n    }\n  }\n});\n\nexport const selectUnread = createSelector(\n  state => state.social.notifications,\n  items => items.filter(n => !n.read)\n);\n\nexport const { markAsRead } = socialSlice.actions;\nexport default socialSlice.reducer;`
           },
           {
             file: 'src/components/NotificationFeed.jsx',
-            content: `import { useSelector, useDispatch } from 'react-redux';\nimport { selectUnread, markAsRead } from '../store/slices/socialSlice';\n\nexport default function NotificationFeed() {\n  const unreadNotes = useSelector(selectUnread);\n  const dispatch = useDispatch();\n\n  return (\n    <div>\n      <h3>You have {unreadNotes.length} new alerts</h3>\n      {unreadNotes.map(n => (\n        <button key={n.id} onClick={() => dispatch(markAsRead(n.id))}>\n          {n.text}\n        </button>\n      ))}\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { useSelector, useDispatch } from 'react-redux';\nimport { Bell, CheckCircle2 } from 'lucide-react';\nimport { selectUnread, markAsRead } from '../store/slices/socialSlice';\n\nexport default function NotificationFeed() {\n  const unreadNotes = useSelector(selectUnread);\n  const dispatch = useDispatch();\n\n  return (\n    <div className="max-w-md mx-auto p-6 bg-white border border-slate-200 rounded-[2.5rem] shadow-xl">\n      <div className="flex items-center justify-between gap-8 mb-6">\n        <div className="flex items-center gap-2">\n          <Bell className="text-indigo-600" size={20} />\n          <h3 className="text-xl font-black text-slate-900">Activity</h3>\n        </div>\n        <span className="bg-indigo-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full">\n          {unreadNotes.length} NEW\n        </span>\n      </div>\n\n      <div className="space-y-3">\n        {unreadNotes.length === 0 ? (\n          <div className="py-10 text-center bg-slate-50 rounded-3xl border border-dashed border-slate-200">\n            <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Inbox Zero</p>\n          </div>\n        ) : (\n          unreadNotes.map(n => (\n            <div \n              key={n.id} \n              className="group p-4 bg-slate-50 hover:bg-white border border-transparent hover:border-slate-200 rounded-2xl transition-all flex items-center justify-between shadow-sm hover:shadow-md"\n            >\n              <span className="text-sm font-bold text-slate-700">{n.text}</span>\n              <button \n                onClick={() => dispatch(markAsRead(n.id))}\n                className="p-2 text-slate-300 hover:text-indigo-600 transition-colors"\n                title="Mark as read"\n              >\n                <CheckCircle2 size={18} />\n              </button>\n            </div>\n          ))\n        )}\n      </div>\n    </div>\n  );\n}`
           },
           {
             file: 'src/App.jsx',
-            content: `import { Provider } from 'react-redux';\nimport { store } from './store';\nimport NotificationFeed from './components/NotificationFeed';\n\nexport default function App() {\n  return (\n    <Provider store={store}>\n      <NotificationFeed />\n    </Provider>\n  );\n}`
+            content: `import React from 'react';\nimport { Provider } from 'react-redux';\nimport { store } from './store';\nimport NotificationFeed from './components/NotificationFeed';\n\nexport default function App() {\n  return (\n    <Provider store={store}>\n      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">\n        <NotificationFeed />\n      </div>\n    </Provider>\n  );\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);`
           }
         ]
       },
@@ -670,7 +678,7 @@ export const REGISTRY = {
         exportLogic: [
           {
             file: 'src/store/apiSlice.js',
-            content: `import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';\n\nexport const apiSlice = createApi({\n  reducerPath: 'api',\n  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),\n  endpoints: (builder) => ({\n    getPosts: builder.query({\n      query: () => '/posts',\n    }),\n  }),\n});\n\nexport const { useGetPostsQuery } = apiSlice;`
+            content: `import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';\n\nexport const apiSlice = createApi({\n  reducerPath: 'api',\n  baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com' }),\n  endpoints: (builder) => ({\n    getPosts: builder.query({\n      query: () => '/posts?_limit=5',\n    }),\n  }),\n});\n\nexport const { useGetPostsQuery } = apiSlice;`
           },
           {
             file: 'src/store/index.js',
@@ -678,12 +686,50 @@ export const REGISTRY = {
           },
           {
             file: 'src/pages/Feed.jsx',
-            content: `import { useGetPostsQuery } from '../store/apiSlice';\n\nexport default function Feed() {\n  const { data: posts, isLoading, error } = useGetPostsQuery();\n\n  if (isLoading) return <p>Loading...</p>;\n  if (error) return <p>Error loading feed</p>;\n\n  return (\n    <div>\n      {posts.map(post => <h4 key={post.id}>{post.title}</h4>)}\n    </div>\n  );\n}`
+            content: `import React from 'react';\nimport { useGetPostsQuery } from '../store/apiSlice';\nimport { Rss, AlertCircle, Loader2 } from 'lucide-react';\n\nexport default function Feed() {\n  const { data: posts, isLoading, isError, refetch } = useGetPostsQuery();\n\n  if (isLoading) return (\n    <div className="flex flex-col items-center justify-center py-20 text-slate-400 gap-3">\n      <Loader2 className="animate-spin" size={32} />\n      <p className="text-xs font-black uppercase tracking-widest">Fetching Feed...</p>\n    </div>\n  );\n\n  if (isError) return (\n    <div className="flex flex-col items-center justify-center py-20 text-red-500 gap-3 bg-red-50 rounded-[2.5rem] border border-red-100">\n      <AlertCircle size={32} />\n      <p className="text-sm font-bold">Error loading live feed</p>\n      <button onClick={refetch} className="text-xs underline font-black">TRY AGAIN</button>\n    </div>\n  );\n\n  return (\n    <div className="max-w-2xl mx-auto space-y-6 p-6">\n      <div className="flex items-center gap-3 mb-8">\n        <div className="p-3 bg-orange-500 rounded-2xl text-white shadow-lg shadow-orange-200">\n          <Rss size={20} />\n        </div>\n        <h2 className="text-2xl font-black text-slate-900 tracking-tight">RTK-Query Feed</h2>\n      </div>\n\n      <div className="grid gap-4">\n        {posts?.map(post => (\n          <div key={post.id} className="p-6 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-md hover:border-orange-200 transition-all group">\n            <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest mb-2 block">Post #{post.id}</span>\n            <h4 className="text-lg font-bold text-slate-800 leading-tight group-hover:text-slate-900 transition-colors">{post.title}</h4>\n            <p className="text-slate-500 text-sm mt-3 line-clamp-2 leading-relaxed">{post.body}</p>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import React from 'react';\nimport { Provider } from 'react-redux';\nimport { store } from './store';\nimport Feed from './pages/Feed';\n\nexport default function App() {\n  return (\n    <Provider store={store}>\n      <main className="min-h-screen bg-slate-50 p-8">\n        <Feed />\n      </main>\n    </Provider>\n  );\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);`
           }
         ]
       },
 
+      'async-thunks': {
+        name: 'Async Thunks',
+        fileName: 'AuthSliceDemo.jsx',
+        sourcePath: 'src/pages/Redux/AuthSliceDemo.jsx',
+        code: AuthSliceDemo,
+        component: () => import('../pages/Redux/AuthSliceDemo'),
+        initialState: { type: '@@INIT', loading: false, user: null },
 
+        exportLogic: [
+          {
+            file: 'src/store/index.js',
+            content: `import { configureStore } from '@reduxjs/toolkit';\nimport authReducer from './slices/authSlice';\n\nexport const store = configureStore({\n  reducer: {\n    auth: authReducer,\n  },\n});`
+          },
+          {
+            file: 'src/store/slices/authSlice.js',
+            content: `import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';\n\n// Simulated API call\nconst mockLoginApi = (credentials) => {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      if (credentials.email === 'user@nexus.com' && credentials.password === '123456') {\n        resolve({ id: 1, name: 'Nexus Developer', email: credentials.email });\n      } else {\n        reject('Invalid credentials');\n      }\n    }, 2000);\n  });\n};\n\nexport const loginUser = createAsyncThunk(\n  'auth/login',\n  async (credentials, { rejectWithValue }) => {\n    try {\n      const response = await mockLoginApi(credentials);\n      return response;\n    } catch (err) {\n      return rejectWithValue(err);\n    }\n  }\n);\n\nconst authSlice = createSlice({\n  name: 'auth',\n  initialState: { user: null, loading: false, error: null },\n  reducers: {\n    logout: (state) => {\n      state.user = null;\n      state.error = null;\n    }\n  },\n  extraReducers: (builder) => {\n    builder\n      .addCase(loginUser.pending, (state) => {\n        state.loading = true;\n        state.error = null;\n      })\n      .addCase(loginUser.fulfilled, (state, action) => {\n        state.loading = false;\n        state.user = action.payload;\n      })\n      .addCase(loginUser.rejected, (state, action) => {\n        state.loading = false;\n        state.error = action.payload;\n      });\n  }\n});\n\nexport const { logout } = authSlice.actions;\nexport default authSlice.reducer;`
+          },
+          {
+            file: 'src/pages/LoginPage.jsx',
+            content: `import React, { useState } from 'react';\nimport { useDispatch, useSelector } from 'react-redux';\nimport { loginUser, logout } from '../store/slices/authSlice';\nimport { Lock, Mail, Loader2, LogOut } from 'lucide-react';\n\nexport default function LoginPage() {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const dispatch = useDispatch();\n  const { user, loading, error } = useSelector(state => state.auth);\n\n  const handleSubmit = (e) => {\n    e.preventDefault();\n    dispatch(loginUser({ email, password }));\n  };\n\n  if (user) return (\n    <div className="text-center space-y-6 animate-in zoom-in duration-300">\n      <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">\n        <span className="text-2xl font-black">{user.name[0]}</span>\n      </div>\n      <h2 className="text-2xl font-black text-slate-900">Welcome, {user.name}</h2>\n      <button \n        onClick={() => dispatch(logout())}\n        className="flex items-center gap-2 mx-auto px-6 py-2 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-red-50 hover:text-red-600 transition-all"\n      >\n        <LogOut size={16} /> Sign Out\n      </button>\n    </div>\n  );\n\n  return (\n    <div className="w-full max-w-sm bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-2xl">\n      <h2 className="text-2xl font-black text-slate-900 mb-1 text-center uppercase tracking-tight">Nexus Auth</h2>\n      <p className='text-sm text-center text-slate-500 mb-8'>\n        <span>Try this:</span> <br />\n        <span className="font-bold">Email:</span> user@nexus.com, <span className="font-bold">Pass:</span> 123456\n      </p>\n      \n      <form onSubmit={handleSubmit} className="space-y-4">\n        <div className="relative">\n          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />\n          <input \n            type="email" \n            placeholder="Email Address" \n            className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"\n            value={email}\n            onChange={(e) => setEmail(e.target.value)}\n            required\n          />\n        </div>\n\n        <div className="relative">\n          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />\n          <input \n            type="password" \n            placeholder="Password" \n            className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"\n            value={password}\n            onChange={(e) => setPassword(e.target.value)}\n            required\n          />\n        </div>\n\n        {error && <p className="text-[10px] font-black text-red-500 uppercase text-center">{error}</p>}\n\n        <button \n          type="submit" \n          disabled={loading}\n          className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-black text-sm shadow-lg shadow-indigo-200 hover:bg-indigo-700 disabled:opacity-50 transition-all flex items-center justify-center gap-2"\n        >\n          {loading ? <Loader2 className="animate-spin" size={18} /> : 'AUTHENTICATE'}\n        </button>\n      </form>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import React from 'react';\nimport { Provider } from 'react-redux';\nimport { store } from './store';\nimport LoginPage from './pages/LoginPage';\n\nexport default function App() {\n  return (\n    <Provider store={store}>\n      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">\n        <LoginPage />\n      </div>\n    </Provider>\n  );\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);`
+          }
+        ]
+      }
     }
   }
 
