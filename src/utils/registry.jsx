@@ -1,4 +1,4 @@
-import { Code2, Form, Zap } from 'lucide-react';
+import { Code2, Form, Zap, Database } from 'lucide-react';
 
 // FUNDAMENTALS
 import Header from '../pages/Fundamentals/Header?raw'
@@ -17,7 +17,6 @@ import UseMemoDemo from '../pages/Hooks/UseMemoDemo?raw'
 import UseCallbackDemo from '../pages/Hooks/UseCallbackDemo?raw'
 import UseFetchDemo from '../pages/Hooks/UseFetchDemo?raw'
 
-
 // ROUTE
 import BasicRoutingDemo from '../pages/Routing/BasicRoutingDemo?raw'
 import NestedRoutesDemo from '../pages/Routing/NestedRoutesDemo?raw'
@@ -26,6 +25,14 @@ import NavigationDemo from '../pages/Routing/NavigationDemo?raw'
 import NotFoundDemo from '../pages/Routing/NotFoundDemo?raw'
 import MainLayoutDemo from '../pages/Routing/MainLayoutDemo?raw'
 import DataLoaderDemo from '../pages/Routing/DataLoaderDemo?raw'
+
+// REDUX
+import CounterSliceDemo from '../pages/Redux/CounterSliceDemo?raw'
+import CartSliceDemo from '../pages/Redux/CartSliceDemo?raw'
+// import DataLoaderDemo from '../pages/Redux/DataLoaderDemo?raw'
+// import DataLoaderDemo from '../pages/Redux/DataLoaderDemo?raw'
+// import DataLoaderDemo from '../pages/Redux/DataLoaderDemo?raw'
+
 // =================================================================
 // =================================================================
 // =================================================================
@@ -552,7 +559,79 @@ export const REGISTRY = {
 
   // -------------------------------------
 
-  
+  redux: {
+    title: 'Redux',
+    icon: <Database size={14} />,
+    examples: {
+      'store-setup': {
+        name: 'Store Setup & Slices',
+        fileName: 'CounterSliceDemo.jsx',
+        code: CounterSliceDemo,
+        component: () => import('../pages/Redux/CounterSliceDemo'),
+        initialState: { slice: 'ui', currentTheme: 'light', type: 'INIT' },
+
+        exportLogic: [
+          {
+            file: 'src/store/index.js',
+            content: `import { configureStore } from '@reduxjs/toolkit';\nimport uiReducer from './slices/uiSlice';\n\nexport const store = configureStore({\n  reducer: {\n    ui: uiReducer,\n  },\n});`
+          },
+          {
+            file: 'src/store/slices/uiSlice.js',
+            content: `import { createSlice } from '@reduxjs/toolkit';\n\nconst uiSlice = createSlice({\n  name: 'ui',\n  initialState: { theme: 'light' },\n  reducers: {\n    toggleTheme: (state) => {\n      state.theme = state.theme === 'light' ? 'dark' : 'light';\n    }\n  }\n});\n\nexport const { toggleTheme } = uiSlice.actions;\nexport default uiSlice.reducer;`
+          },
+          {
+            file: 'src/pages/Dashboard.jsx',
+            content: `import React from 'react';\nimport { useSelector, useDispatch } from 'react-redux';\nimport { toggleTheme } from '../store/slices/uiSlice';\n\nexport default function Dashboard() {\n  const theme = useSelector((state) => state.ui.theme);\n  const dispatch = useDispatch();\n\n  return (\n    <div className={\`min-h-screen flex flex-col items-center justify-center transition-colors duration-500 \${theme === 'dark' ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-900'}\`}>\n      <div className="p-10 bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 text-center">\n        <h1 className="text-3xl text-white font-black mb-4">Redux Toolkit</h1>\n        <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">Current Theme: <span className="uppercase font-bold text-indigo-500">{theme}</span></p>\n        <button \n          onClick={() => dispatch(toggleTheme())}\n          className="px-8 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all"\n        >\n          Toggle Appearance\n        </button>\n      </div>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import { Provider } from 'react-redux';\nimport { store } from './store';\nimport Dashboard from './pages/Dashboard';\n\nexport default function App() {\n  return (\n    <Provider store={store}>\n      <Dashboard />\n    </Provider>\n  );\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\nimport './index.css';\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);`
+          }
+        ]
+      },
+
+      'payload-actions': {
+        name: 'Payload Actions (Cart)',
+        fileName: 'CartSliceDemo.jsx',
+        code: CartSliceDemo,
+        component: () => import('../pages/Redux/CartSliceDemo'),
+        initialState: { action: 'INIT', payload: null, totalItems: 0 },
+
+        exportLogic: [
+          {
+            file: 'src/store/index.js',
+            content: `import { configureStore } from '@reduxjs/toolkit';\nimport cartReducer from './slices/cartSlice';\n\nexport const store = configureStore({\n  reducer: {\n    cart: cartReducer,\n  },\n});`
+          },
+          {
+            file: 'src/store/slices/cartSlice.js',
+            content: `import { createSlice } from '@reduxjs/toolkit';\n\nconst cartSlice = createSlice({\n  name: 'cart',\n  initialState: { items: [] },\n  reducers: {\n    addItem: (state, action) => {\n      state.items.push(action.payload);\n    },\n    removeItem: (state, action) => {\n      state.items = state.items.filter(item => item.id !== action.payload);\n    }\n  }\n});\n\nexport const { addItem, removeItem } = cartSlice.actions;\nexport default cartSlice.reducer;`
+          },
+          {
+            file: 'src/components/ProductList.jsx',
+            content: `import React from 'react';\nimport { useDispatch } from 'react-redux';\nimport { addItem } from '../store/slices/cartSlice';\n\nconst PRODUCTS = [\n  { id: 1, name: 'React Mastery', price: 99 },\n  { id: 2, name: 'Node.js Backend', price: 79 },\n];\n\nexport default function ProductList() {\n  const dispatch = useDispatch();\n\n  return (\n    <div className="space-y-4">\n      <h2 className="text-xl font-black text-slate-900">Available Courses</h2>\n      <div className="grid gap-3">\n        {PRODUCTS.map(product => (\n          <div key={product.id} className="p-4 bg-white border border-slate-200 rounded-2xl flex justify-between items-center shadow-sm">\n            <div>\n              <div className="font-bold text-slate-800">{product.name}</div>\n              <div className="text-sm text-indigo-600 font-bold">$\${product.price}</div>\n            </div>\n            <button \n              onClick={() => dispatch(addItem(product))}\n              className="px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-xl hover:bg-slate-800 transition-all"\n            >\n              Add\n            </button>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/components/CartSummary.jsx',
+            content: `import React from 'react';\nimport { useSelector, useDispatch } from 'react-redux';\nimport { removeItem } from '../store/slices/cartSlice';\nimport { ShoppingCart, Trash2 } from 'lucide-react';\n\nexport default function CartSummary() {\n  const items = useSelector(state => state.cart.items);\n  const dispatch = useDispatch();\n\n  return (\n    <div className="bg-indigo-50 p-6 rounded-3xl border border-indigo-100">\n      <div className="flex items-center gap-2 mb-4 text-indigo-600">\n        <ShoppingCart size={20} />\n        <h2 className="font-black text-lg">Your Cart ({items.length})</h2>\n      </div>\n      \n      <div className="space-y-2">\n        {items.length === 0 ? (\n          <p className="text-slate-400 text-sm italic text-center py-4">Cart is empty</p>\n        ) : (\n          items.map((item, index) => (\n            <div key={index} className="flex justify-between items-center bg-white p-3 rounded-xl shadow-sm border border-indigo-50">\n              <span className="text-sm font-bold text-slate-700">{item.name}</span>\n              <button \n                onClick={() => dispatch(removeItem(item.id))}\n                className="text-red-400 hover:text-red-600 transition-colors"\n              >\n                <Trash2 size={16} />\n              </button>\n            </div>\n          ))\n        )}\n      </div>\n    </div>\n  );\n}`
+          },
+          {
+            file: 'src/App.jsx',
+            content: `import React from 'react';\nimport { Provider } from 'react-redux';\nimport { store } from './store';\nimport ProductList from './components/ProductList';\nimport CartSummary from './components/CartSummary';\n\nexport default function App() {\n  return (\n    <Provider store={store}>\n      <main className="min-h-screen bg-slate-50 flex items-center justify-center p-6">\n        <div className="max-w-md w-full grid gap-6">\n          <ProductList />\n          <CartSummary />\n        </div>\n      </main>\n    </Provider>\n  );\n}`
+          },
+          {
+            file: 'src/main.jsx',
+            content: `import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);`
+          }
+        ]
+      },
+      
+      
+    }
+  }
 
 
 
