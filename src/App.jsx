@@ -110,7 +110,7 @@ export default function App() {
   // ---------------------------------------------------------------
 
   return (
-    <div className="flex h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-orange-100 overflow-hidden">
+    <div className="flex h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-orange-100 overflow-auto">
 
       {/* Sidebar */}
       <div className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-100 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
@@ -156,7 +156,7 @@ export default function App() {
             
 
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest whitespace-wrap text-slate-400 bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
                 <span className="text-orange-500">Source:</span>
 
                 <span className="text-slate-600 font-mono">
