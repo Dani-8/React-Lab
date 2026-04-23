@@ -94,7 +94,7 @@ export default function LabCanvas({
             {viewMode === 'theory' && (
                 <div className="py-12 px-10 flex-1 overflow-y-auto animate-in slide-in-from-bottom-4 duration-300">
                     <div className="max-w-2xl mx-auto space-y-8">
-                        <div className="flex items-center gap-4 text-orange-500">
+                        <div className="flex items-start flex-col gap-4 text-orange-500 sm:flex-row sm:items-center">
                             <div className="p-3 bg-orange-50 rounded-2xl">
                                 <Info size={24} />
                             </div>

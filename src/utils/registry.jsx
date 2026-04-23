@@ -834,6 +834,4 @@ export const REGISTRY = {
     }
   }
 
-
-
-};
+}

@@ -12,7 +12,7 @@ export default function Sidebar({
   return (
     <aside className="w-64 h-screen bg-white border-r border-slate-100 flex flex-col z-20 sticky top-0">
       <div className="p-6 border-b border-slate-50 flex items-center gap-3 shrink-0">
-        <div className="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-orange-200 hover:rotate-6 transition-transform">
+        <div className="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-orange-200">
           <Beaker size={20} />
         </div>
 
