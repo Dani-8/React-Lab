@@ -313,7 +313,7 @@ export const REGISTRY = {
         fileName: 'useFetchDemo.jsx',
         code: UseFetchDemo,
         component: () => import('../pages/Hooks/UseFetchDemo'),
-        sourcePath: 'src/hooks/useFetchDemo.jsx',
+        sourcePath: 'src/pages/Hooks/UseFetchDemo.jsx',
         initialState: { lastFetched: 'None', userId: 1, email: 'Sincere@april.biz' },
 
         exportLogic: [
@@ -439,6 +439,7 @@ export const REGISTRY = {
       'navigation-logic': {
         name: 'Navigation & Redirects',
         fileName: 'NavigationDemo.jsx',
+        sourcePath: 'src/pages/Routing/NavigationDemo.jsx',
         code: NavigationDemo,
         component: () => import("../pages/Routing/NavigationDemo"),
         initialState: { action: 'none', target: '/', status: 'idle' },
@@ -469,6 +470,7 @@ export const REGISTRY = {
       'not-found-pattern': {
         name: '404 Catch-All Route',
         fileName: 'NotFoundDemo.jsx',
+        sourcePath: 'src/pages/Routing/NotFoundDemo.jsx',
         code: NotFoundDemo,
         component: () => import('../pages/Routing/NotFoundDemo'),
         initialState: { resolved: true, currentPath: '/home' },
@@ -492,6 +494,7 @@ export const REGISTRY = {
       'layout-routes': {
         name: 'Layout Routes',
         fileName: 'MainLayoutDemo.jsx',
+        sourcePath: 'src/pages/Routing/MainLayoutDemo.jsx',
         code: MainLayoutDemo,
         component: () => import('../pages/Routing/MainLayoutDemo'),
         initialState: { layout: 'RootLayout', outlet: 'dynamic', sidebar: 'sticky' },
@@ -531,6 +534,7 @@ export const REGISTRY = {
       'data-loading': {
         name: 'Route Data Loading',
         fileName: 'DataLoaderDemo.jsx',
+        sourcePath: 'src/pages/Routing/DataLoaderDemo.jsx',
         code: DataLoaderDemo,
         component: () => import('../pages/Routing/DataLoaderDemo'),
         initialState: { state: 'idle', dataLoaded: false },
@@ -566,6 +570,7 @@ export const REGISTRY = {
       'store-setup': {
         name: 'Store Setup & Slices',
         fileName: 'CounterSliceDemo.jsx',
+        sourcePath: 'src/pages/Redux/CounterSliceDemo.jsx',
         code: CounterSliceDemo,
         component: () => import('../pages/Redux/CounterSliceDemo'),
         initialState: { slice: 'ui', currentTheme: 'light', type: 'INIT' },
@@ -597,6 +602,7 @@ export const REGISTRY = {
       'payload-actions': {
         name: 'Payload Actions (Cart)',
         fileName: 'CartSliceDemo.jsx',
+        sourcePath: 'src/pages/Redux/CartSliceDemo.jsx',
         code: CartSliceDemo,
         component: () => import('../pages/Redux/CartSliceDemo'),
         initialState: { action: 'INIT', payload: null, totalItems: 0 },
