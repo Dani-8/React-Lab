@@ -81,6 +81,10 @@ export const REGISTRY = {
           { name: 'Marcus Wright', role: 'Security lead', status: 'Offline' }
         ],
 
+        theory: `Props (short for "properties") are a way of passing data from parent components to child components in React. They are read-only and allow you to customize the behavior and appearance of your components. Destructuring is a JavaScript feature that allows you to unpack values from arrays or properties from objects into distinct variables. When used with props, it can make your code cleaner and more readable by allowing you to extract only the specific props you need within a component.`,
+        takeaway: `Destructuring props enhances code clarity and reduces boilerplate.`,
+        bestPractice: `Use destructuring in your component parameters to directly access needed props, improving readability and maintainability.`, 
+
         code: PropsDemo, 
 
         exportLogic: [
@@ -105,6 +109,10 @@ export const REGISTRY = {
             { id: '2', label: 'Vite' },
             { id: '3', label: 'TailwindCSS' },
         ],
+
+        theory: `When rendering lists in React, it's common to use the map() function to iterate over an array of data and return a component for each item. Each child in a list should have a unique "key" prop that helps React identify which items have changed, are added, or are removed. This improves performance and helps maintain the state of components across renders.`,
+        takeaway: `Always provide stable, unique keys when rendering lists to ensure optimal performance and correct component behavior.`,
+        bestPractice: `Use unique identifiers from your data (like IDs) as keys, and avoid using indices as keys unless you have no other option. This helps React efficiently update and manage your list items.`,
 
         code: MappingDemo, 
 
@@ -137,6 +145,10 @@ export const REGISTRY = {
         sourcePath: 'src/pages/Hooks/UseStateBasicDemo.jsx',
         initialState: { count: 0 },
 
+        theory: `The useState hook is a fundamental building block in React for managing local state within functional components. It allows you to declare a state variable and a function to update it. The initial value is passed as an argument to useState.`,
+        takeaway: `useState is essential for managing simple local state in functional components.`,
+        bestPractice: `Use useState for managing simple local state, and consider more advanced state management solutions for complex applications.`,
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseStateBasicDemo.jsx',
@@ -156,6 +168,10 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseStateObjectDemo'),
         sourcePath: 'src/pages/Hooks/UseStateObjectDemo.jsx',
         initialState: { name: 'Alex Doe', email: 'alex@demo.com' },
+
+        theory: `useState can manage complex state objects, allowing you to update multiple properties at once or individually. When updating object state, it's important to spread the existing state to avoid losing other properties. This ensures that only the properties you want to change are updated, while keeping the rest of the object intact. It's a common pattern in React for handling forms or user preferences where you have multiple related values.`,
+        takeaway: `Spread existing state when updating objects to preserve unchanged properties.`,
+        bestPractice: `Use functional updates or spread syntax when updating object state to ensure immutability and avoid stale state issues.`,
 
         exportLogic: [
           {
@@ -177,6 +193,10 @@ export const REGISTRY = {
         sourcePath: 'src/pages/Hooks/ConditionalDemo.jsx',
         initialState: { isVisible: false },
 
+        theory: `Conditional rendering allows components to display different UI based on state or props. In React, you can use logical operators like && or ternary operators to conditionally render elements. This means you can show or hide parts of your interface depending on certain conditions. For example, you might show a loading spinner while data is fetching, or display different content based on user permissions. It's a fundamental way to make your app dynamic and responsive to user interactions.`,
+        takeaway: `Use logical operators for simple conditions and ternary for inline choices.`,
+        bestPractice: `Keep conditional logic simple and consider extracting complex conditions into variables or functions for better readability.`,
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/ConditionalDemo.jsx',
@@ -196,6 +216,10 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseEffectMountDemo'),
         sourcePath: 'src/pages/Hooks/UseEffectMountDemo.jsx',
         initialState: { status: 'Connecting...', connected: false },
+
+        theory: `useEffect runs side effects in functional components. When the dependency array is empty, it runs only once after the initial render, similar to componentDidMount in class components. Side effects can include things like fetching data, setting up subscriptions, or manipulating the DOM. The empty dependency array tells React to only run this effect when the component first mounts. This is useful for initialization tasks that should happen just once when the component appears on the screen.`,
+        takeaway: `Empty dependency array means effect runs only on mount.`,
+        bestPractice: `Always include a cleanup function if your effect sets up subscriptions or timers to prevent memory leaks.`,
 
         exportLogic: [
           {
@@ -217,6 +241,10 @@ export const REGISTRY = {
         sourcePath: 'src/pages/Hooks/UseEffectDepsDemo.jsx',
         initialState: { userId: 1, loading: false, lastFetch: 'None' },
 
+        theory: `The dependency array in useEffect determines when the effect should re-run. It should include all values from the component scope that the effect depends on. If the dependency array includes variables, the effect will run whenever any of those variables change. This prevents bugs from stale closures and ensures your effects have the latest data. It's important to include all dependencies to avoid unexpected behavior, but not to include unnecessary ones that would cause the effect to run too frequently.`,
+        takeaway: `Include all dependencies in the array to avoid stale closures.`,
+        bestPractice: `Use the ESLint rule for exhaustive deps to ensure you don't miss dependencies, and consider using useCallback for functions passed as deps.`,
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseEffectDepsDemo.jsx',
@@ -237,6 +265,10 @@ export const REGISTRY = {
         sourcePath: 'src/pages/Hooks/UseRefDomDemo.jsx',
         initialState: { isFocused: false },
 
+        theory: `useRef creates a mutable reference that persists across renders. It's commonly used to access DOM elements directly or to store mutable values that don't trigger re-renders. Unlike state, changing a ref doesn't cause the component to re-render. You can use refs to focus inputs, measure element sizes, or keep track of previous values. The ref object has a current property that holds the value you want to persist. It's useful for imperative operations that don't fit well with React's declarative approach.`,
+        takeaway: `Use useRef for direct DOM manipulation and persistent mutable values.`,
+        bestPractice: `Avoid using refs for things that can be done declaratively with state. Use refs sparingly and only when necessary for imperative operations.`,
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseRefDomDemo.jsx',
@@ -256,6 +288,10 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseContextDemo'),
         sourcePath: 'src/pages/Hooks/UseContextDemo.jsx',
         initialState: { theme: 'light' },
+
+        theory: `useContext allows you to consume context values in functional components. Context provides a way to pass data through the component tree without having to pass props down manually at every level. You create a context with createContext, then provide it with a Provider component. Any component can then use useContext to access that shared data. This is useful for global state like themes, user authentication, or app-wide settings. It helps avoid prop drilling where you'd have to pass the same props through many intermediate components.`,
+        takeaway: `Context is ideal for global state like themes or user authentication.`,
+        bestPractice: `Use context for data that needs to be accessed by many components. Avoid overusing context as it can make components harder to test and reason about.`,
 
         exportLogic: [
           {
@@ -281,6 +317,10 @@ export const REGISTRY = {
         sourcePath: 'src/pages/Hooks/UseMemoDemo.jsx',
         initialState: { query: '' },
 
+        theory: `useMemo memoizes expensive computations, recomputing only when dependencies change. It's useful for optimizing performance in components that perform heavy calculations on every render. The hook takes a function and a dependency array, and returns the memoized result. If the dependencies haven't changed since the last render, it returns the cached result instead of recalculating. This can significantly improve performance for operations like filtering large lists, complex calculations, or expensive data transformations. Use it when you have computations that are slow and don't need to run on every render.`,
+        takeaway: `Memoize expensive operations to prevent unnecessary recalculations.`,
+        bestPractice: `Only use useMemo for computationally expensive operations. For simple calculations, the performance benefit may not outweigh the complexity.`,
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseMemoDemo.jsx',
@@ -300,7 +340,11 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseCallbackDemo'),
         sourcePath: 'src/pages/Hooks/UseCallbackDemo.jsx',
         initialState: { loading: false, success: false },
-        
+
+        theory: `useCallback memoizes functions to prevent unnecessary re-renders of child components that depend on function props. It's useful when passing callbacks to optimized child components. The hook returns a memoized version of the callback that only changes if one of the dependencies has changed. This is important when using React.memo on child components, as it ensures that the same function reference is passed unless the dependencies actually change. It's commonly used for event handlers or functions passed to child components to prevent unnecessary re-renders.`,
+        takeaway: `Memoize functions passed as props to prevent child re-renders.`,
+        bestPractice: `Use useCallback with React.memo for child components that receive functions as props. Don't overuse it as it adds complexity.`,
+
         exportLogic: [
           {
             file: 'src/pages/Hooks/UseCallbackDemo.jsx',
@@ -320,6 +364,10 @@ export const REGISTRY = {
         component: () => import('../pages/Hooks/UseFetchDemo'),
         sourcePath: 'src/pages/Hooks/UseFetchDemo.jsx',
         initialState: { lastFetched: 'None', userId: 1, email: 'Sincere@april.biz' },
+
+        theory: `Custom hooks allow you to extract component logic into reusable functions. They follow the same rules as regular hooks and can use other hooks inside them. Custom hooks start with 'use' and can encapsulate stateful logic that can be shared across components. For example, you might create a useFetch hook that handles loading states, errors, and data fetching. This promotes code reuse and makes components cleaner by separating concerns. Custom hooks can return anything - values, functions, or even other hooks - making them very flexible for different use cases.`,
+        takeaway: `Extract reusable logic into custom hooks for better code organization.`,
+        bestPractice: `Name custom hooks with the 'use' prefix and ensure they follow the rules of hooks. Use them to share logic between components.`,
 
         exportLogic: [
           {
@@ -349,6 +397,10 @@ export const REGISTRY = {
         component: () => import('../pages/Routing/BasicRoutingDemo'),
         sourcePath: 'src/pages/Routing/BasicRoutingDemo.jsx',
         initialState: { activeRoute: '/home', timestamp: '--' },
+
+        theory: `React Router enables navigation between different components in a React application. It uses a declarative approach where you define routes and their corresponding components. Routes are defined with a path and an element to render when that path matches. The router handles the browser history and URL changes, allowing users to navigate with back/forward buttons. You can nest routes for complex layouts and use different routers like BrowserRouter for web apps. This creates a single-page application experience while maintaining proper URLs for each "page".`,
+        takeaway: `Routes map URLs to components for seamless navigation.`,
+        bestPractice: `Use Link components instead of anchor tags for internal navigation to prevent full page reloads. Organize routes hierarchically for complex applications.`,
 
         exportLogic: [
           {
@@ -381,6 +433,10 @@ export const REGISTRY = {
         code: NestedRoutesDemo,
         component: () => import('../pages/Routing/NestedRoutesDemo'),
         initialState: { path: '/dashboard/overview', layout: 'DashboardLayout' },
+
+        theory: `Nested routes allow you to render child routes within parent route components. This is useful for layouts that have shared UI elements like sidebars or headers. You define parent routes with children, and use the Outlet component to render the matched child route. This creates a hierarchical structure where the parent layout wraps the child content. For example, a dashboard layout might have a sidebar and header, with different pages rendered in the main content area. Nested routes help organize complex applications with shared navigation and layouts.`,
+        takeaway: `Nest routes for shared layouts and modular navigation.`,
+        bestPractice: `Use Outlet component to render child routes within parent components. This creates a hierarchical routing structure that's easy to maintain.`,
 
         exportLogic: [
           {
@@ -417,6 +473,10 @@ export const REGISTRY = {
         component: () => import('../pages/Routing/DynamicRoutesDemo'),
         initialState: { currentParams: { id: '101' }, url: '/users/101' },
 
+        theory: `Dynamic routes use URL parameters to pass data to components. The useParams hook allows you to access these parameters within your route components. You define routes with parameters using colons, like /users/:id. When the route matches, the parameter values are available through useParams. This is useful for displaying specific content based on the URL, such as user profiles or product details. Dynamic routes make your app more flexible and allow for deep linking to specific pieces of content. They're commonly used in applications that display different data based on user selections.`,
+        takeaway: `Use URL parameters to create dynamic, data-driven routes.`,
+        bestPractice: `Define dynamic segments in route paths using colons (e.g., /users/:id). Use useParams to extract parameter values in components.`,
+
         exportLogic: [
           {
             file: 'src/components/UserHeader.jsx',
@@ -448,7 +508,11 @@ export const REGISTRY = {
         code: NavigationDemo,
         component: () => import("../pages/Routing/NavigationDemo"),
         initialState: { action: 'none', target: '/', status: 'idle' },
-        
+
+        theory: `React Router provides programmatic navigation through the useNavigate hook, allowing you to navigate imperatively in response to user actions or side effects. Unlike Link components which are declarative, useNavigate lets you navigate programmatically. You can navigate to different routes after form submissions, API calls, or other events. The hook returns a navigate function that you can call with a path string. It also supports relative navigation and can go back in history. This is useful for redirecting users after login or moving them through multi-step processes.`,
+        takeaway: `Use useNavigate for programmatic navigation and redirects.`,
+        bestPractice: `Use Link for declarative navigation and useNavigate for imperative navigation (e.g., after form submissions or authentication).`,
+
         exportLogic: [
           {
             file: 'src/pages/Landing.jsx',
@@ -480,6 +544,10 @@ export const REGISTRY = {
         component: () => import('../pages/Routing/NotFoundDemo'),
         initialState: { resolved: true, currentPath: '/home' },
 
+        theory: `Catch-all routes (*) handle unmatched URLs, typically used for 404 pages. They should be placed last in your route configuration. When no other routes match the current URL, the catch-all route will render. This provides a fallback for invalid URLs and gives users a way to navigate back to valid parts of your app. You can use this to show a friendly "Page Not Found" message with links to valid pages. It's important for user experience and SEO, as it prevents users from seeing blank pages or browser error messages.`,
+        takeaway: `Use catch-all routes for handling unknown URLs gracefully.`,
+        bestPractice: `Always include a catch-all route at the end of your route list to handle 404 errors and provide a good user experience.`,
+
         exportLogic: [
           {
             file: 'src/pages/NotFound.jsx',
@@ -503,6 +571,10 @@ export const REGISTRY = {
         code: MainLayoutDemo,
         component: () => import('../pages/Routing/MainLayoutDemo'),
         initialState: { layout: 'RootLayout', outlet: 'dynamic', sidebar: 'sticky' },
+
+        theory: `Layout routes allow you to define shared UI structures that wrap multiple pages. The Outlet component renders the matched child route within the layout. You create a layout component that includes common elements like headers, footers, or navigation. Then you nest routes under this layout, and Outlet will render the appropriate page content. This keeps your code DRY and ensures consistent layouts across related pages. Layout routes work well with nested routes to create complex application structures with shared UI elements.`,
+        takeaway: `Create reusable layouts for consistent UI across related pages.`,
+        bestPractice: `Use layout routes for shared navigation, headers, and footers. Combine with nested routes for complex application structures.`,
 
         exportLogic: [
           {
@@ -544,6 +616,10 @@ export const REGISTRY = {
         component: () => import('../pages/Routing/DataLoaderDemo'),
         initialState: { state: 'idle', dataLoaded: false },
 
+        theory: `Route loaders allow you to fetch data before rendering a route component. The useLoaderData hook provides access to the loaded data within the component. You define a loader function that returns a Promise, and React Router waits for it to resolve before rendering. This ensures that your component has all the data it needs when it mounts. Loaders are useful for server state that should be available immediately. They also handle error states and can redirect if needed. This pattern improves user experience by preventing loading states in components.`,
+        takeaway: `Load data at the route level for better UX and error handling.`,
+        bestPractice: `Use loaders for data fetching to ensure data is available before rendering. Handle loading and error states appropriately.`,
+
         exportLogic: [
           {
             file: 'src/api/loaders.js',
@@ -580,6 +656,10 @@ export const REGISTRY = {
         component: () => import('../pages/Redux/CounterSliceDemo'),
         initialState: { slice: 'ui', currentTheme: 'light', type: 'INIT' },
 
+        theory: `Redux Toolkit simplifies Redux setup with configureStore and createSlice. Slices combine actions, reducers, and selectors for related state. configureStore sets up the Redux store with sensible defaults and middleware. createSlice generates action creators and reducers from a single configuration object. This reduces boilerplate compared to traditional Redux. Slices help organize your state by feature, making it easier to manage complex applications. The toolkit includes Immer for immutable updates and provides good TypeScript support out of the box.`,
+        takeaway: `Use createSlice to define reducers and actions together.`,
+        bestPractice: `Organize state into slices by feature. Use configureStore for simplified store setup with good defaults.`,
+
         exportLogic: [
           {
             file: 'src/store/index.js',
@@ -611,6 +691,10 @@ export const REGISTRY = {
         code: CartSliceDemo,
         component: () => import('../pages/Redux/CartSliceDemo'),
         initialState: { action: 'INIT', payload: null, totalItems: 0 },
+
+        theory: `Redux actions can carry payloads to pass data to reducers. This allows dynamic updates based on user input or API responses. When you dispatch an action, you can include additional data in the payload. The reducer uses this payload to update the state appropriately. For example, an "add item" action might include the item data in its payload. Payloads make actions flexible and reusable. They can contain any serializable data - objects, arrays, strings, numbers. This pattern is essential for handling user interactions and API responses in Redux applications.`,
+        takeaway: `Pass data through action payloads for dynamic state updates.`,
+        bestPractice: `Structure payloads as objects for complex data. Keep action types descriptive and consistent.`,
 
         exportLogic: [
           {
@@ -648,6 +732,10 @@ export const REGISTRY = {
         component: () => import('../pages/Redux/SocialSliceDemo'),
         initialState: { action: 'INIT', unreadCount: 2, lastReadId: null },
 
+        theory: `Selectors are functions that extract specific pieces of state from the store. createSelector from Reselect memoizes selector results for performance. Selectors help you access derived state without duplicating logic. useSelector in React components subscribes to store changes. useDispatch returns the dispatch function for sending actions. Together, they connect your React components to Redux. Memoized selectors prevent unnecessary recalculations when the relevant state hasn't changed. This improves performance in complex applications with computed values.`,
+        takeaway: `Use selectors to access and compute derived state efficiently.`,
+        bestPractice: `Create memoized selectors for computed values. Use useSelector in components and useDispatch for actions.`,
+
         exportLogic: [
           {
             file: 'src/store/index.js',
@@ -680,6 +768,10 @@ export const REGISTRY = {
         component: () => import('../pages/Redux/ApiSliceDemo'),
         initialState: { query: 'none', status: 'uninitialized' },
 
+        theory: `RTK Query is a powerful data fetching and caching tool built into Redux Toolkit. It generates hooks for API calls with automatic caching and state management. You define your API endpoints once, and RTK Query generates hooks for fetching data. It automatically handles loading states, errors, and caching. The data is normalized and stored in the Redux store. RTK Query provides features like background refetching, optimistic updates, and cache invalidation. It's designed to simplify server state management in React applications.`,
+        takeaway: `Use RTK Query for efficient API data fetching and caching.`,
+        bestPractice: `Define API endpoints in createApi. Use generated hooks in components for automatic loading states and error handling.`,
+
         exportLogic: [
           {
             file: 'src/store/apiSlice.js',
@@ -711,6 +803,10 @@ export const REGISTRY = {
         code: AuthSliceDemo,
         component: () => import('../pages/Redux/AuthSliceDemo'),
         initialState: { type: '@@INIT', loading: false, user: null },
+
+        theory: `createAsyncThunk generates action creators for asynchronous operations. It handles pending, fulfilled, and rejected states automatically. Async thunks are used for API calls, timers, or any async logic in Redux. When dispatched, they automatically dispatch start, success, and error actions. You handle these in your slice's extraReducers. This pattern makes async operations predictable and easy to test. You can use rejectWithValue to return custom error payloads. Async thunks integrate well with loading states and error handling in your UI.`,
+        takeaway: `Use async thunks for API calls and complex async logic.`,
+        bestPractice: `Handle async thunk lifecycles in extraReducers. Use rejectWithValue for custom error handling.`,
 
         exportLogic: [
           {

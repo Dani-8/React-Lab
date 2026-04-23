@@ -49,7 +49,7 @@ export default function Sidebar({
             <div key={catKey} className="mb-3">
               <button
                 onClick={() => setExpandedCategories(prev =>
-                  prev.includes(catKey) ? prev.filter(k => k !== catKey) : [...prev, catKey]
+                  prev.length === 1 && prev[0] === catKey ? [] : [catKey]
                 )}
                 className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-50 group"
               >
@@ -68,7 +68,7 @@ export default function Sidebar({
 
 
 
-              <div className={`mt-1 space-y-0.5 overflow-hidden transition-all duration-500 ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className={`mt-1 space-y-0.5 overflow-hidden transition-all duration-600 ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
                 {filteredExamples.map(([exKey, example]) => (
                   <button
                     key={exKey}

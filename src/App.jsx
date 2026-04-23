@@ -16,7 +16,7 @@ export default function App() {
   const [activeExample, setActiveExample] = useState(firstExample)
   const [expandedCategories, setExpandedCategories] = useState([firstCategory])
 
-  const [viewMode, setViewMode] = useState('preview') // 'preview', 'code', 'export'
+  const [viewMode, setViewMode] = useState('preview') // 'preview', 'theory', 'code', 'export'
   const [localData, setLocalData] = useState({})
   const [copied, setCopied] = useState(false)
   const [SelectedComponent, setSelectedComponent] = useState(null)
