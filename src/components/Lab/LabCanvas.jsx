@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Copy, Check, FolderTree, FileCode, Loader2, AlertCircle, Info } from 'lucide-react';
 
 
@@ -45,7 +46,6 @@ function renderTree(node, depth = 0) {
 
 
 
-
 export default function LabCanvas({
     viewMode,
     SelectedComponent,
@@ -58,6 +58,7 @@ export default function LabCanvas({
     error
 }) {
     const tree = buildTree(currentExample.exportLogic)
+
     return (
         <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden h-[550px] flex flex-col transition-all">
 
@@ -187,8 +188,12 @@ export default function LabCanvas({
                             </div>
                         )}
                     </div>
+
+
+                    
                 </div>
             )}
+
         </div>
     );
 }

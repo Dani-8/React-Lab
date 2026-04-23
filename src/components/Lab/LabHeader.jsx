@@ -2,7 +2,7 @@ import { ChevronRight, Eye, FileCode, Share2, Menu, X } from 'lucide-react';
 
 export default function LabHeader({ categoryTitle, exampleName, viewMode, setViewMode, isSidebarOpen, setIsSidebarOpen }) {
     return ( 
-        <header className="z-40 h-16 max-[450px]:h-fit max-[450px]:p-2 bg-white border-b border-slate-100 flex items-center px-4 lg:px-8 justify-between max-[450px]:grid max-[450px]:grid-cols-1 max-[450px]:gap-3 ">
+        <header className="z-40 h-16 max-[450px]:h-fit max-[450px]:p-2 bg-white border-b border-slate-100 flex items-center p-4 lg:px-8 justify-between max-[450px]:grid max-[450px]:grid-cols-1 max-[450px]:gap-3 ">
             <div className="flex items-center gap-3">
                 <button
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
