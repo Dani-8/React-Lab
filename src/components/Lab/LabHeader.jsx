@@ -24,8 +24,8 @@ export default function LabHeader({ categoryTitle, exampleName, viewMode, setVie
             <div className="flex bg-slate-100 p-1 rounded-xl gap-1 max-[450px]:w-fit max-[450px]:mx-auto max-[450px]:gap-5">
                 {[
                     { id: 'preview', icon: <Eye size={14} />, label: 'Preview' },
-                    { id: 'theory', icon: <BookOpen size={14} />, label: 'Theory' },
                     { id: 'code', icon: <FileCode size={14} />, label: 'JSX' },
+                    { id: 'theory', icon: <BookOpen size={14} />, label: 'Theory' },
                     { id: 'export', icon: <Share2 size={14} />, label: 'Architecture' }
                 ].map(tab => (
                     <button
