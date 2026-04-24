@@ -47,7 +47,7 @@ Every experiment in the lab provides four distinct perspectives:
 - **Data Loaders & Error Boundaries**  
 - **Layout Persistence Patterns**
 
-
+---
 ## 🔗 Deployment & Links
 
 - **Live Demo**: https://react-lab-zeta-ten.vercel.app/  
