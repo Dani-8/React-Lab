@@ -57,6 +57,9 @@ Every experiment in the lab provides four distinct perspectives:
 
 ### 👨‍💻 Community
 
-This **Lab** is part of a modular learning ecosystem. If you are learning React and find these visualizers helpful, feel free to visit the **Learning Hub** for the full context of these experiments.
+This **Lab** is part of a modular learning ecosystem. If you are learning React and find these visualizers helpful, feel free to visit the **[Learning Hub](https://dani-8.github.io/React-Learning-Hub/)** for the full context of these experiments.
 
 
+---
+
+Built with 💖 for the React developer community — made for learners who enjoy building by doing.
