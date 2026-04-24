@@ -8,3 +8,9 @@ A high-fidelity, interactive sandbox engineered to bridge the gap between **WRIT
 The project is built with a **Registry-Based Architecture**, enabling modular insertion of experiments without bloating the core application logic. Each module is **Dynamically Mapped**, ensuring high performance and scalability.
 
 
+🔭 Key Innovations: The State Watcher
+
+Unlike standard tutorials, this lab features a real-time **State Watcher**. Every interaction in the **Canvas** is reflected in a dedicated debugging panel, showing exactly how React handles **Data Persistence**, **Object Spreading**, and **Re-rendering Cycles**.
+
+
+
