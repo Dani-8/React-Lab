@@ -23,3 +23,26 @@ Every experiment in the lab provides four distinct perspectives:
 - **Architecture**: File-tree visualization for real-world project structure  
 
 
+## 📂 Modules Covered
+
+### 1. Fundamentals
+- **Props Drilling vs. Composition**
+- **Advanced Mapping & Key Optimization**
+
+### 2. Deep Dive: Hooks
+- **State**: useState (Primitives & Objects)  
+- **Side Effects**: useEffect (Lifecycles & Cleanup)  
+- **Memoization**: useMemo & useCallback  
+- **DOM / Persistence**: useRef  
+- **Context**: Global state without prop drilling  
+- **Custom Hooks**: useFetch implementation  
+
+### 3. State Management (Redux Toolkit)
+- **Slice Architecture** (Auth, Cart, Counter)  
+- **Async Logic** with RTK Query / Thunks  
+- **Global State Synchronization**
+
+### 4. Enterprise Routing (React Router 6.4+)
+- **Dynamic & Nested Routes**  
+- **Data Loaders & Error Boundaries**  
+- **Layout Persistence Patterns**
