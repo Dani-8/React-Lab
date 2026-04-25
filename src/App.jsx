@@ -22,6 +22,7 @@ export default function App() {
   const [SelectedComponent, setSelectedComponent] = useState(null)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
+  const [visitorCount, setVisitorCount] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -77,6 +78,16 @@ export default function App() {
   }
 
   // ---------------------------------------------------------------
+  // Visitor count tracking....
+  useEffect(() => {
+    fetch('https://api.countapi.xyz/hit/dani-react-lab/visits')
+      .then(res => res.json())
+      .then(data => setVisitorCount(data.value))
+      .catch(() => setVisitorCount('---'));
+  }, [])
+
+  // ---------------------------------------------------------------
+
 
   const navigateTo = (navItem) => {
     if (!navItem) return
