@@ -80,12 +80,12 @@ export default function App() {
   // ---------------------------------------------------------------
   
   // Visitor count tracking....
-  useEffect(() => {
-    fetch('https://api.countapi.xyz/hit/dani-react-lab/visits')
-      .then(res => res.json())
-      .then(data => setVisitorCount(data.value))
-      .catch(() => setVisitorCount('---'));
-  }, [])
+useEffect(() => {
+  fetch('https://api.countapi.xyz/hit/dani-react-lab/visits')
+    .then(res => res.json())
+    .then(data => setVisitorCount(data.value))
+    .catch(() => setVisitorCount('---'));
+}, []);
 
   // ---------------------------------------------------------------
 
