@@ -81,10 +81,14 @@ export default function App() {
   
   // Visitor count tracking....
 useEffect(() => {
-  fetch('https://api.countapi.xyz/hit/dani-react-lab/visits')
+  const pathUrl = encodeURIComponent('https://react-lab-zeta-ten.vercel.app/');
+  fetch(`https://api.visitorbadge.io/api/visitors?path=${pathUrl}&count=true`)
     .then(res => res.json())
-    .then(data => setVisitorCount(data.value))
-    .catch(() => setVisitorCount('---'));
+    .then(data => setVisitorCount(data.value || data.total || '---'))
+    .catch((err) => {
+      console.error('Visitor badge error:', err);
+      setVisitorCount('---');
+    });
 }, []);
 
   // ---------------------------------------------------------------
