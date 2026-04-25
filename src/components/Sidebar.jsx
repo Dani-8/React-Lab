@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { ChevronRight, ChevronDown, Beaker, Search } from 'lucide-react';
+import { ChevronRight, ChevronDown, Beaker, Search, Users } from 'lucide-react';
 import { REGISTRY } from '../utils/registry';
 
 export default function Sidebar({
   activeExample, expandedCategories,
   setExpandedCategories, setActiveCategory,
-  setActiveExample, onClose
+  setActiveExample, onClose, visitorCount
 }) {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -35,7 +35,7 @@ export default function Sidebar({
       </div>
 
 
-      <nav className="flex-1 overflow-y-auto p-4 pt-2 space-y-1">
+      <nav className="flex-1 overflow-y-auto p-4 pt-2 bg-rose-200 space-y-1">
         {Object.entries(REGISTRY).map(([catKey, category]) => {
           const filteredExamples = Object.entries(category.examples).filter(([_, ex]) =>
             ex.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -90,6 +90,18 @@ export default function Sidebar({
           );
         })}
       </nav>
+
+
+      <div className="p-4 border-t border-slate-50">
+        <div className="flex items-center justify-between px-3 py-2 bg-slate-50 rounded-xl border border-slate-100">
+          <div className="flex items-center gap-2 text-slate-400">
+            <Users size={12} />
+            <span className="text-[9px] font-black uppercase tracking-widest">Visitors</span>
+          </div>
+
+          <span className="text-[11px] font-mono font-bold text-orange-600">{visitorCount || '...'}</span>
+        </div>
+      </div>
     </aside>
   );
 }

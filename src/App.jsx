@@ -78,6 +78,7 @@ export default function App() {
   }
 
   // ---------------------------------------------------------------
+  
   // Visitor count tracking....
   useEffect(() => {
     fetch('https://api.countapi.xyz/hit/dani-react-lab/visits')
@@ -133,6 +134,7 @@ export default function App() {
           setActiveCategory={setActiveCategory}
           setActiveExample={setActiveExample}
           onClose={() => setIsSidebarOpen(false)}
+          visitorCount={visitorCount}
         />
       </div>
 
