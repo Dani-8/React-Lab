@@ -22,8 +22,6 @@ export default function App() {
   const [SelectedComponent, setSelectedComponent] = useState(null)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
-  const [visitorCount, setVisitorCount] = useState(null);
-
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -78,20 +76,6 @@ export default function App() {
   }
 
   // ---------------------------------------------------------------
-  
-  // Visitor count tracking....
-useEffect(() => {
-  const pathUrl = encodeURIComponent('https://react-lab-zeta-ten.vercel.app/');
-  fetch(`https://api.visitorbadge.io/api/visitors?path=${pathUrl}&count=true`)
-    .then(res => res.json())
-    .then(data => setVisitorCount(data.value || data.total || '---'))
-    .catch((err) => {
-      console.error('Visitor badge error:', err);
-      setVisitorCount('---');
-    });
-}, []);
-
-  // ---------------------------------------------------------------
 
 
   const navigateTo = (navItem) => {
@@ -138,7 +122,6 @@ useEffect(() => {
           setActiveCategory={setActiveCategory}
           setActiveExample={setActiveExample}
           onClose={() => setIsSidebarOpen(false)}
-          visitorCount={visitorCount}
         />
       </div>
 
